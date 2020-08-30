@@ -4,6 +4,7 @@
   "description": "Base de datos tienda virtual mercashop.",
   "main": "server.js",
   "scripts": {
+    "dev": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jhon Uribe, Jaime Cabrera, Nicolas Montanez",

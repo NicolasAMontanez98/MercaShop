@@ -13,7 +13,7 @@ mongoose.connect(URI, {
 const connection = mongoose.connection;
 
 connection.once("open", () => {
-  console.log("DDBB connect");
+  console.log("Database is connected");
 });
 connection.on("error", (err) => {
   console.log("Something went wrong");
