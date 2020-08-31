@@ -11,6 +11,8 @@ app.use(cors());
 app.use(express.json());
 
 // routes
-
+app.use('/api/customer', require('./routes/customer'));
+app.use('/api/provider', require('./routes/provider'));
+app.use('/api/product', require('./routes/product'));
 
 module.exports = app;
