@@ -5,6 +5,11 @@ const productSchema = new Schema({
         type: String,
         required: true
     },
+    urlImage: {
+        type: String,
+        required: true,
+        trim: true
+    },
     description: {
         type: String,
         required: true

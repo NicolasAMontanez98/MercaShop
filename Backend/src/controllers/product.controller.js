@@ -4,9 +4,10 @@ const Product = require("../models/product.model");
 
 productCtrl.createProduct = async (req, res) => {
   try {
-    const { title, description, quantity, price } = req.body;
+    const { title, urlImage, description, quantity, price } = req.body;
     const newProduct = new Product({
       title,
+      urlImage,
       description,
       quantity,
       price,
@@ -47,9 +48,10 @@ productCtrl.deleteProduct = async (req, res) => {
 
 productCtrl.updateProduct = async (req, res) => {
   try {
-    const { title, description, quantity, price } = req.body;
+    const { title, urlImage, description, quantity, price } = req.body;
     const newProduct = new Product({
       title,
+      urlImage,
       description,
       quantity,
       price,
