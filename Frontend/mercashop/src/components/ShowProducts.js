@@ -11,6 +11,12 @@ class ShowProducts extends React.Component {
     };
   }
 
+  printProductos = (e) => {
+    const product = productsList.list;
+    product.map(({ category, discount, products }) => {
+      return category, discount, products;
+    });
+  };
   render() {
     const product = this.state.productsList.list.map(
       ({ category, discount, products }, j) => {
