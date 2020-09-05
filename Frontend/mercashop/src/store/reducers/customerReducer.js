@@ -11,7 +11,7 @@ import {
   CUSTOMER_UPDATE_FAIL,
 } from "../constants/customerConstanst";
 
-function userSignInReducer(state = {}, action) {
+function customerSignInReducer(state = {}, action) {
   switch (action.type) {
     case COSTUMER_SIGNIN_REQUEST:
       return { loading: true };
@@ -25,7 +25,7 @@ function userSignInReducer(state = {}, action) {
       return state;
   }
 }
-function userUpdateReducer(state = {}, action) {
+function customerUpdateReducer(state = {}, action) {
   switch (action.type) {
     case CUSTOMER_UPDATE_REQUEST:
       return { loading: true };
@@ -37,7 +37,7 @@ function userUpdateReducer(state = {}, action) {
       return state;
   }
 }
-function userRegisterReducer(state = {}, action) {
+function customerRegisterReducer(state = {}, action) {
   switch (action.type) {
     case CUSTOMER_REGISTER_REQUEST:
       return { loading: true };
@@ -50,4 +50,4 @@ function userRegisterReducer(state = {}, action) {
   }
 }
 
-export { userRegisterReducer, userSignInReducer, userUpdateReducer };
+export { customerRegisterReducer, customerSignInReducer, customerUpdateReducer };
