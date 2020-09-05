@@ -8,9 +8,9 @@ import {
   productDeleteReducer,
 } from "./reducers/productReducer";
 import {
-  userRegisterReducer,
-  userSignInReducer,
-  userUpdateReducer,
+  customerRegisterReducer,
+  customerSignInReducer,
+  customerUpdateReducer,
 } from "./reducers/customerReducer";
 import {
   orderCreateReducer,
@@ -33,15 +33,15 @@ const rootReducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
   cart: cartReducer,
-  userSignIn: userSignInReducer,
-  userRegister: userRegisterReducer,
+  customerSignIn: customerSignInReducer,
+  customerRegister: customerRegisterReducer,
   productSave: productSaveReducer,
   productDelete: productDeleteReducer,
   productReviewSave: productReviewSaveReducer,
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
-  userUpdate: userUpdateReducer,
+  customerUpdate: customerUpdateReducer,
   myOrderList: myOrderListReducer,
   orderList: orderListReducer,
   orderDelete: orderDeleteReducer,
