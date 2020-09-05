@@ -18,7 +18,7 @@ import panaderia from './../assets/categories/panadería.png';
 class SideMenu extends React.Component {
   render() {
     return (
-      <div className="vh-100 overflow-auto">
+      <div className="vh-100 overflow-auto pr-0">
         <ButtonGroup className="btn-block" vertical>
           <h3 className="text-dark ml-4 mt-2">Categorías</h3>
           <Button variant="light" className="btn-sm text-left">
