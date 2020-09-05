@@ -19,7 +19,7 @@ export default class Header extends React.Component {
       <div className="App">
         <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom">
           <Link className="navbar-brand" to="/home">
-            <img src={logo} width="180" height="90" />
+            <img src={logo} alt="logo" width="180" height="90" />
           </Link>
           <div className="row container">
             <div className="col-md-4">
@@ -49,7 +49,7 @@ export default class Header extends React.Component {
               <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav ml-auto">
                   <li className="nav-item active">
-                    <Link className="navbar-link">
+                    <div className="navbar-link">
                       <button
                         className="btn btn-success btn-circle text-center ml-4 pb-1 "
                         alt="dirección"
@@ -57,7 +57,7 @@ export default class Header extends React.Component {
                       >
                         <FontAwesomeIcon icon={faMapMarker} /> Dirección
                       </button>
-                    </Link>
+                    </div>
                   </li>
                   <li className="nav-item active">
                     <Link className="navbar-link" to="/login">

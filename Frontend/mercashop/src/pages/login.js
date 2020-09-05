@@ -8,7 +8,7 @@ class Login extends React.Component {
             <div className=" d-flex justify-content-center">
                 <div className="card bg-light my-5" style={{width: "20rem"}}>
                     <div className="card-header text-center">
-                        <img src={logo} className="mb-2" width="190" height="190"/>
+                        <img src={logo} alt="logo" className="mb-2" width="190" height="190"/>
                         <h1 className="h3 mb-3 font-weight-normal">Inicia Sesión o Registrate</h1>
                     </div>
                     <div className="card-body">
