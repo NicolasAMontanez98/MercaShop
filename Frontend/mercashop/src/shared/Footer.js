@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 
 class Footer extends React.Component {
   render() {
@@ -6,7 +7,7 @@ class Footer extends React.Component {
       <footer className="footer pt-3 mt-4">
         <div className="container">
           <p className="float-right">
-            <a href="#">Back to top</a>
+            <Link to="/">Back to top</Link>
           </p>
           <p>
             Album example is © Bootstrap, but please download and customize it

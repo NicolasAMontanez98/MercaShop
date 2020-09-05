@@ -13,19 +13,19 @@ class ShowProducts extends React.Component {
 
   render() {
     const product = this.state.productsList.list.map(
-      ({ category, discount, products }) => {
+      ({ category, discount, products }, j) => {
         return (
-          <div className="mt-2">
+          <div className="mt-2" key={j}>
             <h2>{category}</h2>
             <div className="row row-cols-md-4">
-              {products.map(({ image, name, quantity, price }) => {
+              {products.map(({ image, name, quantity, price }, index) => {
                 return (
-                  <div className="card mt-4 mr-2" style={{ width: "18rem" }}>
+                  <div className="card mt-4 mr-2" style={{ width: "18rem" }} key={index}>
                     <div className="card-header">
-                      <img className="card-img-top" src={image} />                      
+                      <img className="card-img-top" src={image} alt={name}/>                      
                     </div>
                     <div className="card-body">
-                      <h6 className="card-title"><span class="badge badge-pill badge-danger" hidden={discount==0}>{discount}%</span> {name}</h6>
+                      <h6 className="card-title"><span className="badge badge-pill badge-danger" hidden={discount===0}>{discount}%</span> {name}</h6>
                       <p className="font-weight-light">{quantity}</p>
                       <h4>$ {price}</h4>
                       <div className="sticky-top">
