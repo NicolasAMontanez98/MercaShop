@@ -17,7 +17,7 @@ export default class Header extends React.Component {
   render() {
     return (
       <div className="App">
-        <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom border-secondary">
+        <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom">
           <Link className="navbar-brand" to="/home">
             <img src={logo} alt="logo" width="180" height="90" />
           </Link>
