@@ -23,11 +23,11 @@ import {
 import { cartReducer } from './reducers/cartReducer';
 
 const cartItems = localStorage.getItem("cartItems") || [];
-const userInfo = localStorage.getItem("userInfo") || null;
+const customerInfo = localStorage.getItem("customerInfo") || null;
 
 const initialState = {
   cart: { cartItems, shipping: {}, payment: {} },
-  userSignIn: { userInfo },
+  customerSignIn: { customerInfo },
 };
 const rootReducer = combineReducers({
   productList: productListReducer,
@@ -47,10 +47,10 @@ const rootReducer = combineReducers({
   orderDelete: orderDeleteReducer,
 });
 
-const composeEnhancer = window.__REDUX_DEVTOOL_COMPOSE__;
+const composeEnhancer = window.__REDUX_DEVTOOL_COMPOSE__ || compose;
 const store = createStore(
   rootReducer,
   initialState,
-  compose(applyMiddleware(thunk))
+  composeEnhancer(applyMiddleware(thunk))
 );
 export default store;
