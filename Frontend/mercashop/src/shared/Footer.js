@@ -3,10 +3,10 @@ import React from "react";
 class Footer extends React.Component {
   render() {
     return (
-      <footer className="footer pt-3 mt-4">
+      <footer className="footer pt-3 mt-4 bg-dark">
         <div className="container">
           <p className="float-right">
-            <a href="#">Back to top</a>
+            <a href="#!">Back to top</a>
           </p>
           <p>
             Album example is © Bootstrap, but please download and customize it

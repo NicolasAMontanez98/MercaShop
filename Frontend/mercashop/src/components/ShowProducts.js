@@ -14,7 +14,7 @@ class ShowProducts extends React.Component {
   printProductos = (e) => {
     const product = productsList.list;
     product.map(({ category, discount, products }) => {
-      console.log(category, discount, products);
+      return (category, discount, products);
     });
   };
 
@@ -29,10 +29,10 @@ class ShowProducts extends React.Component {
                 return (
                   <div className="card mt-4 mr-2" style={{ width: "18rem" }}>
                     <div className="card-header">
-                      <img className="card-img-top" src={image} />                      
+                      <img className="card-img-top" src={image} alt="imageProduct"/>                      
                     </div>
                     <div className="card-body">
-                      <h6 className="card-title"><span class="badge badge-pill badge-danger" hidden={discount==0}>{discount}%</span> {name}</h6>
+                      <h6 className="card-title"><span class="badge badge-pill badge-danger" hidden={discount===0}>{discount}%</span> {name}</h6>
                       <p className="font-weight-light">{quantity}</p>
                       <h4>$ {price}</h4>
                       <div className="sticky-top">

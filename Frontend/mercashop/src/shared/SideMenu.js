@@ -22,59 +22,59 @@ class SideMenu extends React.Component {
         <ButtonGroup className="btn-block" vertical>
           <h3 className="text-dark ml-4 mt-2">Categorías</h3>
           <Button variant="light" className="btn-sm text-left">
-          <img src={lacteosHuevos} width="40" height="40" className="mr-2"/>
+          <img src={lacteosHuevos} alt="lacteosHuevos" width="40" height="40" className="mr-2"/>
           Lácteos y huevos
           </Button>
           <Button variant="light" className="btn-sm text-left">
-          <img src={abarrotes} width="40" height="40" className="mr-2"/>
+          <img src={abarrotes} alt="abarrotes" width="40" height="40" className="mr-2"/>
           Abarrotes
           </Button>
           <Button variant="light" className="btn-sm text-left">
-          <img src={panaderia} width="40" height="40" className="mr-2"/>
+          <img src={panaderia} alt="panaderia" width="40" height="40" className="mr-2"/>
           Panadería y Arepas
           </Button>
           <Button variant="light" className="btn-sm text-left">
-          <img src={cafe} width="40" height="40" className="mr-2"/>
+          <img src={cafe} alt="cafe" width="40" height="40" className="mr-2"/>
           Café, Chocolate y Té
           </Button>
           <Button variant="light" className="btn-sm text-left">
-          <img src={galletas} width="40" height="40" className="mr-2"/>
+          <img src={galletas} alt="galletas" width="40" height="40" className="mr-2"/>
           Galletas y Antojos
           </Button>
           <Button variant="light" className="btn-sm text-left">
-          <img src={carneYPollo} width="40" height="40" className="mr-2"/>
+          <img src={carneYPollo} alt="carneyPollo" width="40" height="40" className="mr-2"/>
           Pollo, Carne y Pescado
           </Button>
           <Button variant="light" className="btn-sm text-left">
-          <img src={carnesFrías} width="40" height="40" className="mr-2"/>
+          <img src={carnesFrías} alt="carnesFrias" width="40" height="40" className="mr-2"/>
           Carnes frías y Embutidos
           </Button>
           <Button variant="light" className="btn-sm text-left">
-          <img src={frutasVerduras} width="40" height="40" className="mr-2"/>
+          <img src={frutasVerduras} alt="frutasyVerduras" width="40" height="40" className="mr-2"/>
           Frutas y Verduras
           </Button>
           <Button variant="light" className="btn-sm text-left">
-          <img src={licores} width="40" height="40" className="mr-2"/>
+          <img src={licores} alt="licores" width="40" height="40" className="mr-2"/>
           Licores
           </Button>
           <Button variant="light" className="btn-sm text-left">
-          <img src={bebidas} width="40" height="40" className="mr-2"/>
+          <img src={bebidas} alt="bebidas" width="40" height="40" className="mr-2"/>
           Bebidas
           </Button>
           <Button variant="light" className="btn-sm text-left">
-          <img src={mascotas} width="40" height="40" className="mr-2"/>
+          <img src={mascotas} alt="mascotas"width="40" height="40" className="mr-2"/>
           Mascotas
           </Button>
           <Button variant="light" className="btn-sm text-left">
-          <img src={aseoHogar} width="40" height="40" className="mr-2"/>
+          <img src={aseoHogar} alt="aseoHogar" width="40" height="40" className="mr-2"/>
           Aseo del hogar
           </Button>
           <Button variant="light" className="btn-sm text-left">
-          <img src={cuidadoRopa} width="40" height="40" className="mr-2"/>
+          <img src={cuidadoRopa} alt="cuidadoRopa" width="40" height="40" className="mr-2"/>
           Cuidado de la Ropa
           </Button>
           <Button variant="light" className="btn-sm text-left">
-          <img src={aseoPersonal} width="40" height="40" className="mr-2"/>
+          <img src={aseoPersonal} alt="aseoPersonal" width="40" height="40" className="mr-2"/>
           Cuidado personal
           </Button>
         </ButtonGroup>
