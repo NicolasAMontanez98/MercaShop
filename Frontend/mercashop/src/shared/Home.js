@@ -8,10 +8,6 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Main from "./../pages/Main";
-import RegisterCostumer from "./../pages/RegisterCostumer";
-import RegisterProvider from "./../pages/RegisterProvider";
-
-import Header from "./Header";
 import SideMenu from "./SideMenu";
 import Footer from "./Footer";
 
@@ -40,8 +36,9 @@ function Home() {
           </Switch>
         </div>
       </div>
-      <Footer />
-    </Router>
+    </div>
+    <Footer />
+  </Router>
   );
 }
 

@@ -8,7 +8,7 @@ class Main extends React.Component {
       <div className="d-flex justify-content-center">
         <div className="mx-auto">
           <div className="row ml-5">
-            <div className="col-md-12">
+            <div className="col-md-12 mb-4">
               <PromotionCarousel />
             </div>
           </div>
