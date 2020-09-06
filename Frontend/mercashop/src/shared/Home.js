@@ -35,7 +35,6 @@ function Home() {
             />
           </Switch>
         </div>
-      </div>
     </div>
     <Footer />
   </Router>

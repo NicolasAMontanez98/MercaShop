@@ -1,75 +1,42 @@
-import React from "react";
-import productsList from "./../assets/json/products.json";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { listProducts } from "../store/actions/productAction";
+import ProductsCard from "./ProductsCard";
 
-class ShowProducts extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      productsList,
+function ShowProducts() {
+  const productList = useSelector((state) => state.productList);
+  const { products, loading, error } = productList;
+  console.log(productList);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(listProducts());
+
+    return () => {
+      //
     };
-  }
+  }, []);
 
-  printProductos = (e) => {
-    const product = productsList.list;
-    product.map(({ category, discount, products }) => {
-      return category, discount, products;
-    });
-  };
-  render() {
-    const product = this.state.productsList.list.map(
-      ({ category, discount, products }) => {
-        return (
-          <div className="mt-2">
-            <h2>{category}</h2>
-            <div className="row row-cols-md-4">
-              {products.map(({ image, name, quantity, price }) => {
-                return (
-                  <div className="card mt-4 mr-2" style={{ width: "18rem" }}>
-                    <div className="card-header">
-                      <img
-                        className="card-img-top"
-                        src={image}
-                        alt="imageProduct"
-                      />
-                    </div>
-                    <div className="card-body">
-                      <h6 className="card-title">
-                        <span
-                          className="badge badge-pill badge-danger"
-                          hidden={discount === 0}
-                        >
-                          {discount}%
-                        </span>{" "}
-                        {name}
-                      </h6>
-                      <p className="font-weight-light">{quantity}</p>
-                      <h4>$ {price}</h4>
-                      <div className="sticky-top">
-                        <button className="btn btn-outline-primary btn-sm rounded-pill">
-                          <FontAwesomeIcon
-                            className="mr-2"
-                            icon={faShoppingCart}
-                          />
-                          Agregar
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        );
-      }
-    );
+  const product = () => {
     return (
-      <div className="row">
-        <div className="col-md-12">{product}</div>
-      </div>
+        <>
+          {products.map((product) => {
+            return <ProductsCard product={product} key={product._id} />;
+          })}
+        </>
     );
-  }
+  };
+  return loading ? (
+    <div>Cargando...</div>
+  ) : error ? (
+    <div>{error}</div>
+  ) : (
+    <div className="container">
+      <div className="row d-flex justify-content-center">
+        {product()}
+      </div>
+    </div>
+  );
 }
 
 export default ShowProducts;
