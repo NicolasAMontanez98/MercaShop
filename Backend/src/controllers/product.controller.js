@@ -4,13 +4,15 @@ const Product = require("../models/product.model");
 
 productCtrl.createProduct = async (req, res) => {
   try {
-    const { title, urlImage, description, quantity, price } = req.body;
+    const { name, image, decription, quantity, price, category, discount } = req.body;
     const newProduct = new Product({
-      title,
-      urlImage,
-      description,
+      name,
+      image,
+      decription,
       quantity,
       price,
+      category,
+      discount
     });
     await newProduct.save();
     res.status(200).json('Producto agregado exitosamente.');
@@ -30,12 +32,17 @@ productCtrl.getProduct = async (req, res) => {
 
 productCtrl.getProducts = async (req, res) => {
   try {
-    const products = await Product.find();
+    const products = await Product.find({});
     res.status(200).json(products);
   } catch (error) {
     res.status(400).json(error);
   }
 };
+
+// router.get("/", async (req, res) => {
+//   const products = await Product.find({});
+//   res.send(products)
+// });
 
 productCtrl.deleteProduct = async (req, res) => {
   try {

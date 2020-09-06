@@ -1,5 +1,6 @@
 {
   "name": "mercashop",
+  "proxy": "http://127.0.0.1:8000",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -26,7 +27,7 @@
     "react-scripts": "3.4.3",
     "react-scroll": "^1.8.1",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
     "typescript": "^3.9.7"
   },
   "scripts": {

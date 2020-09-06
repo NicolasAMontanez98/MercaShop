@@ -28,8 +28,8 @@ import {
       default:
         return state;
     }
-  }
-  
+  }  
+    
   function productDetailsReducer(state = { products: { reviews: [] } }, action) {
     switch (action.type) {
       case PRODUCT_DETAILS_REQUEST:
