@@ -10,6 +10,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Main from "./../pages/Main";
 import SideMenu from "./SideMenu";
 import Footer from "./Footer";
+import Header from './Header';
+import RegisterCostumer from '../pages/RegisterCostumer';
+import RegisterProvider from '../pages/RegisterProvider';
 
 function Home() {
   return (

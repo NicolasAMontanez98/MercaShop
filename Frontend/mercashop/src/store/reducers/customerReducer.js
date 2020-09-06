@@ -1,5 +1,7 @@
 import {
-  COSTUMER_SIGNIN_REQUEST,
+
+  CUSTOMER_SIGNIN_REQUEST,
+
   CUSTOMER_SIGNIN_SUCCESS,
   CUSTOMER_SIGNIN_FAIL,
   CUSTOMER_REGISTER_REQUEST,
@@ -9,11 +11,12 @@ import {
   CUSTOMER_UPDATE_REQUEST,
   CUSTOMER_UPDATE_SUCCESS,
   CUSTOMER_UPDATE_FAIL,
-} from "../constants/customerConstanst";
+
+} from "../constants/customerConstants";
 
 function customerSignInReducer(state = {}, action) {
   switch (action.type) {
-    case COSTUMER_SIGNIN_REQUEST:
+    case CUSTOMER_SIGNIN_REQUEST:
       return { loading: true };
     case CUSTOMER_SIGNIN_SUCCESS:
       return { loading: false, userInfo: action.payload };

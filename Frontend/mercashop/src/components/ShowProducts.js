@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
+
 import { useSelector, useDispatch } from "react-redux";
 import { listProducts } from "../store/actions/productAction";
 import ProductsCard from "./ProductsCard";
 
 function ShowProducts() {
   const productList = useSelector((state) => state.productList);
+
   const { products, loading, error } = productList;
   console.log(productList);
   const dispatch = useDispatch();
@@ -15,6 +17,7 @@ function ShowProducts() {
     return () => {
       //
     };
+
   }, []);
 
   const product = () => {
@@ -35,6 +38,7 @@ function ShowProducts() {
       <div className="row d-flex justify-content-center">
         {product()}
       </div>
+
     </div>
   );
 }
