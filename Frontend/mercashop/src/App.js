@@ -7,6 +7,7 @@ import Login from "./pages/login";
 import RegisterCostumer from "./pages/RegisterCostumer";
 import RegisterProvider from "./pages/RegisterProvider";
 import Home from "./shared/Home";
+import ProductDetail from "./pages/ProductDetail";
 import Switch from "react-bootstrap/esm/Switch";
 //import Main from "./pages/Main";
 
@@ -22,6 +23,7 @@ function App() {
             path="/registro-proveedor"
             component={RegisterProvider}
           />
+          <Route exact path="/product/:id" component={ProductDetail} />
         </Switch>
       </Router>
   );
