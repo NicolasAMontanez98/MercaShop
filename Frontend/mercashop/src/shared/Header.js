@@ -11,38 +11,41 @@ import {
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
 
-export default function Header() {
-  // const [search, setSearch] = useState('');
-  // const customerSignIn = useSelector((state) => state.customerSignIn);
-  
-  return (
-    <div className="App">
-      <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom">
-        <Link className="navbar-brand" to="/home">
-          <img src={logo} width="180" height="90" alt="Logo"/>
-        </Link>
-        <div className="row container">
-          <div className="col-md-4">
-            <div className="input-group ml-5">
-              <form className="form-inline my-2 my-lg-0">
-                <input
-                  className="form-control mr-sm-2 input-lg border border-dark"
-                  type="search"
-                  placeholder="Que quieres?"
-                  aria-label="Search"
-                  title="Busca"
-                  // onChange={(e) => setSearch(e.target.value)}
-                />
-                <div className="input-group-append">
-                  <button
-                    className="btn btn-outline-dark"
-                    type="button"
-                    id="button-addon2"
-                  >
-                    <SearchIcon size={20} />
-                  </button>
-                </div>
-              </form>
+export default class Header extends React.Component {
+  handleChange = (e) => {
+    console.log(e.target.value);
+  };
+  render() {
+    return (
+      <div className="App">
+        <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+          <Link className="navbar-brand" to="/home">
+            <img src={logo} alt="logo" width="180" height="90" />
+          </Link>
+          <div className="row container">
+            <div className="col-md-4">
+              <div className="input-group ml-5">
+                <form className="form-inline my-2 my-lg-0">
+                  <input
+                    className="form-control mr-sm-2 input-lg border border-dark"
+                    type="search"
+                    placeholder="Que quieres?"
+                    aria-label="Search"
+                    title="Busca"
+                    onChange={this.handleChange}
+                  />
+                  <div className="input-group-append">
+                    <button
+                      className="btn btn-outline-dark"
+                      type="button"
+                      id="button-addon2"
+                    >
+                      <SearchIcon size={20} />
+                    </button>
+                  </div>
+                </form>
+              </div>
+
             </div>
           </div>
           <div className="col-md-8">

@@ -32,17 +32,13 @@ productCtrl.getProduct = async (req, res) => {
 
 productCtrl.getProducts = async (req, res) => {
   try {
+
     const products = await Product.find({});
     res.status(200).json(products);
   } catch (error) {
     res.status(400).json(error);
   }
 };
-
-// router.get("/", async (req, res) => {
-//   const products = await Product.find({});
-//   res.send(products)
-// });
 
 productCtrl.deleteProduct = async (req, res) => {
   try {

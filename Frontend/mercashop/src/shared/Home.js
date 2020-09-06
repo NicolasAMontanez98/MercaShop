@@ -38,8 +38,7 @@ function Home() {
             />
           </Switch>
         </div>
-      </div>
-    {/* </div> */}
+    </div>
     <Footer />
   </Router>
   );

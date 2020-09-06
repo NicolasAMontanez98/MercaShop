@@ -17,6 +17,7 @@ const update = ({ userId, names, email, password }) => async (
   getState
 ) => {
   const {
+
     customerSignIn: { customerInfo },
   } = getState();
   dispatch({
@@ -28,6 +29,7 @@ const update = ({ userId, names, email, password }) => async (
       "/api/customer/" + userId,
       { name, email, password },
       {
+
         headers: { Authorization: "Bearer " + customerInfo.token },
       }
     );
@@ -45,7 +47,9 @@ const signIn = (email, password) => async (dispatch) => {
       password,
     });
     dispatch({ type: CUSTOMER_SIGNIN_SUCCESS, payload: data });
+
     localStorage.setItem("customerInfo", JSON.stringify(data));
+
   } catch (error) {
     dispatch({ type: CUSTOMER_SIGNIN_FAIL, payload: error.message });
   }
@@ -67,7 +71,9 @@ const register = (name, email, password) => async (dispatch) => {
 };
 
 const logout = () => (dispatch) => {
+
   localStorage.removeItem("customerInfo");
+
   dispatch({ type: CUSTOMER_LOGOUT });
 };
 
