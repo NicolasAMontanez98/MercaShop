@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from 'react-redux'
+import React from "react";
+// import { useSelector } from 'react-redux'
 import logo from "./../assets/images/Merca Shop letters inline.png";
 import { Link } from "react-router-dom";
 import { SearchIcon } from "@primer/octicons-react";
@@ -12,14 +12,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function Header() {
-  const [search, setSearch] = useState('');
-  const customerSignIn = useSelector((state) => state.customerSignIn);
+  // const [search, setSearch] = useState('');
+  // const customerSignIn = useSelector((state) => state.customerSignIn);
   
   return (
     <div className="App">
       <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom">
         <Link className="navbar-brand" to="/home">
-          <img src={logo} width="180" height="90" />
+          <img src={logo} width="180" height="90" alt="Logo"/>
         </Link>
         <div className="row container">
           <div className="col-md-4">
@@ -31,7 +31,7 @@ export default function Header() {
                   placeholder="Que quieres?"
                   aria-label="Search"
                   title="Busca"
-                  onChange={(e) => setSearch(e.target.value)}
+                  // onChange={(e) => setSearch(e.target.value)}
                 />
                 <div className="input-group-append">
                   <button
