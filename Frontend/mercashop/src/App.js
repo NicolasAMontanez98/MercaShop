@@ -10,6 +10,7 @@ import Home from "./shared/Home";
 import ProductDetail from "./pages/ProductDetail";
 import Switch from "react-bootstrap/esm/Switch";
 //import Main from "./pages/Main";
+import Cart from './pages/Cart';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             component={RegisterProvider}
           />
           <Route exact path="/product/:id" component={ProductDetail} />
+          <Route exact path="/cart/:id?" component={Cart} />
         </Switch>
       </Router>
   );

@@ -62,15 +62,13 @@ function ProductDetail(props) {
               </select>
             </li>
             <li>
-              {product.qtyInStock > 0 &&
-                <button onClick={handleAddToCart} className="btn btn-outline-primary btn-sm rounded-pill">
-                  <FontAwesomeIcon
-                    className="mr-2"
-                    icon={faShoppingCart}
-                  />
-                  Agregar al Carro
-                </button>
-              }  
+              <button onClick={handleAddToCart} className="btn btn-outline-primary btn-sm rounded-pill">
+                <FontAwesomeIcon
+                  className="mr-2"
+                  icon={faShoppingCart}
+                />
+                Agregar al Carro
+              </button>
             </li>
           </ul>
         </div>
