@@ -14,7 +14,7 @@ import Header from './Header';
 import RegisterCostumer from '../pages/RegisterCostumer';
 import RegisterProvider from '../pages/RegisterProvider';
 
-function Home() {
+function Home(props) {
   return (
     <Router>
       <Header />
@@ -26,6 +26,7 @@ function Home() {
           <Redirect from="/" to="/home" />
           <Switch>
             <Route exact path="/home" component={Main} />
+            <Route exact path="/category/:id" component={Main} />
             <Route
               exact
               path="/registro-cliente"

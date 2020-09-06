@@ -164,7 +164,7 @@ class RegisterCostumer extends React.Component {
                   </button>
                 </div>
                 <div className="col">
-                  <Link to="/home">
+                  <Link to="/">
                     <button className="btn btn-info mt-2 btn-lg btn-block rounded-pill">
                       Cancelar
                     </button>

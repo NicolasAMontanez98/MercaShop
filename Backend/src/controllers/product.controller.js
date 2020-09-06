@@ -32,8 +32,8 @@ productCtrl.getProduct = async (req, res) => {
 
 productCtrl.getProducts = async (req, res) => {
   try {
-
-    const products = await Product.find({});
+    const category = req.query.category ? {category: req.query.category} : {};
+    const products = await Product.find({...category});
     res.status(200).json(products);
   } catch (error) {
     res.status(400).json(error);

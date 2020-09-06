@@ -107,8 +107,8 @@ export default class Header extends React.Component {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-        </div>
-      </nav>
-    </div>
-  );
-}
+        </nav>  
+      </div>
+    );
+  }
+}  
