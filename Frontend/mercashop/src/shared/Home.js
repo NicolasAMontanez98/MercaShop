@@ -2,7 +2,6 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Route,
-  Redirect,
   Switch,
 } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -10,37 +9,24 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Main from "./../pages/Main";
 import SideMenu from "./SideMenu";
 import Footer from "./Footer";
-import Header from './Header';
-import RegisterCostumer from '../pages/RegisterCostumer';
-import RegisterProvider from '../pages/RegisterProvider';
+import Header from "./Header";
 
 function Home() {
   return (
-    <Router>
+    <Router forceRefresh={true}>
       <Header />
       <div className="row">
-        <div className="col-md-3 bg-light border-right border-dark">
+        <div className="col-md-3 bg-white border-right">
           <SideMenu />
         </div>
         <div className="col-md-9 vh-100 overflow-auto">
-          <Redirect from="/" to="/home" />
           <Switch>
-            <Route exact path="/home" component={Main} />
-            <Route
-              exact
-              path="/registro-cliente"
-              component={RegisterCostumer}
-            />
-            <Route
-              exact
-              path="/registro-proveedor"
-              component={RegisterProvider}
-            />
+            <Route exact path="/" component={Main} />
           </Switch>
         </div>
-    </div>
-    <Footer />
-  </Router>
+      </div>
+      <Footer />
+    </Router>
   );
 }
 

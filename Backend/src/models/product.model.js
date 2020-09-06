@@ -1,7 +1,6 @@
 const { Schema, model } = require("mongoose");
 
 const productSchema = new Schema({
-
     image: {
         type: String,
         required: true,
@@ -23,7 +22,7 @@ const productSchema = new Schema({
     quantity: {
         type: String,
         required: true
-    }
+    },
     discount: {
         type: Number,
         required: true

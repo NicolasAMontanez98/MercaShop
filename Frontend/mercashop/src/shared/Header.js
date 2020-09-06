@@ -45,14 +45,13 @@ export default class Header extends React.Component {
                   </div>
                 </form>
               </div>
-
             </div>
           </div>
           <div className="col-md-8">
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item active">
-                  <Link className="navbar-link" to='/'>
+                  <Link className="navbar-link" to="/">
                     <button
                       className="btn btn-success btn-circle text-center ml-4 pb-1 "
                       alt="dirección"
@@ -107,8 +106,8 @@ export default class Header extends React.Component {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-        </div>
-      </nav>
-    </div>
-  );
+        </nav>
+      </div>
+    );
+  }
 }
