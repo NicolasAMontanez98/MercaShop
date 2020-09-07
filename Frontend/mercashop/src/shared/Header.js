@@ -60,7 +60,7 @@ export default function Header() {
                 </Link>
               </li>
               <li className="nav-item active">
-                {customerInfo || providerInfo ? 
+                {customerInfo ? 
                 (
                   <div className="dropdown-menu">                
                     <Link to="/perfil">
