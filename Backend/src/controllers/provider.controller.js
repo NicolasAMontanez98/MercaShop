@@ -39,7 +39,13 @@ providerCtrl.checkInProvider = async (req, res) => {
     });
     await newProvider.save();
     const token = jwt.sign({ id: newProvider._id }, process.env.SECRET);
-    res.status(200).json({ token });
+    res.status(200).json({
+      _id: newProvider._id,
+      names: newProvider.names,
+      email: newProvider.email,
+      businessName: newProvider.businessName,
+      token,
+    });
   } catch (error) {
     res.status(400).json(error);
   }
@@ -58,7 +64,13 @@ providerCtrl.logInProvider = async (req, res) => {
       throw Error("La contraseña es incorrecta.");
     }
     const token = jwt.sign({ id: provider._id }, process.env.SECRET);
-    res.status(200).json({ token });
+    res.status(200).json({
+      _id: provider._id,
+      names: provider.names,
+      email: provider.email,
+      businessName: provider.businessName,
+      token,
+    });
   } catch (error) {
     res.status(400).json(error);
   }
@@ -76,7 +88,7 @@ providerCtrl.getProviders = async (req, res) => {
 providerCtrl.deleteProvider = async (req, res) => {
   try {
     Provider.findByIdAndDelete(req.params.id);
-    res.status(200).json('Proveedor borrado.');
+    res.status(200).json("Proveedor borrado.");
   } catch (error) {
     res.status(400).json(error);
   }

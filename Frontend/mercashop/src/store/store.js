@@ -13,6 +13,11 @@ import {
   customerUpdateReducer,
 } from "./reducers/customerReducer";
 import {
+  providerSignInReducer,
+  providerRegisterReducer,
+  providerUpdateReducer,
+} from "./reducers/providerReducer";
+import {
   orderCreateReducer,
   orderDetailsReducer,
   myOrderListReducer,
@@ -23,32 +28,39 @@ import {
 import { cartReducer } from './reducers/cartReducer';
 import { Cookies } from 'js-cookie';
 
+
 const cartItems = localStorage.getItem("cartItems") || [];
 // const cartItems = Cookies.getJSON('cartItems') || [];
 const customerInfo = localStorage.getItem("customerInfo") || null;
+const providerInfo = localStorage.getItem("providerInfo") || null;
 
 const initialState = {
   cart: { cartItems, shipping: {}, payment: {} },
   customerSignIn: { customerInfo },
+  customerRegister: { customerInfo },
+  providerSignIn: { providerInfo },
+  providerRegister: { providerInfo }
 };
 const rootReducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
   cart: cartReducer,
   customerSignIn: customerSignInReducer,
+  providerSignIn: providerSignInReducer,
   customerRegister: customerRegisterReducer,
+  providerRegister: providerRegisterReducer,
+  customerUpdate: customerUpdateReducer,
+  providerUpdate: providerUpdateReducer,
   productSave: productSaveReducer,
   productDelete: productDeleteReducer,
   productReviewSave: productReviewSaveReducer,
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
-  customerUpdate: customerUpdateReducer,
   myOrderList: myOrderListReducer,
   orderList: orderListReducer,
   orderDelete: orderDeleteReducer,
 });
-
 
 const composeEnhancer = window.__REDUX_DEVTOOL_COMPOSE__ || compose;
 const store = createStore(

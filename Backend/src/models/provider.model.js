@@ -55,7 +55,8 @@ const providerSchema = new Schema({
     },
     webPage: {
         type: String,
-        trim: true
+        trim: true,
+        default: "...",
     },
     password: {
         type: String,
