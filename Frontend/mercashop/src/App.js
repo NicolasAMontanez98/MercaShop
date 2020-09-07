@@ -25,7 +25,7 @@ function App() {
             component={RegisterProvider}
           />
           <Route exact path="/product/:id" component={ProductDetail} />
-          <Route exact path="/cart/:id?" component={Cart} />
+          {/* <Route exact path="/cart/:id?" component={Cart} /> */}
           <Route exact path="/category/:id" component={Home} />
         </Switch>
       </Router>

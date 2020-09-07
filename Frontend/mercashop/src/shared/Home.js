@@ -16,7 +16,7 @@ import RegisterProvider from '../pages/RegisterProvider';
 import ProductDetail from "../pages/ProductDetail";
 import Cart from '../pages/Cart';
 
-function Home(props) {
+function Home() {
   return (
     <Router>
       <Header />
