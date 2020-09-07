@@ -8,7 +8,7 @@ function Cart (props) {
   const cart = useSelector(state => state.cart);
 
   const {cartItems} = cart;
-
+  // console.log(cartItems);
   const productId = props.match.params.id;
   const qty = props.location.search ? Number(props.location.search.split("=")[1]) : 1;
   const dispatch = useDispatch();
@@ -25,8 +25,9 @@ function Cart (props) {
   const checkoutHandler = () => {
     props.history.push("/signin?redirect=shipping");
   }
-
-  return (
+  // console.log(props.location.search);
+  return ( // cartItems.map(item => <h3>item.price</h3>)
+  // return (<h3>hola</h3>
     <div className="cart">
       <div className="cart-list">
         <ul className="cart-list-container">
@@ -38,7 +39,7 @@ function Cart (props) {
             cartItems.length === 0 ?
             <div>El carro está vacío</div> :
             cartItems.map(item => 
-              <div>
+              <li>
                 <div className="cart-image">
                   <img src={item.image} alt="product" />
                 </div>
@@ -61,8 +62,9 @@ function Cart (props) {
                   </div>
                 </div>
                 <div className="cart-price">$ {item.price}</div>
-              </div>
+              </li>
             )
+
           }
         </ul>
       </div>
