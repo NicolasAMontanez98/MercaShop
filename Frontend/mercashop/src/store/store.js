@@ -28,6 +28,7 @@ import {
 import { cartReducer } from "./reducers/cartReducer";
 
 const cartItems = localStorage.getItem("cartItems") || [];
+// const cartItems = Cookies.getJSON('cartItems') || [];
 const customerInfo = localStorage.getItem("customerInfo") || null;
 const providerInfo = localStorage.getItem("providerInfo") || null;
 

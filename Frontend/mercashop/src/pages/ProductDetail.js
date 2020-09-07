@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
-// import productsList from "./../assets/json/products.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from 'react-redux';
@@ -38,27 +37,32 @@ function ProductDetail(props) {
         <div className="details-info">
           <ul>
             <li><h4>{product.name}</h4></li>
-            <li>
+            {/* <li>
               {product.rating} Estrellas ({product.numReviews} Calificaciones)
-            </li>
+            </li> */}
             {/* <li><b>{product.price}</b></li> */}
             <li>
               Descripción:
-              <div>{product.description}</div>
+              <div>{product.decription}</div>
             </li>
           </ul>
         </div>
         <div className="details-action">
           <ul>
             <li>Precio: <b>$ {product.price}</b></li>
-            <li>
+            {/* <li>
               Estado: {product.qtyInStock > 0 ? "Disponible" : "Agotado"}
-            </li>
+            </li> */}
             <li>
+              {/* Cantidad: <select value={qty} onChange={(e) => {setQty(e.target.value)}}> */}
               Cantidad: <select value={qty} onChange={(e) => {setQty(e.target.value)}}>
-                {[...Array(product.qtyInStock).keys()].map(x =>
+                {/* {[...Array(product.qtyInStock).keys()].map(x =>
                   <option key={x + 1} value={x + 1}>{x + 1}</option>
-                )}
+                )} */}
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
               </select>
             </li>
             <li>
