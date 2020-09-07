@@ -4,21 +4,21 @@ import { useSelector, useDispatch } from "react-redux";
 import { listProducts } from "../store/actions/productAction";
 import ProductsCard from "./ProductsCard";
 
-function ShowProducts() {
+function ShowProducts(props) {
   const productList = useSelector((state) => state.productList);
-
+  const category = props.category;
   const { products, loading, error } = productList;
   console.log(productList);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(listProducts());
+    dispatch(listProducts(category));
 
     return () => {
       //
     };
 
-  }, []);
+  }, [category]);
 
   const product = () => {
     return (
