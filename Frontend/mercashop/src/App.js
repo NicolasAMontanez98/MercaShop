@@ -9,7 +9,6 @@ import RegisterProvider from "./pages/RegisterProvider";
 import Home from "./shared/Home";
 import ProductDetail from "./pages/ProductDetail";
 import Switch from "react-bootstrap/esm/Switch";
-//import Main from "./pages/Main";
 import Cart from './pages/Cart';
 
 function App() {

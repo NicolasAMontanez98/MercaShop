@@ -21,8 +21,10 @@ import {
   orderDeleteReducer,
 } from "./reducers/orderReducer";
 import { cartReducer } from './reducers/cartReducer';
+// import { Cookies } from 'js-cookie';
 
 const cartItems = localStorage.getItem("cartItems") || [];
+// const cartItems = Cookies.getJSON('cartItems') || [];
 const customerInfo = localStorage.getItem("customerInfo") || null;
 
 const initialState = {
