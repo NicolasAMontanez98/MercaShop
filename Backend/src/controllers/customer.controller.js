@@ -33,7 +33,12 @@ customerCtrl.checkInCustomer = async (req, res) => {
     });
     await newCostumer.save();
     const token = jwt.sign({ id: newCostumer._id }, process.env.SECRET);
-    res.status(200).json({ token });
+    res.status(200).json({ 
+      _id: newCostumer._id,
+      names: newCostumer.names,
+      email: newCostumer.email,
+      token
+     });
   } catch (error) {
     res.status(400).json(error);
   }
@@ -51,7 +56,12 @@ customerCtrl.logInCustomer = async (req, res) => {
       throw Error("La contraseña es incorrecta.");
     }
     const token = jwt.sign({ id: customer._id }, process.env.SECRET);
-    res.status(200).json({ token });
+    res.status(200).json({ 
+      _id: customer._id,
+      names: customer.names,
+      email: customer.email,
+      token
+    });
   } catch (error) {
     res.status(400).json(error);
   }

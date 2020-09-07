@@ -1,44 +1,69 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import logo from "./../assets/images/Merca Shop letters.png";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { register } from "../store/actions/providerAction";
+import Swal from "sweetalert2";
 
-export default function RegisterProvider() {
-  const [datosP, setDatosP] = useState({
-    names: "",
-    lastNames: "",
-    idType: "",
-    idNumber: 0,
-    email: "",
-    phone: 0,
-    birthDate: "",
-    adress: "",
-    businessName: "",
-    nit: 0,
-    comerceType: "",
-    webPage: "",
-    password: "",
-  });
+export default function RegisterProvider(props) {
+  const [names, setNames] = useState("");
+  const [lastNames, setLastNames] = useState("");
+  const [idType, setIdType] = useState("");
+  const [idNumber, setIdNumber] = useState(0);
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState(0);
+  const [birthDate, setBirthDate] = useState("");
+  const [adress, setAdress] = useState("");
+  const [businessName, setBusinesName] = useState("");
+  const [nit, setNit] = useState(0);
+  const [commerceType, setComerceType] = useState("");
+  const [webPage, setWebPage] = useState("");
+  const [password, setPassword] = useState("");
+  const providerRegister = useSelector((state) => state.providerRegister);
+  const { loading, providerInfo, error } = providerRegister;
+  const dispatch = useDispatch();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setDatosP({
-      ...datosP,
-      [name]: value,
-    });
-  };
+  const redirect = props.location.search
+    ? props.location.search.split("=")[1]
+    : "/";
+
+  useEffect(() => {
+    if (providerInfo) {
+      props.history.push(redirect);
+    }
+    return () => {
+      //
+    }
+  }, [providerInfo]);
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:7000/api/provider/registro", datosP)
-      .then(({ data }) => {
-        localStorage.setItem("token", data.token);
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(
+      register(
+        names,
+        lastNames,
+        idType,
+        idNumber,
+        email,
+        phone,
+        birthDate,
+        adress,
+        businessName,
+        nit,
+        commerceType,
+        webPage,
+        password
+      )
+    );
+    Swal.fire({
+      title: "Ingreso exitoso",
+      icon: "success",
+      confirmButtonColor: "#28B463",
+      confirmButtonText: "Genial!!! volver a inicio.",
+    }).then((result) => {
+      window.location.reload(false);
+    });
   };
 
   return (
@@ -58,39 +83,46 @@ export default function RegisterProvider() {
           <form onSubmit={handleRegister}>
             <div className="form-row">
               <div className="form-group col-md-6">
-                <label htmlFor="inputName">Nombres</label>
+                <label htmlFor="inputName" className="font-weight-bold">
+                  Nombres
+                </label>
                 <input
                   type="text"
                   className="form-control"
                   id="inputName"
-                  name="nombres"
                   placeholder="Nombres"
-                  onChange={handleChange}
+                  onChange={(e) => setNames(e.target.value)}
                 />
               </div>
               <div className="form-group col-md-6">
-                <label htmlFor="inputName">Apellidos</label>
+                <label htmlFor="inputName" className="font-weight-bold">
+                  Apellidos
+                </label>
                 <input
                   type="text"
                   className="form-control"
                   id="inputLastName"
-                  name="apellidos"
                   placeholder="Apellidos"
-                  onChange={handleChange}
+                  onChange={(e) => setLastNames(e.target.value)}
                 />
               </div>
             </div>
             <div className="form-row">
               <div className="form-group col-md-6">
-                <label htmlFor="inputId">Tipo Identificación</label>
+                <label htmlFor="inputId" className="font-weight-bold">
+                  Tipo Identificación
+                </label>
                 <select
                   type="text"
                   className="form-control"
                   id="inputId"
-                  name="tipoIdentificacion"
                   placeholder="Identificaciones"
-                  onChange={handleChange}
+                  defaultValue={"predeterminado"}
+                  onChange={(e) => setIdType(e.target.value)}
                 >
+                  <option value="predeterminado" default>
+                    Seleccione una opción
+                  </option>
                   <option value="Cedula de ciudadanía">
                     Cedula de ciudadanía
                   </option>
@@ -99,100 +131,113 @@ export default function RegisterProvider() {
                 </select>
               </div>
               <div className="form-group col-md-6">
-                <label htmlFor="inputIdNumber">Número de Identificación</label>
+                <label htmlFor="inputIdNumber" className="font-weight-bold">
+                  Número de Identificación
+                </label>
                 <input
                   type="number"
                   className="form-control"
                   id="inputIdNumber"
-                  name="numIdentificacion"
                   placeholder="Identificación"
-                  onChange={handleChange}
+                  onChange={(e) => setIdNumber(e.target.value)}
                 />
               </div>
             </div>
             <div className="form-row">
               <div className="form-group col-md-8">
-                <label htmlFor="inputEmail">Correo Electrónico</label>
+                <label htmlFor="inputEmail" className="font-weight-bold">
+                  Correo Electrónico
+                </label>
                 <input
                   type="email"
                   className="form-control"
                   id="inputLastName"
-                  name="correoElectronico"
                   placeholder="Correo Electrónico"
-                  onChange={handleChange}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="form-group col-md-4">
-                <label htmlFor="inputPhone">Teléfono</label>
+                <label htmlFor="inputPhone" className="font-weight-bold">
+                  Teléfono
+                </label>
                 <input
                   type="text"
                   className="form-control"
                   id="inputPhone"
-                  name="telefono"
                   placeholder="Teléfono"
-                  onChange={handleChange}
+                  onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
             </div>
             <div className="form-row">
               <div className="form-group col-md-6">
-                <label htmlFor="inputBirthDate">Fecha de Nacimiento</label>
+                <label htmlFor="inputBirthDate" className="font-weight-bold">
+                  Fecha de Nacimiento
+                </label>
                 <input
                   type="date"
                   className="form-control"
                   id="inputBirthDate"
-                  name="fechaNacimiento"
                   placeholder="Fecha de Nacimiento"
-                  onChange={handleChange}
+                  onChange={(e) => setBirthDate(e.target.value)}
                 />
               </div>
               <div className="form-group col-md-6">
-                <label htmlFor="inputAdress">Dirección</label>
+                <label htmlFor="inputAdress" className="font-weight-bold">
+                  Dirección
+                </label>
                 <input
                   type="text"
                   className="form-control"
                   id="inputAdress"
-                  name="direccion"
                   placeholder="Dirección"
-                  onChange={handleChange}
+                  onChange={(e) => setAdress(e.target.value)}
                 />
               </div>
             </div>
             <div className="form-row">
               <div className="form-group col-md-6">
-                <label htmlFor="inputBussinessName">Razón Social</label>
+                <label
+                  htmlFor="inputBussinessName"
+                  className="font-weight-bold"
+                >
+                  Razón Social
+                </label>
                 <input
                   type="text"
                   className="form-control"
                   id="inputBussinessName"
-                  name="razonSocial"
                   placeholder="Razón Social"
-                  onChange={handleChange}
+                  onChange={(e) => setBusinesName(e.target.value)}
                 />
               </div>
               <div className="form-group col-md-6">
-                <label htmlFor="inputNIT">NIT</label>
+                <label htmlFor="inputNIT" className="font-weight-bold">
+                  NIT
+                </label>
                 <input
                   type="number"
                   className="form-control"
                   id="inputNIT"
-                  name="nit"
                   placeholder="Sin dígito de verificación"
-                  onChange={handleChange}
+                  onChange={(e) => setNit(e.target.value)}
                 />
               </div>
             </div>
             <div className="form-row">
               <div className="form-group col-md-6">
-                <label htmlFor="inputId">Tipo de Comercio</label>
+                <label htmlFor="inputId" className="font-weight-bold">
+                  Tipo de Comercio
+                </label>
                 <select
                   type="text"
                   className="form-control"
                   id="inputId"
-                  name="tipoComercio"
                   placeholder="Nombres"
-                  onChange={handleChange}
+                  defaultValue={"predeterminado"}
+                  onChange={(e) => setComerceType(e.target.value)}
                 >
+                  <option value="predeterminado">Seleccione una opción</option>
                   <option value="Restaurante">Restaurante</option>
                   <option value="Supermercado">Supermercado</option>
                   <option value="Licores">Licores</option>
@@ -203,27 +248,31 @@ export default function RegisterProvider() {
                 </select>
               </div>
               <div className="form-group col-md-6">
-                <label htmlFor="inputWeb">Página Web</label>
+                <label htmlFor="inputWeb" className="font-weight-bold">
+                  Página Web
+                </label>
                 <input
                   type="text"
                   className="form-control"
                   id="inputWeb"
                   name="paginaWeb"
                   placeholder="Página web"
-                  onChange={handleChange}
+                  onChange={(e) => setWebPage(e.target.value)}
                 />
               </div>
             </div>
             <div className="form-row">
               <div className="form-group col-md-12">
-                <label htmlFor="inputPassword">Password</label>
+                <label htmlFor="inputPassword" className="font-weight-bold">
+                  Password
+                </label>
                 <input
                   type="password"
                   className="form-control"
                   id="inputPassword"
                   name="password"
                   placeholder="Contraseña"
-                  onChange={handleChange}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
             </div>

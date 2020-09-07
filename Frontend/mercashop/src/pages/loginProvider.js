@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import logo from "./../assets/images/Merca Shop letters.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faKey } from "@fortawesome/free-solid-svg-icons";
-import { signIn } from "../store/actions/customerAction";
+import { signIn } from "../store/actions/providerAction";
 import Swal from "sweetalert2";
 
-function Login(props) {
+function LoginProvider(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const customerSignIn = useSelector((state) => state.customerSignIn);
-  const { loading, customerInfo, error } = customerSignIn;
+  const providerSignIn = useSelector((state) => state.providerSignIn);
+  const { loading, providerInfo, error } = providerSignIn;
   const dispatch = useDispatch();
 
   const redirect = props.location.search
@@ -19,13 +19,13 @@ function Login(props) {
     : "/";
 
   useEffect(() => {
-    if (customerInfo) {
+    if (providerInfo) {
       props.history.push(redirect);
     }
     return () => {
       //
-    };
-  }, [customerInfo]);
+    }
+  }, [providerInfo]);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -91,11 +91,6 @@ function Login(props) {
                 required
               ></input>
             </div>
-            <div className="mb-2">
-              <Link to="/login-proveedor" className="">
-                ¿Eres proveedor?
-              </Link>
-            </div>
             <button
               className="btn btn-lg btn-primary btn-block rounded-pill"
               type="submit"
@@ -104,27 +99,14 @@ function Login(props) {
             </button>
             <div className="row">
               <div className="col">
-                <Link to="/registro-cliente" className="text-decoration-none">
-                  <button
-                    className="btn btn-info btn-sm mt-2 btn-block"
-                    style={{ borderRadius: "40px 10px 10px 40px" }}
-                  >
-                    Registrarse Cliente
-                  </button>
-                </Link>
-              </div>
-              <div className="col">
                 <Link to="/registro-proveedor" className="text-decoration-none">
-                  <button
-                    className="btn btn-info btn-sm mt-2 btn-block"
-                    style={{ borderRadius: "10px 40px 40px 10px" }}
-                  >
+                  <button className="btn btn-info mt-2 btn-block rounded-pill">
                     Registrarse Proveedor
                   </button>
                 </Link>
               </div>
             </div>
-            <Link to="/" className="text-decoration-none">
+            <Link to="/login" className="text-decoration-none">
               <button className="btn btn-lg btn-danger btn-block rounded-pill mt-2 text-decoration-none">
                 Regresar
               </button>
@@ -136,4 +118,4 @@ function Login(props) {
   );
 }
 
-export default Login;
+export default LoginProvider;
