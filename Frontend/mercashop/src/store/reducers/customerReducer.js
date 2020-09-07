@@ -1,7 +1,5 @@
 import {
-
   CUSTOMER_SIGNIN_REQUEST,
-
   CUSTOMER_SIGNIN_SUCCESS,
   CUSTOMER_SIGNIN_FAIL,
   CUSTOMER_REGISTER_REQUEST,
@@ -11,7 +9,6 @@ import {
   CUSTOMER_UPDATE_REQUEST,
   CUSTOMER_UPDATE_SUCCESS,
   CUSTOMER_UPDATE_FAIL,
-
 } from "../constants/customerConstants";
 
 function customerSignInReducer(state = {}, action) {
