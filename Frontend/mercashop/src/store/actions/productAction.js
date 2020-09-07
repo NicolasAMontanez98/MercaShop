@@ -17,10 +17,10 @@ import {
 } from "../constants/productConstants";
 import axios from "axios";
 
-const listProducts = () => async (dispatch) => {
+const listProducts = (category = '') => async (dispatch) => {
   try {
     dispatch({type: PRODUCT_LIST_REQUEST});
-    const {data} = await axios.get("/api/product");
+    const {data} = await axios.get("/api/product?category=" + category);
     dispatch({type: PRODUCT_LIST_SUCCESS, payload: data});
   }
   catch(error){

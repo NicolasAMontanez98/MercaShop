@@ -11,7 +11,7 @@ import SideMenu from "./SideMenu";
 import Footer from "./Footer";
 import Header from "./Header";
 
-function Home() {
+function Home(props) {
   return (
     <Router forceRefresh={true}>
       <Header />
