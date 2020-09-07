@@ -8,10 +8,7 @@ function Main(props) {
 
   return (
     <div className="row">
-      <div className="col-md-3 bg-light border-right border-dark">
-        <SideMenu />
-      </div>
-      <div className="col-md-9 vh-100 overflow-auto">
+      <div className="col-md-12 vh-100 overflow-auto">
         <div className="d-flex justify-content-center">
           <div className="mx-auto">
             <div className="row ml-5">
