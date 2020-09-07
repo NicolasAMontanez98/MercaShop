@@ -34,13 +34,6 @@ const cartItems = localStorage.getItem("cartItems") || [];
 const customerInfo = localStorage.getItem("customerInfo") || null;
 const providerInfo = localStorage.getItem("providerInfo") || null;
 
-const initialState = {
-  cart: { cartItems, shipping: {}, payment: {} },
-  customerSignIn: { customerInfo },
-  customerRegister: { customerInfo },
-  providerSignIn: { providerInfo },
-  providerRegister: { providerInfo }
-};
 const rootReducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
@@ -65,7 +58,6 @@ const rootReducer = combineReducers({
 const composeEnhancer = window.__REDUX_DEVTOOL_COMPOSE__ || compose;
 const store = createStore(
   rootReducer,
-  initialState,
   composeEnhancer(applyMiddleware(thunk))
 );
 export default store;

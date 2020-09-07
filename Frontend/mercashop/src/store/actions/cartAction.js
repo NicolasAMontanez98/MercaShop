@@ -29,6 +29,7 @@ import {
 const addToCart = (productId, qty) => async (dispatch, getState) => {
   try {
     const {data} = await axios.get("/api/product/" + productId);
+    console.log(data);
     dispatch({type: CART_ADD_ITEM, payload: {
       product: data._id,
       name: data.name,
@@ -37,8 +38,8 @@ const addToCart = (productId, qty) => async (dispatch, getState) => {
       qty
     }});
 
-    const {cart: {cartItems}} = getState();
-    localStorage.set("cartItems", JSON.stringify(cartItems));
+    // const {cart: {cartItems}} = getState();
+    // localStorage.set("cartItems", JSON.stringify(cartItems));
     // localStorage.set("cartItems", cartItems);
     // Cookies.set("cartItems", JSON.stringify(cartItems));
 

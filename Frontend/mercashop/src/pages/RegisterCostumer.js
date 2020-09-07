@@ -227,12 +227,12 @@ export default function RegisterCostumer(props) {
                   Registrarse
                 </button>
               </div>
-              <div className="col">
+              {/* <div className="col">
                 <Link to="/login" className="text-decoration-none">
                   <button className="btn btn-danger mt-2 btn-lg btn-block rounded-pill">
                     Cancelar
                   </button>
-                </div>
+                </div> */}
                 <div className="col">
                   <Link to="/">
                     <button className="btn btn-info mt-2 btn-lg btn-block rounded-pill">
@@ -241,7 +241,7 @@ export default function RegisterCostumer(props) {
                   </Link>
                 </div>
               </div>
-            </div>
+            {/* </div> */}
           </form>
         </div>
       </div>

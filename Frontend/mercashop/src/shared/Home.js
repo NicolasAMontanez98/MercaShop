@@ -11,7 +11,9 @@ import SideMenu from "./SideMenu";
 import Footer from "./Footer";
 import Header from "./Header";
 
-function Home() {
+function Home(props) {
+  const category = props.match.params.id ? props.match.params.id : '';
+
   return (
     <Router forceRefresh={true}>
       <Header />
@@ -20,9 +22,11 @@ function Home() {
           <SideMenu />
         </div>
         <div className="col-md-9 vh-100 overflow-auto">
-          <Switch>
-            <Route exact path="/" component={Main} />
-          </Switch>
+          <Main category={category}/>
+          {/* <Switch> */}
+            {/* <Route exact path="/" component={Main} /> */}
+            {/* <Route exact path="/category/:id" component={Main} /> */}
+          {/* </Switch> */}
         </div>
       </div>
       <Footer />

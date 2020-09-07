@@ -11,6 +11,7 @@ import Home from "./shared/Home";
 import ProductDetail from "./pages/ProductDetail";
 import Switch from "react-bootstrap/esm/Switch";
 import Cart from './pages/Cart';
+import Main from './pages/Main';
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
           <Route exact path="/registro-cliente" component={RegisterCostumer}/>
           <Route exact path="/registro-proveedor" component={RegisterProvider}/>
           <Route exact path="/product/:id" component={ProductDetail} />
-          {/* <Route exact path="/cart/:id?" component={Cart} /> */}
+          <Route exact path="/cart/:id?" component={Cart} />
           <Route exact path="/category/:id" component={Home} />
         </Switch>
       </Router>

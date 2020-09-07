@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from 'react-redux';
 import { detailsProduct } from '../store/actions/productAction';
+import { addToCart } from '../store/actions/cartAction';
 
 function ProductDetail(props) {
   const [qty, setQty] = useState(1);
@@ -19,6 +20,7 @@ function ProductDetail(props) {
   }, []);
 
   const handleAddToCart = () => {
+    dispatch(addToCart(props.match.params.id, qty));
     props.history.push("/cart/" + props.match.params.id + "?qty=" + qty)
   }
 
