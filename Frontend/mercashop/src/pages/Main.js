@@ -4,21 +4,19 @@ import ShowProducts from "./../components/ShowProducts";
 import SideMenu from '../shared/SideMenu';
 
 function Main(props) {
-  const category = props.match.params.id ? props.match.params.id : '';
-
   return (
     <div className="row">
       <div className="col-md-12 vh-100 overflow-auto">
         <div className="d-flex justify-content-center">
-          <div className="mx-auto">
-            <div className="row ml-5">
-              <div className="col-md-12 mb-4">
+          <div className="mx-auto container">
+            <div className="row">
+              <div className="col-md-12 mb-4 d-flex justify-content-center">
                 <PromotionCarousel />
               </div>
             </div>
             <div className="row ml-5">
               <div className="col-md-12">
-                <ShowProducts category={category} />
+                <ShowProducts category={props.category} />
               </div>
             </div>
           </div>

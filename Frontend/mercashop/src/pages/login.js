@@ -27,6 +27,11 @@ function Login(props) {
     };
   }, [customerInfo]);
 
+  const handleBack = (e) => {
+    e.preventDefault();
+    props.history.push('/');
+  }
+
   const handleRegister = (e) => {
     e.preventDefault();
     dispatch(signIn(email, password));
@@ -36,7 +41,8 @@ function Login(props) {
       confirmButtonColor: '#28B463',
       confirmButtonText: "Genial!!! volver a inicio.",
     }).then((result) => {
-      window.location.reload(false);
+      // window.location.reload(false);
+      props.history.push(redirect);
     });
   };
 
@@ -124,11 +130,11 @@ function Login(props) {
                 </Link>
               </div>
             </div>
-            <Link to="/" className="text-decoration-none">
-              <button className="btn btn-lg btn-danger btn-block rounded-pill mt-2 text-decoration-none">
+            {/* <Link to="/" className="text-decoration-none"> */}
+              <button className="btn btn-lg btn-danger btn-block rounded-pill mt-2 text-decoration-none" onClick={handleBack}>
                 Regresar
               </button>
-            </Link>
+            {/* </Link> */}
           </form>
         </div>
       </div>

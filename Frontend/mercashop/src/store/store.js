@@ -25,10 +25,10 @@ import {
   orderPayReducer,
   orderDeleteReducer,
 } from "./reducers/orderReducer";
-import { cartReducer } from "./reducers/cartReducer";
+import { cartReducer } from './reducers/cartReducer';
 
-const cartItems = localStorage.getItem("cartItems") || [];
-// const cartItems = Cookies.getJSON('cartItems') || [];
+
+const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 const customerInfo = localStorage.getItem("customerInfo") || null;
 const providerInfo = localStorage.getItem("providerInfo") || null;
 
@@ -39,6 +39,7 @@ const initialState = {
   providerSignIn: { providerInfo },
   providerRegister: { providerInfo }
 };
+
 const rootReducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,

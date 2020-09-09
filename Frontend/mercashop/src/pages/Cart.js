@@ -1,90 +1,132 @@
-import React, { useEffect } from 'react';
-import { addToCart, removeFromCart } from '../store/actions/cartAction';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { addToCart, removeFromCart } from "../store/actions/cartAction";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowCircleLeft } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-function Cart (props) {
-
-  const cart = useSelector(state => state.cart);
-
-  const {cartItems} = cart;
-  // console.log(cartItems);
+function Cart(props) {
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
   const productId = props.match.params.id;
-  const qty = props.location.search ? Number(props.location.search.split("=")[1]) : 1;
+  const qty = props.location.search
+    ? Number(props.location.search.split("=")[1])
+    : 1;
   const dispatch = useDispatch();
   const removeFromCartHandler = (productId) => {
     dispatch(removeFromCart(productId));
-  }
-
-  useEffect(() => {
-    if(productId) {
-      dispatch(addToCart(productId, qty));
-    }
-  }, []);
-
+  };
+  
   const checkoutHandler = () => {
-    props.history.push("/signin?redirect=shipping");
-  }
-  // console.log(props.location.search);
-  return ( // cartItems.map(item => <h3>item.price</h3>)
-  // return (<h3>hola</h3>
-    <div className="cart">
-      <div className="cart-list">
-        <ul className="cart-list-container">
-          <li>
-            <h3>Carro de Compras</h3>
-            <div>Precio</div>
-          </li>
-          {
-            cartItems.length === 0 ?
-            <div>El carro está vacío</div> :
-            cartItems.map(item => 
-              <li>
-                <div className="cart-image">
-                  <img src={item.image} alt="product" />
-                </div>
-                <div className="cart-name">
-                  <div>
-                    <Link to={"/product/" + item.product}>
-                      {item.name}
-                    </Link>
+    // props.history.push("/signin?redirect=shipping");
+    props.history.push("/");
+  };
+  // console.log(cart);
+  // return ( cartItems.map(item => <h3>item.price</h3>))
+  return (
+    // <h3>{cartItems}</h3>)
+    <div className="justify-content-center">
+      <div className="card mx-5 my-5">
+        <div className="card-header bg-white">
+          <div className="Row">
+            <div className="col-md-3">
+              <Link to="/">
+                <FontAwesomeIcon icon={faArrowCircleLeft} className="fa-3x" />
+              </Link>
+            </div>
+          </div>
+        </div>
+        <div className="card-body">
+          <div className="card-title border rounded bg-primary">
+            <h2 className="ml-2 text-light">Carro de Compras</h2>
+          </div>
+          {cartItems.length === 0 ? (
+            <h5>El carro está vacío</h5>
+          ) : (
+            cartItems.map((item) => (
+              <div className="card mb-2 d-flex justify-content-center">
+                <div className="row no-gutters">
+                  <div className="col-md-2 border-right d-flex justify-content-center">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      width="140"
+                      height="140"
+                    />
                   </div>
-                  <div>
-                    Cantidad: 
-                    <select value={item.qty} onChange={(e) => dispatch(addToCart(item.product, e.target.value))}>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                    </select>
-                    <button type="button" className="button" onClick={() => removeFromCartHandler(item.product)}>
-                      Eliminar
-                    </button>
+                  <div className="col-md-10">
+                    <div className="cart-header border-bottom d-flex justify-content-center">
+                      <h5 className="card-title">
+                        <Link
+                          to={"/product/" + item.product}
+                          className="text-decoration-none"
+                        >
+                          <h4 className="card-title mt-2">{item.name}</h4>
+                        </Link>
+                      </h5>
+                    </div>
+                    <div className="card-body">
+                      <div className="row">
+                        <div className="col-md-2 d-flex flex-row-reverse">
+                          <h5 className="card-text">Cantidad:</h5>
+                        </div>
+                        <div className="col-md-2">
+                          <select
+                            className="custom-select"
+                            value={item.qty}
+                            onChange={(e) =>
+                              dispatch(addToCart(item.product, e.target.value))
+                            }
+                          >
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                          </select>
+                        </div>
+                        <div className="col-md-5 d-flex flex-row-reverse">
+                          <h3>$ {item.price}</h3>
+                        </div>
+                        <div className="col-md-3 d-flex flex-row-reverse">
+                          <button
+                            type="button"
+                            className="btn btn-danger btn-block"
+                            onClick={() => removeFromCartHandler(item.product)}
+                          >
+                            <FontAwesomeIcon icon={faTrash} className="mr-3" />
+                            Eliminar
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className="cart-price">$ {item.price}</div>
-              </li>
-            )
-
-          }
-        </ul>
-      </div>
-      <div className="cart-action">
-        <h3>
-          Subtotal ({cartItems.reduce((a, c) => a + c.qty, 0)} artículos)
-          :
-          $ {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
-        </h3>
-        <button 
-          onClick={checkoutHandler} 
-          className="btn btn-outline-primary btn-sm rounded-pill full-width" 
-          // disable={cartItems.length === 0}
-          disable={cartItems.length === 0}
-        >
-          Seguir con la compra
-        </button>
+              </div>
+            ))
+          )}
+        </div>
+        <div className="card-footer bg-white">
+          <div className="row">
+            <div className="col-md-9">
+              <h3>
+                Subtotal ({cartItems.reduce((a, c) => (parseInt(a) + parseInt(c.qty)), 0)} artículos)
+                : $ {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
+              </h3>
+            </div>
+            <div className="col-md-3">
+              <button
+                onClick={checkoutHandler}
+                className="btn btn-primary btn-block rounded-pill full-width"
+                disable={cartItems.length === 0}
+              >
+                Pagar
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Cart;
