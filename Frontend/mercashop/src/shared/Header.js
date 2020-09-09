@@ -1,11 +1,11 @@
-import React, { useState, useEffect} from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux"; // No ha sido utilizado/
 import logo from "./../assets/images/Merca Shop letters inline.png";
 import logoWhite from "../assets/images/Merca Shop letters inline white.png";
 import { Link } from "react-router-dom";
 import { SearchIcon } from "@primer/octicons-react";
 import Carrito from "../components/Carrito";
-import { Pedidos, Login, Location } from "../shared/Buttons";
+import { Pedidos, Location } from "../shared/Buttons";
 import IconButton from "@material-ui/core/IconButton";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { makeStyles } from "@material-ui/core/styles";
@@ -20,12 +20,9 @@ export default function Header(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const customerSignIn = useSelector((state) => state.customerSignIn);
   const { customerInfo } = customerSignIn;
+  const providerSignIn = useSelector((state) => state.providerSignIn);
+  const { providerInfo } = providerSignIn;
   const dispatch = useDispatch();
-  let currentUrl = "";
-
-  useEffect(() => {
-    currentUrl = window.location.pathname;
-  }, [])
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,32 +31,21 @@ export default function Header(props) {
       },
     },
   }));
+  
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleLogOut = (e) => {
+    e.preventDefault();
+    dispatch(logout());
   };
 
   const classes = useStyles();
 
   const { names } = customerInfo ? JSON.parse(customerInfo) : "";
-
-  const handleLoginCust = (e) => {
-    e.preventDefault();
-    // props.history.push("/login");
-  };
-
-  const handleLoginProv = (e) => {
-    e.preventDefault();
-    props.history.push("/login-proveeder");
-  };
-
-  const handleLogOut = (e) => {
-    e.preventDefault();
-    dispatch(logout());
-  };
 
   return (
     <div className="App">
@@ -143,7 +129,7 @@ export default function Header(props) {
                   >
                     <AccountCircleIcon fontSize="large" />
                   </IconButton>
-                  {customerInfo ? (
+                  {customerInfo || providerInfo  ? (
                     <Menu
                       id="simple-menu"
                       anchorEl={anchorEl}
@@ -167,13 +153,13 @@ export default function Header(props) {
                       onClose={handleClose}
                     >
                       <MenuItem>
-                        <Link to="/login">
+                        <Link to="/login" className="text-decoration-none">
                           <AccountCircle className="mr-2" />
                           Cliente
                         </Link>
                       </MenuItem>
                       <MenuItem>
-                        <Link to="/login-proveedor">
+                        <Link to="/login-proveedor" className="text-decoration-none">
                           <AccountBox className="mr-2" />
                           Proveedor
                         </Link>

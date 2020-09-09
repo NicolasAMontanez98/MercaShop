@@ -11,7 +11,7 @@ function LoginProvider(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const providerSignIn = useSelector((state) => state.providerSignIn);
-  const { loading, providerInfo, error } = providerSignIn;
+  const { providerInfo } = providerSignIn;
   const dispatch = useDispatch();
 
   const redirect = props.location.search

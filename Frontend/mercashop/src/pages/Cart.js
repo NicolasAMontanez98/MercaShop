@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { addToCart, removeFromCart } from "../store/actions/cartAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -19,13 +19,9 @@ function Cart(props) {
   };
   
   const checkoutHandler = () => {
-    // props.history.push("/signin?redirect=shipping");
     props.history.push("/");
   };
-  // console.log(cart);
-  // return ( cartItems.map(item => <h3>item.price</h3>))
   return (
-    // <h3>{cartItems}</h3>)
     <div className="justify-content-center">
       <div className="card mx-5 my-5">
         <div className="card-header bg-white">

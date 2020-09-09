@@ -17,7 +17,7 @@ export default function RegisterCostumer(props) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const customerRegister = useSelector((state) => state.customerRegister);
-  const { loading, customerInfo, error } = customerRegister;
+  const { customerInfo } = customerRegister;
   const dispatch = useDispatch();
 
   const redirect = props.location.search
@@ -28,9 +28,7 @@ export default function RegisterCostumer(props) {
     if (customerInfo) {
       props.history.push(redirect);
     }
-    return () => {
-      //
-    };
+    return () => {};
   }, [customerInfo]);
 
   const handleRegister = (e) => {
@@ -227,12 +225,6 @@ export default function RegisterCostumer(props) {
                   Registrarse
                 </button>
               </div>
-              {/* <div className="col">
-                <Link to="/login" className="text-decoration-none">
-                  <button className="btn btn-danger mt-2 btn-lg btn-block rounded-pill">
-                    Cancelar
-                  </button>
-                </div> */}
                 <div className="col">
                   <Link to="/" className="text-decoration-none">
                     <button className="btn btn-danger mt-2 btn-lg btn-block rounded-pill">
@@ -241,7 +233,6 @@ export default function RegisterCostumer(props) {
                   </Link>
                 </div>
               </div>
-            {/* </div> */}
           </form>
         </div>
       </div>

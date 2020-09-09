@@ -7,8 +7,6 @@ import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import LibraryBooks from "@material-ui/icons/LibraryBooks";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,7 +47,7 @@ export function Pedidos() {
         data-toggle="tooltip"
         data-placement="bottom"
         title="Pedidos"
-        color="action"
+        // color="action"
         style={{ color: "#31A434" }}
       >
         <LibraryBooks fontSize="large" />
@@ -60,15 +58,15 @@ export function Pedidos() {
 
 export function Login(props) {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  // const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  // const handleClick = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  // const handleClose = () => {
+  //   setAnchorEl(null);
+  // };
   return (
     <div className={classes.root}>
       <IconButton
@@ -78,7 +76,6 @@ export function Login(props) {
         title="Login"
         style={{ color: "#2980b9" }}
         id="login"
-        onClick={handleClick}
       >
         <AccountCircleIcon fontSize="large" />
       </IconButton>

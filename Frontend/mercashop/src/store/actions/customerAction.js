@@ -12,21 +12,50 @@ import {
   CUSTOMER_UPDATE_FAIL,
 } from "../constants/customerConstants";
 
-const update = ({ userId, names, email, password }) => async (
-  dispatch,
-  getState
-) => {
+const update = ({
+  userId,
+  names,
+  lastNames,
+  idType,
+  idNumber,
+  email,
+  phone,
+  birthDate,
+  adress,
+  userName,
+}) => async (dispatch, getState) => {
   const {
     customerSignIn: { customerInfo },
   } = getState();
   dispatch({
     type: CUSTOMER_UPDATE_REQUEST,
-    payload: { userId, names, email, password },
+    payload: {
+      userId,
+      names,
+      lastNames,
+      idType,
+      idNumber,
+      email,
+      phone,
+      birthDate,
+      adress,
+      userName,
+    },
   });
   try {
     const { data } = await axios.put(
-      "/api/customer/" + userId,
-      { names, email, password },
+      "http://localhost:8000/api/customer/" + userId,
+      {
+        names,
+        lastNames,
+        idType,
+        idNumber,
+        email,
+        phone,
+        birthDate,
+        adress,
+        userName,
+      },
       {
         headers: { Authorization: "Bearer " + customerInfo.token },
       }
@@ -40,10 +69,13 @@ const update = ({ userId, names, email, password }) => async (
 const signIn = (email, password) => async (dispatch) => {
   dispatch({ type: CUSTOMER_SIGNIN_REQUEST, payload: { email, password } });
   try {
-    const { data } = await axios.post("http://localhost:8000/api/customer/ingreso", {
-      email,
-      password,
-    });
+    const { data } = await axios.post(
+      "http://localhost:8000/api/customer/ingreso",
+      {
+        email,
+        password,
+      }
+    );
     dispatch({ type: CUSTOMER_SIGNIN_SUCCESS, payload: data });
     localStorage.setItem("customerInfo", JSON.stringify(data));
   } catch (error) {
@@ -79,18 +111,21 @@ const register = (
     },
   });
   try {
-    const { data } = await axios.post("http://localhost:8000/api/customer/registro", {
-      names,
-      lastNames,
-      idType,
-      idNumber,
-      email,
-      phone,
-      birthDate,
-      adress,
-      userName,
-      password,
-    });
+    const { data } = await axios.post(
+      "http://localhost:8000/api/customer/registro",
+      {
+        names,
+        lastNames,
+        idType,
+        idNumber,
+        email,
+        phone,
+        birthDate,
+        adress,
+        userName,
+        password,
+      }
+    );
     dispatch({ type: CUSTOMER_REGISTER_SUCCESS, payload: data });
     localStorage.setItem("customerInfo", JSON.stringify(data));
   } catch (error) {
