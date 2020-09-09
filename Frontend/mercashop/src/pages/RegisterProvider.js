@@ -224,13 +224,13 @@ export default function RegisterProvider(props) {
             </div>
             <div className="form-row">
               <div className="form-group col-md-6">
-                <label htmlFor="inputId" className="font-weight-bold">
+                <label htmlFor="inputCommerceType" className="font-weight-bold">
                   Tipo de Comercio
                 </label>
                 <select
                   type="text"
                   className="form-control"
-                  id="inputId"
+                  id="inputCommerceType"
                   placeholder="Nombres"
                   defaultValue={"predeterminado"}
                   onChange={(e) => setComerceType(e.target.value)}

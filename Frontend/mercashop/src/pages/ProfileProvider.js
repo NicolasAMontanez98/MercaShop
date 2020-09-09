@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { update } from "../store/actions/customerAction";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowCircleLeft,
@@ -9,7 +8,7 @@ import {
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-export default function Profile(props) {
+export default function ProfileProvider(props) {
   const customerRegister = useSelector((state) => state.customerRegister);
   const { customerInfo } = customerRegister;
   const dispatch = useDispatch();
@@ -21,13 +20,15 @@ export default function Profile(props) {
   const [phone, setPhone] = useState(0);
   const [birthDate, setBirthDate] = useState("");
   const [adress, setAdress] = useState("");
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  const [customer, setCustomer] = useState({});
+  const [businessName, setBusinesName] = useState("");
+  const [nit, setNit] = useState(0);
+  const [commerceType, setCommerceType] = useState("");
+  const [webPage, setWebPage] = useState("");
+  const [provider, setProvider] = useState({});
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/customer/" + props.match.params.id)
+      .get('http://localhost:8000/api/provider/'+props.match.params.id)
       .then(({ data }) => {
         setNames(data.names);
         setLastNames(data.lastNames);
@@ -37,28 +38,13 @@ export default function Profile(props) {
         setPhone(data.phone);
         setBirthDate(data.birthDate);
         setAdress(data.adress);
-        setUserName(data.userName);
+        setBusinesName(data.businessName);
+        setNit(data.nit);
+        setCommerceType(data.commerceType);
+        setWebPage(data.webPage);
       })
       .catch((err) => console.log(err));
   });
-
-  const handleUpdate = (e) => {
-    e.preventDefault();
-    dispatch(
-      update(
-        userId,
-        names,
-        lastNames,
-        idType,
-        idNumber,
-        email,
-        phone,
-        birthDate,
-        adress,
-        userName
-      )
-    );
-  };
 
   return (
     <div className="container">
@@ -86,7 +72,7 @@ export default function Profile(props) {
               <div className="row">
                 <div className="col-md-1">
                   <button
-                    class="btn btn-info"
+                    className="btn btn-info"
                     type="button"
                     data-toggle="collapse"
                     data-target="#collapseOne"
@@ -124,9 +110,10 @@ export default function Profile(props) {
                     className="form-control"
                     id="inputEmail"
                     value={names}
+                    onChange={(e) => setNames(e.target.value)}
                   />
                 </div>
-                <div class="form-group col-md-6">
+                <div className="form-group col-md-6">
                   <label htmlFor="inputLastName" className="font-weight-bolder">
                     Apellidos
                   </label>
@@ -135,21 +122,20 @@ export default function Profile(props) {
                     className="form-control"
                     id="inputLastName"
                     value={lastNames}
+                    onChange={(e) => setLastNames(e.target.value)}
                   />
                 </div>
               </div>
               <div className="form-row">
                 <div className="form-group col-md-6">
-                  <label
-                    htmlForfor="inputIdType"
-                    className="font-weight-bolder"
-                  >
+                  <label htmlFor="inputIdType" className="font-weight-bolder">
                     Tipo de Identificación
                   </label>
                   <select
                     id="inputIdType"
-                    class="form-control"
+                    className="form-control"
                     defaultValue={idType}
+                    onChange={(e) => setIdType(e.target.value)}
                   >
                     <option value="predeterminado" disabled>
                       Seleccione una opción
@@ -164,7 +150,7 @@ export default function Profile(props) {
                     <option value="Otro">Otro</option>
                   </select>
                 </div>
-                <div class="form-group col-md-6">
+                <div className="form-group col-md-6">
                   <label htmlFor="inputIdNumber" className="font-weight-bolder">
                     Número de Identificación
                   </label>
@@ -173,24 +159,26 @@ export default function Profile(props) {
                     className="form-control"
                     id="inputIdNumber"
                     value={idNumber}
+                    onChange={(e) => setIdNumber(e.target.value)}
                   />
                 </div>
               </div>
               <div className="form-group">
-                <label for="inputEmail" className="font-weight-bolder">
+                <label htmlFor="inputEmail" className="font-weight-bolder">
                   Correo Electrónico
                 </label>
                 <input
                   type="email"
-                  class="form-control"
+                  className="form-control"
                   id="inputEmail"
-                  value={email}
                   placeholder="mail@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="form-row">
                 <div className="form-group col-md-4">
-                  <label htmlForfor="inputPhone" className="font-weight-bolder">
+                  <label htmlFor="inputPhone" className="font-weight-bolder">
                     Número telefónico
                   </label>
                   <input
@@ -198,6 +186,7 @@ export default function Profile(props) {
                     className="form-control"
                     id="inputPhone"
                     value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
                   />
                 </div>
                 <div className="form-group col-md-4">
@@ -213,6 +202,7 @@ export default function Profile(props) {
                     id="inputBirthDate"
                     placeholder="Fecha de Nacimiento"
                     value={birthDate}
+                    onChange={(e) => setBirthDate(e.target.value)}
                   />
                 </div>
                 <div className="form-group col-md-4">
@@ -224,22 +214,69 @@ export default function Profile(props) {
                     className="form-control"
                     id="inputAdress"
                     value={adress}
+                    onChange={(e) => setAdress(e.target.value)}
                   />
                 </div>
               </div>
-              <div class="form-group">
-                <label for="inputUserName" className="font-weight-bolder">
-                  Nombre de Usuario
-                </label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="inputUserName"
-                  placeholder="UserName"
-                  value={userName}
-                />
+              <div className="form-row">
+                <div className="form-group col-md-4">
+                  <label
+                    htmlFor="inputBussinesName"
+                    className="font-weight-bolder"
+                  >
+                    Razón Social
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="inputBussinesName"
+                    value={businessName}
+                    onChange={(e) => setBusinesName(e.target.value)}
+                  />
+                </div>
+                <div className="form-group col-md-4">
+                  <label htmlFor="inputNit" className="font-weight-bolder">
+                    NIT
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="inputNit"
+                    value={nit}
+                    placeholder="Sin dígito de verificación"
+                    onChange={(e) => setNit(e.target.value)}
+                  />
+                </div>
+                <div className="form-group col-md-4">
+                  <label
+                    htmlFor="inputCommerceType"
+                    className="font-weight-bolder"
+                  >
+                    Tipo de Comercio
+                  </label>
+                  <select
+                    type="text"
+                    className="form-control"
+                    id="inputCommerceType"
+                    placeholder="Nombres"
+                    defaultValue={commerceType}
+                    onChange={(e) => setCommerceType(e.target.value)}
+                  >
+                    <option value="predeterminado" disabled>
+                      Seleccione una opción
+                    </option>
+                    <option value="Restaurante">Restaurante</option>
+                    <option value="Supermercado">Supermercado</option>
+                    <option value="Licores">Licores</option>
+                    <option value="Tiendas de conveniencia">
+                      Tiendas de conveniencia
+                    </option>
+                    <option value="Mascotas">Mascotas</option>
+                  </select>
+                </div>
               </div>
-              <button type="submit" class="btn btn-info">
+
+              <button type="submit" className="btn btn-info">
                 Actualizar
               </button>
             </form>
@@ -253,7 +290,7 @@ export default function Profile(props) {
               <div className="row">
                 <div className="col-md-1">
                   <button
-                    class="btn btn-success"
+                    className="btn btn-success"
                     type="button"
                     data-toggle="collapse"
                     data-target="#collapseTwo"
@@ -297,9 +334,9 @@ export default function Profile(props) {
                       />
                     </div>
                     <div className="col-md-10">
-                      <h7 className="card-title font-weight-bolder">
+                      <h6 className="card-title font-weight-bolder">
                         Nombre del producto
-                      </h7>
+                      </h6>
                       <p className="card-description">Cantidad: 2</p>
                       <p className="card-description font-weight-bold">
                         Precio: $10.980
@@ -314,6 +351,68 @@ export default function Profile(props) {
                   Metodo de pago: Tarjeta de credito
                 </h6>
                 <h5 className="card-title">Precio Total: $21.860</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="card mx-2 my-1 border border-warning">
+        <div className="accordion" id="accordionProduct">
+          <div className="card">
+            <div className="card-header bg-warning" id="orders">
+              <div className="row">
+                <div className="col-md-1">
+                  <button
+                    className="btn btn-warning"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#collapseThree"
+                    aria-expanded="false"
+                    aria-controls="collapseThree"
+                  >
+                    <FontAwesomeIcon
+                      icon={faCaretSquareDown}
+                      className="fa-2x"
+                    />
+                  </button>
+                </div>
+                <div className="col-md-11">
+                  <h3 className="mt-1 text-dark">Productos</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          id="collapseThree"
+          className="collapse"
+          aria-labelledby="orders"
+          data-parent="#accordionProduct"
+        >
+          <div className="card-body border-bottom">
+            <div className="card">
+              <div className="card-body">
+                <div className="card mx-1 my-1">
+                  <div className="row no-gutters">
+                    <div className="col-md-2 d-flex justify-content-center">
+                      <img
+                        src="https://d50xhnwqnrbqk.cloudfront.net/images/products/app/huevo-rojo-aa-x-30-unidades.png"
+                        alt="algun producto"
+                        width="100"
+                        height="100"
+                      />
+                    </div>
+                    <div className="col-md-10">
+                      <h6 className="card-title font-weight-bolder">
+                        Nombre del producto
+                      </h6>
+                      <p className="card-description">Cantidad: 2</p>
+                      <p className="card-description font-weight-bold">
+                        Precio: $10.980
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

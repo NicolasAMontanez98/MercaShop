@@ -23,6 +23,11 @@ export default function Header(props) {
   const providerSignIn = useSelector((state) => state.providerSignIn);
   const { providerInfo } = providerSignIn;
   const dispatch = useDispatch();
+  const [ currentPath, setCurrentPath ] = useState('');
+
+  useEffect(() => {
+    setCurrentPath(window.location.pathname);
+  }, [currentPath]);
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -49,10 +54,10 @@ export default function Header(props) {
 
   return (
     <div className="App">
-      {window.location.pathname === "/login" ||
-      window.location.pathname === "/login-proveedor" ||
-      window.location.pathname === "/registro-cliente" ||
-      window.location.pathname === "/registro-proveedor" ? (
+      {currentPath === "/login" ||
+      currentPath === "/login-proveedor" ||
+      currentPath === "/registro-cliente" ||
+      currentPath === "/registro-proveedor" ? (
         <nav className="navbar navbar-expand-lg navbar-light bg-dark border-bottom p-1">
           <Link className="navbar-brand ml-4" to="/">
             <img src={logoWhite} alt="logo" width="150" />
