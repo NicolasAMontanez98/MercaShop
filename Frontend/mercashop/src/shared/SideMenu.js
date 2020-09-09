@@ -17,7 +17,7 @@ import panaderia from "./../assets/categories/panadería.png";
 import { Link } from 'react-router-dom';
 
 class SideMenu extends React.Component {
-  render() {
+  render() {  
     return (
       <div className="vh-100 overflow-auto pr-0">
         <ButtonGroup className="btn-block" vertical>

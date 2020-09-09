@@ -8,7 +8,6 @@ function ShowProducts(props) {
   const productList = useSelector((state) => state.productList);
   const category = props.category;
   const { products, loading, error } = productList;
-  console.log(productList);
   const dispatch = useDispatch();
 
   useEffect(() => {

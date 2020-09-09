@@ -20,7 +20,7 @@ import axios from "axios";
 const listProducts = (category = '') => async (dispatch) => {
   try {
     dispatch({type: PRODUCT_LIST_REQUEST});
-    const {data} = await axios.get("/api/product?category=" + category);
+    const {data} = await axios.get("http://localhost:8000/api/product?category=" + category);
     dispatch({type: PRODUCT_LIST_SUCCESS, payload: data});
   }
   catch(error){
@@ -35,7 +35,7 @@ const saveProduct = (product) => async (dispatch, getState) => {
       userSignIn: { userInfo },
     } = getState();
     if (!product._id) {
-      const { data } = await axios.post("/api/products", product, {
+      const { data } = await axios.post("http://localhost:8000/api/products", product, {
         headers: {
           Authorization: "Bearer " + userInfo.token,
         },
@@ -61,7 +61,7 @@ const saveProduct = (product) => async (dispatch, getState) => {
 const detailsProduct = (productId) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST, payload: productId });
-    const { data } = await axios.get("/api/product/" + productId);
+    const { data } = await axios.get("http://localhost:8000/api/product/" + productId);
     dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: PRODUCT_DETAILS_FAIL, payload: error.message });
@@ -74,7 +74,7 @@ const deleteProduct = (productId) => async (dispatch, getState) => {
       userSignIn: { userInfo },
     } = getState();
     dispatch({ type: PRODUCT_DELETE_REQUEST, payload: productId });
-    const { data } = await axios.delete("/api/products/" + productId, {
+    const { data } = await axios.delete("http://localhost:8000/api/products/" + productId, {
       headers: {
         Authorization: "Bearer " + userInfo.token,
       },
@@ -94,7 +94,7 @@ const saveProductReview = (productId, review) => async (dispatch, getState) => {
     } = getState();
     dispatch({ type: PRODUCT_REVIEW_SAVE_REQUEST, payload: review });
     const { data } = await axios.post(
-      `/api/products/${productId}/reviews`,
+      `http://localhost:8000/api/products/${productId}/reviews`,
       review,
       {
         headers: { Authorization: "Bearer " + token },
