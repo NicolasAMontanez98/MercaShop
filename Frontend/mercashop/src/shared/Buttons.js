@@ -47,7 +47,6 @@ export function Pedidos() {
         data-toggle="tooltip"
         data-placement="bottom"
         title="Pedidos"
-        // color="action"
         style={{ color: "#31A434" }}
       >
         <LibraryBooks fontSize="large" />
@@ -58,15 +57,6 @@ export function Pedidos() {
 
 export function Login(props) {
   const classes = useStyles();
-  // const [anchorEl, setAnchorEl] = React.useState(null);
-
-  // const handleClick = (event) => {
-  //   setAnchorEl(event.currentTarget);
-  // };
-
-  // const handleClose = () => {
-  //   setAnchorEl(null);
-  // };
   return (
     <div className={classes.root}>
       <IconButton

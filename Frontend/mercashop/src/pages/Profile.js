@@ -23,10 +23,6 @@ export default function Profile(props) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [customer, setCustomer] = useState({});
-
-    // useEffect(() => {
-
-    // }, [])
   
   return (
     <div className="container">

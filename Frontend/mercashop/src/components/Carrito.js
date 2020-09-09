@@ -54,7 +54,6 @@ export default function Carrito(props) {
       <Link to="/cart">
         <IconButton
           type="button"
-          // onClick={handleOpen}
           aria-label="cart"
           data-toggle="tooltip"
           data-placement="bottom"

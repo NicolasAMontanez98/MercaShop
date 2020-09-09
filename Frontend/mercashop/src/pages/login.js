@@ -22,9 +22,7 @@ function Login(props) {
     if (customerInfo) {
       props.history.push(redirect);
     }
-    return () => {
-      //
-    };
+    return () => {};
   }, [customerInfo]);
 
   const handleBack = (e) => {
@@ -41,7 +39,6 @@ function Login(props) {
       confirmButtonColor: '#28B463',
       confirmButtonText: "Genial!!! volver a inicio.",
     }).then((result) => {
-      // window.location.reload(false);
       props.history.push(redirect);
     });
   };
@@ -130,11 +127,9 @@ function Login(props) {
                 </Link>
               </div>
             </div>
-            {/* <Link to="/" className="text-decoration-none"> */}
               <button className="btn btn-lg btn-danger btn-block rounded-pill mt-2 text-decoration-none" onClick={handleBack}>
                 Regresar
               </button>
-            {/* </Link> */}
           </form>
         </div>
       </div>

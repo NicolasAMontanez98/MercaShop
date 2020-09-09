@@ -13,9 +13,7 @@ function ShowProducts(props) {
   useEffect(() => {
     dispatch(listProducts(category));
 
-    return () => {
-      //
-    };
+    return () => {};
 
   }, [category]);
 
@@ -37,7 +35,6 @@ function ShowProducts(props) {
       <div className="row d-flex justify-content-center">
         {product()}
       </div>
-
     </div>
   );
 }
