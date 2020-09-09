@@ -70,6 +70,7 @@ customerCtrl.updateCustomer = async (req, res) => {
       customer.adress = adress || customer.adress;
       customer.userName = userName || customer.userName;
       const updateCustomer = await customer.save();
+      const token = jwt.sign({ id: newCostumer._id }, process.env.SECRET)
       res.status(200).json({ 
       _id: updateCustomer._id,
       names: updateCustomer.names,
@@ -81,7 +82,7 @@ customerCtrl.updateCustomer = async (req, res) => {
       birthDate: updateCustomer.birthDate,
       adress: updateCustomer.adress,
       userName: updateCustomer.userName,
-      token = jwt.sign({ id: newCostumer._id }, process.env.SECRET);
+      token
      });
     } else {
       res.status(404).json({ message:'Cliente no encontrado' });
