@@ -1,51 +1,5 @@
 const { Schema, model } = require("mongoose");
 
-const shippingSchema = {
-  address: {
-    type: String,
-    required: true,
-  },
-  city: {
-    type: String,
-    required: true,
-  },
-  country: {
-    type: String,
-    required: true,
-  },
-};
-
-const paymentSchema = {
-  paymentMethod: {
-    type: String,
-    required: true,
-  },
-};
-
-const orderItemSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  quantity: {
-    type: Number,
-    required: true,
-  },
-  image: {
-    type: String,
-    required: true,
-  },
-  price: {
-    type: Number,
-    required: true,
-  },
-  product: {
-    type: Schema.Types.ObjectId,
-    ref: "Product",
-    required: true,
-  },
-});
-
 const orderSchema = new Schema(
   {
     customer: {
@@ -53,9 +7,21 @@ const orderSchema = new Schema(
       ref: "Customer",
       required: true,
     },
-    orderItems: [orderItemSchema],
-    shipping: shippingSchema,
-    payment: paymentSchema,
+    orderItems: {
+      type: Schema.Types.ObjectId,
+      ref: 'OrderItems',
+      required: true,
+    },
+    shipping: {
+      type: Schema.Types.ObjectId,
+      ref: 'Shipping',
+      required: true,
+    },
+    payment: {
+      type: Schema.Types.ObjectId,
+      ref: 'Payment',
+      required: true,
+    },
     itemsPrice: {
       type: Number,
     },
@@ -87,4 +53,4 @@ const orderSchema = new Schema(
 );
 
 const Order = model('Order', orderSchema);
-export default Order;
+module.exports = Order;

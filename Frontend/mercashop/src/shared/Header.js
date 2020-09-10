@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux"; // No ha sido utilizado/
 import logo from "./../assets/images/Merca Shop letters inline.png";
 import logoWhite from "../assets/images/Merca Shop letters inline white.png";

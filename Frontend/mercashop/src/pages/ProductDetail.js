@@ -17,7 +17,6 @@ function ProductDetail(props) {
 
   useEffect(() => {
     dispatch(detailsProduct(props.match.params.id));
-    return () => {};
   }, []);
 
   const handleAddToCart = () => {

@@ -28,7 +28,6 @@ export default function RegisterCostumer(props) {
     if (customerInfo) {
       props.history.push(redirect);
     }
-    return () => {};
   }, [customerInfo]);
 
   const handleRegister = (e) => {

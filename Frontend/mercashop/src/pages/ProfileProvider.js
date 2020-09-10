@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { update } from "../store/actions/providerAction";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowCircleLeft,
@@ -9,9 +10,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default function ProfileProvider(props) {
-  const customerRegister = useSelector((state) => state.customerRegister);
-  const { customerInfo } = customerRegister;
   const dispatch = useDispatch();
+
+  const [id, setId] = useState("");
   const [names, setNames] = useState("");
   const [lastNames, setLastNames] = useState("");
   const [idType, setIdType] = useState("");
@@ -26,10 +27,20 @@ export default function ProfileProvider(props) {
   const [webPage, setWebPage] = useState("");
   const [provider, setProvider] = useState({});
 
+  const [productName, setProductName] = useState("");
+  const [productDescription, setProductDescription] = useState("");
+  const [productCategory, setProductCategory] = useState("");
+  const [productImage, setProductImage] = useState("");
+  const [productQuantity, setProductQuantity] = useState(0);
+  const [productPrice, setProductPrice] = useState(0);
+  const [productDiscount, setProductDiscount] = useState(0);
+  const [productIdProvider, setproductIdProvider] = useState(id);
+
   useEffect(() => {
     axios
-      .get('http://localhost:8000/api/provider/'+props.match.params.id)
+      .get("http://localhost:8000/api/provider/" + props.match.params.id)
       .then(({ data }) => {
+        setId(data._id);
         setNames(data.names);
         setLastNames(data.lastNames);
         setIdType(data.idType);
@@ -45,6 +56,27 @@ export default function ProfileProvider(props) {
       })
       .catch((err) => console.log(err));
   });
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    dispatch(
+      update(
+        id,
+        names,
+        lastNames,
+        idType,
+        idNumber,
+        email,
+        phone,
+        birthDate,
+        adress,
+        businessName,
+        nit,
+        commerceType,
+        webPage
+      )
+    );
+  };
 
   return (
     <div className="container">
@@ -109,7 +141,7 @@ export default function ProfileProvider(props) {
                     type="text"
                     className="form-control"
                     id="inputEmail"
-                    value={names}
+                    placeholder={names}
                     onChange={(e) => setNames(e.target.value)}
                   />
                 </div>
@@ -121,7 +153,7 @@ export default function ProfileProvider(props) {
                     type="text"
                     className="form-control"
                     id="inputLastName"
-                    value={lastNames}
+                    placeholder={lastNames}
                     onChange={(e) => setLastNames(e.target.value)}
                   />
                 </div>
@@ -158,7 +190,7 @@ export default function ProfileProvider(props) {
                     type="number"
                     className="form-control"
                     id="inputIdNumber"
-                    value={idNumber}
+                    placeholder={idNumber}
                     onChange={(e) => setIdNumber(e.target.value)}
                   />
                 </div>
@@ -171,8 +203,7 @@ export default function ProfileProvider(props) {
                   type="email"
                   className="form-control"
                   id="inputEmail"
-                  placeholder="mail@example.com"
-                  value={email}
+                  placeholder={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
@@ -185,7 +216,7 @@ export default function ProfileProvider(props) {
                     type="number"
                     className="form-control"
                     id="inputPhone"
-                    value={phone}
+                    placeholder={phone}
                     onChange={(e) => setPhone(e.target.value)}
                   />
                 </div>
@@ -200,8 +231,7 @@ export default function ProfileProvider(props) {
                     type="date"
                     className="form-control"
                     id="inputBirthDate"
-                    placeholder="Fecha de Nacimiento"
-                    value={birthDate}
+                    placeholder={birthDate}
                     onChange={(e) => setBirthDate(e.target.value)}
                   />
                 </div>
@@ -213,7 +243,7 @@ export default function ProfileProvider(props) {
                     type="text"
                     className="form-control"
                     id="inputAdress"
-                    value={adress}
+                    placeholder={adress}
                     onChange={(e) => setAdress(e.target.value)}
                   />
                 </div>
@@ -230,7 +260,7 @@ export default function ProfileProvider(props) {
                     type="text"
                     className="form-control"
                     id="inputBussinesName"
-                    value={businessName}
+                    placeholder={businessName}
                     onChange={(e) => setBusinesName(e.target.value)}
                   />
                 </div>
@@ -242,8 +272,7 @@ export default function ProfileProvider(props) {
                     type="number"
                     className="form-control"
                     id="inputNit"
-                    value={nit}
-                    placeholder="Sin dígito de verificación"
+                    placeholder={nit}
                     onChange={(e) => setNit(e.target.value)}
                   />
                 </div>
@@ -356,14 +385,14 @@ export default function ProfileProvider(props) {
           </div>
         </div>
       </div>
-      <div className="card mx-2 my-1 border border-warning">
+      <div className="card mx-2 my-1 border border-danger">
         <div className="accordion" id="accordionProduct">
           <div className="card">
-            <div className="card-header bg-warning" id="orders">
+            <div className="card-header bg-danger" id="orders">
               <div className="row">
                 <div className="col-md-1">
                   <button
-                    className="btn btn-warning"
+                    className="btn btn-danger"
                     type="button"
                     data-toggle="collapse"
                     data-target="#collapseThree"
@@ -377,7 +406,7 @@ export default function ProfileProvider(props) {
                   </button>
                 </div>
                 <div className="col-md-11">
-                  <h3 className="mt-1 text-dark">Productos</h3>
+                  <h3 className="mt-1 text-white">Productos</h3>
                 </div>
               </div>
             </div>
@@ -415,6 +444,192 @@ export default function ProfileProvider(props) {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div className="card mx-2 my-1 border border-warning">
+        <div className="accordion" id="accordionCreateProduct">
+          <div className="card">
+            <div className="card-header bg-warning" id="orders">
+              <div className="row">
+                <div className="col-md-1">
+                  <button
+                    className="btn btn-warning"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#collapseFour"
+                    aria-expanded="false"
+                    aria-controls="collapseFour"
+                  >
+                    <FontAwesomeIcon
+                      icon={faCaretSquareDown}
+                      className="fa-2x"
+                    />
+                  </button>
+                </div>
+                <div className="col-md-11">
+                  <h3 className="mt-1 text-dark">Agregar Producto</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          id="collapseFour"
+          className="collapse"
+          aria-labelledby="orders"
+          data-parent="#accordionCreateProduct"
+        >
+          <div className="card-body border-bottom">
+            <form onClick={handleUpdate}>
+              <div className="form-row">
+                <div className="form-group col-md-6">
+                  <label htmlFor="inputName" className="font-weight-bolder">
+                    Nombre
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="inputName"
+                    placeholder={productName}
+                    onChange={(e) => setProductName(e.target.value)}
+                  />
+                </div>
+                <div className="form-group col-md-6">
+                  <label htmlFor="inputProductCategory" className="font-weight-bolder">
+                    Categoría
+                  </label>
+                  <select
+                    id="inputProductCategory"
+                    className="form-control"
+                    defaultValue={"predeterminado"}
+                    onChange={(e) => setProductCategory(e.target.value)}
+                  >
+                    <option value="predeterminado" disabled>
+                      Seleccione una opción
+                    </option>
+                    <option value="Lácteos y huevos">
+                      Lácteos y huevos
+                    </option>
+                    <option value="Abarrotes">
+                      Abarrotes
+                    </option>
+                    <option value="Panadería y Arepas">
+                      Panadería y Arepas
+                    </option>
+                    <option value="Café, Chocolate y Té">
+                      Café, Chocolate y Té
+                    </option>
+                    <option value="Galletas y Antojos">
+                      Galletas y Antojos
+                    </option>
+                    <option value="Pollo, Carne y Pescado">
+                      Pollo, Carne y Pescado
+                    </option>
+                    <option value="Carnes frías y Embutidos">
+                      Carnes frías y Embutidos
+                    </option>
+                    <option value="Frutas y Verduras">
+                      Frutas y Verduras
+                    </option>
+                    <option value="Licores">
+                      Licores
+                    </option>
+                    <option value="Bebidas">
+                      Bebidas
+                    </option>
+                    <option value="Mascotas">
+                      Mascotas
+                    </option>
+                    <option value="Aseo del hogar">
+                      Aseo del hogar
+                    </option>
+                    <option value="Cuidado de la Ropa">
+                      Cuidado de la Ropa
+                    </option>
+                    <option value="Cuidado personal">
+                      Cuidado personal
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div className="form-row">
+                <div className="form-group col-md-12">
+                  <label
+                    htmlFor="inputProductDescription"
+                    className="font-weight-bolder"
+                  >
+                    Descripción
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="inputProductDescription"
+                    placeholder={productDescription}
+                    onChange={(e) => setProductDescription(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <label
+                  htmlFor="inputProductImage"
+                  className="font-weight-bolder"
+                >
+                  Imagen
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="inputProductImage"
+                  placeholder={productImage}
+                  onChange={(e) => setProductImage(e.target.value)}
+                />
+              </div>
+              <div className="form-row">
+                <div className="form-group col-md-4">
+                  <label htmlFor="inputProductQuantity" className="font-weight-bolder">
+                    Cantidad
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="inputProductQuantity"
+                    placeholder={productQuantity}
+                    onChange={(e) => setProductQuantity(e.target.value)}
+                  />
+                </div>
+                <div className="form-group col-md-4">
+                  <label
+                    htmlFor="inputProductDiscount"
+                    className="font-weight-bolder"
+                  >
+                    Descuento
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="inputProductDiscount"
+                    placeholder={productDiscount}
+                    onChange={(e) => setProductDiscount(e.target.value)}
+                  />
+                </div>
+                <div className="form-group col-md-4">
+                  <label htmlFor="inputProductPrice" className="font-weight-bolder">
+                    Precio
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="inputProductPrice"
+                    placeholder={productPrice}
+                    onChange={(e) => setProductPrice(e.target.value)}
+                  />
+                </div>
+              </div>
+              <button type="submit" className="btn btn-warning">
+                Agregar
+              </button>
+            </form>
           </div>
         </div>
       </div>

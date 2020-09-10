@@ -142,4 +142,13 @@ customerCtrl.deleteCustomer = async (req, res) => {
   }
 };
 
+customerCtrl.getOrders = async (req, res) => {
+  try {
+    const orders = await Customer.find()
+    res.status(200).json(orders)    
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
 module.exports = customerCtrl;

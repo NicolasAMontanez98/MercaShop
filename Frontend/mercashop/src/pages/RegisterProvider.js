@@ -32,7 +32,6 @@ export default function RegisterProvider(props) {
     if (providerInfo) {
       props.history.push(redirect);
     }
-    return () => {}
   }, [providerInfo]);
 
   const handleRegister = async (e) => {

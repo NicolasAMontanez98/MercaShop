@@ -22,7 +22,6 @@ function Login(props) {
     if (customerInfo) {
       props.history.push(redirect);
     }
-    return () => {};
   }, [customerInfo]);
 
   const handleBack = (e) => {

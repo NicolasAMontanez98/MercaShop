@@ -13,6 +13,7 @@ import {
 } from "../constants/providerConstants";
 
 const update = ({
+  id,
   names,
   lastNames,
   idType,
@@ -48,7 +49,7 @@ const update = ({
   });
   try {
     const { data } = await axios.put(
-      "http://localhost:8000/api/provider/" + userId,
+      "http://localhost:8000/api/provider/" + id,
       {
         names,
         lastNames,

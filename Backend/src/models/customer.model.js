@@ -51,7 +51,11 @@ const customerSchema = new Schema({
     role: {
         type: String,
         default: 'customer'
-    }
+    },
+    orders: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Order',
+    }]
 }, {
     timestamps: true,
 });

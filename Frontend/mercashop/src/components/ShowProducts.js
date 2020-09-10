@@ -12,9 +12,6 @@ function ShowProducts(props) {
 
   useEffect(() => {
     dispatch(listProducts(category));
-
-    return () => {};
-
   }, [category]);
 
   const product = () => {
