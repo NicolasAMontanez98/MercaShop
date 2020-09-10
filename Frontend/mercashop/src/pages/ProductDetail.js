@@ -17,9 +17,6 @@ function ProductDetail(props) {
 
   useEffect(() => {
     dispatch(detailsProduct(props.match.params.id));
-    return () => {
-      //
-    };
   }, []);
 
   const handleAddToCart = () => {
@@ -69,9 +66,6 @@ function ProductDetail(props) {
                         setQty(e.target.value);
                       }}
                     >
-                      {/* {[...Array(product.qtyInStock).keys()].map(x =>
-                  <option key={x + 1} value={x + 1}>{x + 1}</option>
-                )} */}
                       <option>1</option>
                       <option>2</option>
                       <option>3</option>

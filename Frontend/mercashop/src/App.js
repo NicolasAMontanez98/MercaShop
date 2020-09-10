@@ -8,11 +8,11 @@ import LoginProvider from "./pages/loginProvider";
 import RegisterCostumer from "./pages/RegisterCostumer";
 import RegisterProvider from "./pages/RegisterProvider";
 import Home from "./shared/Home";
-import ProductDetail from "./pages/ProductDetail";
 import Switch from "react-bootstrap/esm/Switch";
 import Cart from "./pages/Cart";
-import Main from "./pages/Main";
 import Header from "./shared/Header";
+import Profile from './pages/Profile';
+import ProfileProvider from './pages/ProfileProvider';
 
 function App() {
   return (
@@ -26,6 +26,8 @@ function App() {
         <Route exact path="/registro-proveedor" component={RegisterProvider} />
         <Route exact path="/cart/:id?" component={Cart} />
         <Route exact path="/category/:id" component={Home} />
+        <Route exact path="/profile/:id" component={Profile} />
+        <Route exact path="/profile-provider/:id" component={ProfileProvider} />
       </Switch>
     </Router>
   );

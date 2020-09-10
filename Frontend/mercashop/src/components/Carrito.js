@@ -10,8 +10,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import ProductDetail from "../pages/ProductDetail";
-import Cart from "../pages/Cart";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -30,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Carrito(props) {
   const cart = useSelector((state) => state.cart);
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const numProducts = cart.cartItems.length;
 
@@ -56,7 +54,6 @@ export default function Carrito(props) {
       <Link to="/cart">
         <IconButton
           type="button"
-          // onClick={handleOpen}
           aria-label="cart"
           data-toggle="tooltip"
           data-placement="bottom"

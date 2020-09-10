@@ -45,10 +45,6 @@ function PromotionCarousel() {
           role="button"
           data-slide="prev"
         >
-          {/* <span
-            className="carousel-control-prev-icon"
-            aria-hidden="true"
-          ></span> */}
           <FontAwesomeIcon icon={faArrowCircleLeft} className="fa-3x" aria-hidden="true"/>
           <span className="sr-only">Previous</span>
         </a>
@@ -58,10 +54,6 @@ function PromotionCarousel() {
           role="button"
           data-slide="next"
         >
-          {/* <span
-            className="carousel-control-next-icon"
-            aria-hidden="true"
-          ></span> */}
           <FontAwesomeIcon icon={faArrowCircleRight} className="fa-3x" aria-hidden="true"/>
           <span className="sr-only bg-dark">Next</span>
         </a>

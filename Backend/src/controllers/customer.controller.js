@@ -44,6 +44,54 @@ customerCtrl.checkInCustomer = async (req, res) => {
   }
 };
 
+customerCtrl.updateCustomer = async (req, res) => {
+  try {
+    const {
+      names,
+      lastNames,
+      idType,
+      idNumber,
+      email,
+      phone,
+      birthDate,
+      adress,
+      userName,
+    } = req.body;
+    const id = req.params.id;
+    const customer = await Customer.findById(id);
+    if (customer) {
+      customer.names = names || customer.names;
+      customer.lastNames = lastNames || customer.lastNames;
+      customer.idType = idType || customer.idType;
+      customer.idNumber = idNumber || customer.idNumber;
+      customer.email = email || customer.email;
+      customer.phone = phone || customer.phone;
+      customer.birthDate = birthDate || customer.birthDate;
+      customer.adress = adress || customer.adress;
+      customer.userName = userName || customer.userName;
+      const updateCustomer = await customer.save();
+      const token = jwt.sign({ id: newCostumer._id }, process.env.SECRET)
+      res.status(200).json({ 
+      _id: updateCustomer._id,
+      names: updateCustomer.names,
+      lastNames: updateCustomer.lastNames,
+      idType: updateCustomer.idType,
+      idNumber:updateCustomer.idNumber,
+      email: updateCustomer.email,
+      phone: updateCustomer.phone,
+      birthDate: updateCustomer.birthDate,
+      adress: updateCustomer.adress,
+      userName: updateCustomer.userName,
+      token
+     });
+    } else {
+      res.status(404).json({ message:'Cliente no encontrado' });
+    }
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
 customerCtrl.logInCustomer = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -89,6 +137,15 @@ customerCtrl.deleteCustomer = async (req, res) => {
   try {
     Customer.findByIdAndDelete(req.params.id);
     res.status(200).json("Cliente borrado.");
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
+customerCtrl.getOrders = async (req, res) => {
+  try {
+    const orders = await Customer.find()
+    res.status(200).json(orders)    
   } catch (error) {
     res.status(400).json(error);
   }

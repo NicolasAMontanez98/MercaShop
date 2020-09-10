@@ -96,7 +96,8 @@ providerCtrl.deleteProvider = async (req, res) => {
 
 providerCtrl.getProvider = async (req, res) => {
   try {
-    const provider = Provider.findById(req.params.id);
+    console.log(req.params.id)
+    const provider = await Provider.findById(req.params.id);
     res.status(200).json(provider);
   } catch (error) {
     res.status(400).json(error);

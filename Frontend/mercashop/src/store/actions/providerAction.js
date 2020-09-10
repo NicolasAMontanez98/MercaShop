@@ -12,21 +12,58 @@ import {
   PROVIDER_UPDATE_FAIL,
 } from "../constants/providerConstants";
 
-const update = ({ userId, names, email, password }) => async (
-  dispatch,
-  getState
-) => {
+const update = ({
+  id,
+  names,
+  lastNames,
+  idType,
+  idNumber,
+  email,
+  phone,
+  birthDate,
+  adress,
+  businessName,
+  nit,
+  commerceType,
+  webPage,
+}) => async (dispatch, getState) => {
   const {
     providerSignIn: { providerInfo },
   } = getState();
   dispatch({
     type: PROVIDER_UPDATE_REQUEST,
-    payload: { userId, names, email, password },
+    payload: {
+      names,
+      lastNames,
+      idType,
+      idNumber,
+      email,
+      phone,
+      birthDate,
+      adress,
+      businessName,
+      nit,
+      commerceType,
+      webPage,
+    },
   });
   try {
     const { data } = await axios.put(
-      "http://localhost:8000/api/provider/" + userId,
-      { names, email, password },
+      "http://localhost:8000/api/provider/" + id,
+      {
+        names,
+        lastNames,
+        idType,
+        idNumber,
+        email,
+        phone,
+        birthDate,
+        adress,
+        businessName,
+        nit,
+        commerceType,
+        webPage,
+      },
       {
         headers: { Authorization: "Bearer " + providerInfo.token },
       }
@@ -40,10 +77,13 @@ const update = ({ userId, names, email, password }) => async (
 const signIn = (email, password) => async (dispatch) => {
   dispatch({ type: PROVIDER_SIGNIN_REQUEST, payload: { email, password } });
   try {
-    const { data } = await axios.post("http://localhost:8000/api/provider/ingreso", {
-      email,
-      password,
-    });
+    const { data } = await axios.post(
+      "http://localhost:8000/api/provider/ingreso",
+      {
+        email,
+        password,
+      }
+    );
     dispatch({ type: PROVIDER_SIGNIN_SUCCESS, payload: data });
     localStorage.setItem("providerInfo", JSON.stringify(data));
   } catch (error) {
@@ -64,7 +104,7 @@ const register = (
   nit,
   commerceType,
   webPage,
-  password,
+  password
 ) => async (dispatch) => {
   dispatch({
     type: PROVIDER_REGISTER_REQUEST,
@@ -85,21 +125,24 @@ const register = (
     },
   });
   try {
-    const { data } = await axios.post("http://localhost:8000/api/provider/registro", {
-      names,
-      lastNames,
-      idType,
-      idNumber,
-      email,
-      phone,
-      birthDate,
-      adress,
-      businessName,
-      nit,
-      commerceType,
-      webPage,
-      password,
-    });
+    const { data } = await axios.post(
+      "http://localhost:8000/api/provider/registro",
+      {
+        names,
+        lastNames,
+        idType,
+        idNumber,
+        email,
+        phone,
+        birthDate,
+        adress,
+        businessName,
+        nit,
+        commerceType,
+        webPage,
+        password,
+      }
+    );
     dispatch({ type: PROVIDER_REGISTER_SUCCESS, payload: data });
     localStorage.setItem("providerInfo", JSON.stringify(data));
   } catch (error) {
