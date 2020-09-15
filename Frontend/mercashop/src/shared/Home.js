@@ -16,17 +16,13 @@ function Home(props) {
 
   return (
     <Router forceRefresh={true}>
-      <Header />
+      <Header category={category}/>
       <div className="row">
         <div className="col-md-3 bg-white border-right">
           <SideMenu />
         </div>
         <div className="col-md-9 vh-100 overflow-auto">
           <Main category={category}/>
-          {/* <Switch> */}
-            {/* <Route exact path="/" component={Main} /> */}
-            {/* <Route exact path="/category/:id" component={Main} /> */}
-          {/* </Switch> */}
         </div>
       </div>
       <Footer />

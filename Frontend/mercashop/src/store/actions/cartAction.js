@@ -38,9 +38,9 @@ const addToCart = (productId, qty) => async (dispatch, getState) => {
       qty
     }});
 
-    // const {cart: {cartItems}} = getState();
-    // localStorage.set("cartItems", JSON.stringify(cartItems));
-    // localStorage.set("cartItems", cartItems);
+    const {cart: {cartItems}} = getState();
+    // localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    localStorage.setItem("cartItems", cartItems);
     // Cookies.set("cartItems", JSON.stringify(cartItems));
 
   } catch (error) {

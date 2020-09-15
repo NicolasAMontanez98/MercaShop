@@ -5,6 +5,8 @@ import {
   CART_SAVE_PAYMENT,
 } from "../constants/cartConstants";
 
+// const cartItems = localStorage.getItem('cartItems') || []; 
+
 // function cartReducer(
 //   state = { cartItems: [], shipping: {}, payment: {} },
 //   action

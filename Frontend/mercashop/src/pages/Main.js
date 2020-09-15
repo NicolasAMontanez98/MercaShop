@@ -4,13 +4,9 @@ import ShowProducts from "./../components/ShowProducts";
 import SideMenu from '../shared/SideMenu';
 
 function Main(props) {
-  // const category = props.match.params.id ? props.match.params.id : '';
 
   return (
     <div className="row">
-      {/* <div className="col-md-3 bg-light border-right border-dark">
-        <SideMenu />
-      </div> */}
       <div className="col-md-12 vh-100 overflow-auto">
         <div className="d-flex justify-content-center">
           <div className="mx-auto">
@@ -21,7 +17,7 @@ function Main(props) {
             </div>
             <div className="row ml-5">
               <div className="col-md-12">
-                <ShowProducts category={props.category} />
+                <ShowProducts category={props.category} search={props.search}/>
               </div>
             </div>
           </div>
