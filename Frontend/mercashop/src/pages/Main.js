@@ -2,6 +2,7 @@ import React from "react";
 import PromotionCarousel from "./../components/PromotionsCarousel";
 import ShowProducts from "./../components/ShowProducts";
 import SideMenu from '../shared/SideMenu';
+import { BrowserRouter as Router } from "react-router-dom";
 
 function Main(props) {
   return (

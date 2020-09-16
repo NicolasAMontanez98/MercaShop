@@ -15,6 +15,7 @@ import licores from "./../assets/categories/licores.png";
 import mascotas from "./../assets/categories/mascotas.png";
 import panaderia from "./../assets/categories/panadería.png";
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router'
 
 class SideMenu extends React.Component {
   render() {  
@@ -196,4 +197,4 @@ class SideMenu extends React.Component {
   }
 }
 
-export default SideMenu;
+export default withRouter(SideMenu);

@@ -5,7 +5,7 @@ import Switch from "react-bootstrap/esm/Switch";
 
 import Main from "./../pages/Main";
 import SideMenu from "./SideMenu";
-import Footer from "./Foot
+import Footer from "./Footer";
 import Header from "./Header";
 import ProductDetail from "../pages/ProductDetail";
 
@@ -13,7 +13,7 @@ function Home(props) {
   const category = props.match.params.id ? props.match.params.id : "";
 
   return (
-    <Router>
+    <div>
       <div className="row">
         <div className="col-md-3 bg-white border-right">
           <SideMenu />
@@ -31,7 +31,7 @@ function Home(props) {
         </div>
       </div>
       <Footer />
-    </Router>
+    </div>
   );
 }
 
