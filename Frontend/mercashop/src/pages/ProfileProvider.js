@@ -21,6 +21,7 @@ export default function ProfileProvider(props) {
   const [phone, setPhone] = useState(0);
   const [birthDate, setBirthDate] = useState("");
   const [adress, setAdress] = useState("");
+  
   const [businessName, setBusinesName] = useState("");
   const [nit, setNit] = useState(0);
   const [commerceType, setCommerceType] = useState("");

@@ -8,12 +8,15 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import OrdersProfile from './ordersProfile';
+import OrdersProfile from "./ordersProfile";
+import formUpdate from "../components/formUpdate";
 
 export default function Profile(props) {
   const customerRegister = useSelector((state) => state.customerRegister);
   const { customerInfo } = customerRegister;
   const dispatch = useDispatch();
+
+  const [id, setId] = useState("");
   const [names, setNames] = useState("");
   const [lastNames, setLastNames] = useState("");
   const [idType, setIdType] = useState("");
@@ -22,6 +25,7 @@ export default function Profile(props) {
   const [phone, setPhone] = useState(0);
   const [birthDate, setBirthDate] = useState("");
   const [adress, setAdress] = useState("");
+
   const [userName, setUserName] = useState("");
   const [orders, setOrders] = useState([]);
   const [customer, setCustomer] = useState({});
@@ -41,7 +45,7 @@ export default function Profile(props) {
         setUserName(data.userName);
       })
       .catch((err) => console.log(err));
-  });
+  }, []);
 
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -141,10 +145,7 @@ export default function Profile(props) {
               </div>
               <div className="form-row">
                 <div className="form-group col-md-6">
-                  <label
-                    htmlFor="inputIdType"
-                    className="font-weight-bolder"
-                  >
+                  <label htmlFor="inputIdType" className="font-weight-bolder">
                     Tipo de Identificación
                   </label>
                   <select
@@ -278,7 +279,7 @@ export default function Profile(props) {
           data-parent="#accordionOrders"
         >
           <div className="card-body border-bottom">
-            <OrdersProfile/>
+            <OrdersProfile />
           </div>
         </div>
       </div>

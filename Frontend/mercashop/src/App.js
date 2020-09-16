@@ -11,8 +11,9 @@ import Home from "./shared/Home";
 import Switch from "react-bootstrap/esm/Switch";
 import Cart from "./pages/Cart";
 import Header from "./shared/Header";
-import Profile from './pages/Profile';
-import ProfileProvider from './pages/ProfileProvider';
+import Profile from "./pages/Profile";
+import ProfileProvider from "./pages/ProfileProvider";
+import PlaceOrder from "./pages/PlaceOrder";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route exact path="/category/:id" component={Home} />
         <Route exact path="/profile/:id" component={Profile} />
         <Route exact path="/profile-provider/:id" component={ProfileProvider} />
+        <Route exact path="/place-order" component={PlaceOrder} />
       </Switch>
     </Router>
   );

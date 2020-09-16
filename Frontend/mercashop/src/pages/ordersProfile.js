@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-export default function ordersProfile(props) {
+export default function ordersProfile({order}) {
+
   return (
     <div>
       <div className="card">

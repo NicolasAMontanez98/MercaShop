@@ -29,8 +29,8 @@ import { cartReducer } from './reducers/cartReducer';
 
 
 const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-const customerInfo = localStorage.getItem("customerInfo") || null;
-const providerInfo = localStorage.getItem("providerInfo") || null;
+const customerInfo = JSON.parse(localStorage.getItem("customerInfo")) || null;
+const providerInfo = JSON.parse(localStorage.getItem("providerInfo")) || null;
 
 const initialState = {
   cart: { cartItems, shipping: {}, payment: {} },

@@ -35,6 +35,11 @@ const productSchema = new Schema({
     price: {
         type: Number,
         required: true
+    },
+    provider: {
+        type: Schema.Types.ObjectId,
+        ref: 'Provider',
+        required: true
     }
 },{timestamps: true});
 
