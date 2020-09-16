@@ -26,7 +26,6 @@ const createOrder = (order) => async (dispatch, getState) => {
     const {
       customerSignIn: { customerInfo },
     } = getState();
-    console.log('la orden mi rey', order)
     const {
       data: { data: newOrder },
     } = await axios.post("http://localhost:8000/api/order/create", order, {

@@ -49,7 +49,7 @@ function Cart(props) {
             <h5>El carro está vacío</h5>
           ) : (
             cartItems.map((item) => (
-              <div className="card mb-2 d-flex justify-content-center">
+              <div className="card mb-2 d-flex justify-content-center" key={item.product}>
                 <div className="row no-gutters">
                   <div className="col-md-2 border-right d-flex justify-content-center">
                     <img

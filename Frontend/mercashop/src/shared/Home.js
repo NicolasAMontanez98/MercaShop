@@ -5,7 +5,7 @@ import Switch from "react-bootstrap/esm/Switch";
 
 import Main from "./../pages/Main";
 import SideMenu from "./SideMenu";
-import Footer from "./Footer";
+import Footer from "./Foot
 import Header from "./Header";
 import ProductDetail from "../pages/ProductDetail";
 
