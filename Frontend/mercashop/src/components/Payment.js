@@ -18,7 +18,7 @@ export default function Payment({ info }) {
       country: "CO",
       lang: "es",
       invoice: `${info.invoice}`,
-      response: `http://localhost:3000/response`,
+      response: `${process.env.REACT_APP_URL}/response`,
       autoclick: "false",
       name_billing: `${info.name_billing}`,
       address_billing: `${info.address_billing}`,
