@@ -52,7 +52,7 @@ function ProductDetail(props) {
                 </p>
                 <p className="ml-2">
                   Descripción:
-                  <div>{product.decription}</div>
+                  {product.decription}
                 </p>
                 <div className="details-action ml-2">
                   <p>

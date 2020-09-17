@@ -1,4 +1,8 @@
-const { Schema, model } = require("mongoose");
+const mongoose = require("mongoose");
+const { Schema, model } = mongoose;
+const autoIncrement = require("mongoose-auto-increment");
+
+autoIncrement.initialize(mongoose.connection);
 
 const orderSchema = new Schema(
   {
@@ -7,20 +11,19 @@ const orderSchema = new Schema(
       ref: "Customer",
       required: true,
     },
-    orderItems: {
+    orderItems: [{
       type: Schema.Types.ObjectId,
       ref: 'OrderItems',
       required: true,
+    }],
+    adress: {
+      type: String,
     },
-    shipping: {
-      type: Schema.Types.ObjectId,
-      ref: 'Shipping',
-      required: true,
+    city: {
+      type: String,
     },
     payment: {
-      type: Schema.Types.ObjectId,
-      ref: 'Payment',
-      required: true,
+      type: String,
     },
     itemsPrice: {
       type: Number,
@@ -32,6 +35,9 @@ const orderSchema = new Schema(
       type: Number,
     },
     totalPrice: {
+      type: Number,
+    },
+    numberInvoice: {
       type: Number,
     },
     isPaid: {
@@ -51,6 +57,11 @@ const orderSchema = new Schema(
   },
   { timestamps: true }
 );
+
+orderSchema.plugin(autoIncrement.plugin, {
+  model: 'Order',
+  field: 'invoice'
+})
 
 const Order = model('Order', orderSchema);
 module.exports = Order;

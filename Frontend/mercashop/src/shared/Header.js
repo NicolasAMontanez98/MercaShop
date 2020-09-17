@@ -23,7 +23,7 @@ export default function Header(props) {
   const providerSignIn = useSelector((state) => state.providerSignIn);
   const { providerInfo } = providerSignIn;
   const dispatch = useDispatch();
-  const [ currentPath, setCurrentPath ] = useState('');
+  const [currentPath, setCurrentPath] = useState("");
 
   useEffect(() => {
     setCurrentPath(window.location.pathname);
@@ -36,7 +36,7 @@ export default function Header(props) {
       },
     },
   }));
-  
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -50,7 +50,7 @@ export default function Header(props) {
 
   const classes = useStyles();
 
-  const { names } = customerInfo ? JSON.parse(customerInfo) : "";
+  const { names } = customerInfo ? customerInfo : "";
 
   return (
     <div className="App">
@@ -134,7 +134,7 @@ export default function Header(props) {
                   >
                     <AccountCircleIcon fontSize="large" />
                   </IconButton>
-                  {customerInfo || providerInfo  ? (
+                  {customerInfo || providerInfo ? (
                     <Menu
                       id="simple-menu"
                       anchorEl={anchorEl}
@@ -145,7 +145,9 @@ export default function Header(props) {
                       <MenuItem>
                         <span>{names}</span>
                       </MenuItem>
-                      <MenuItem onClick={handleClose}>Profile</MenuItem>
+                      <MenuItem>
+                        <Link to={'/profile/' + customerInfo._id} className='text-decoration-none text-dark'>Profile</Link>
+                      </MenuItem>
                       <MenuItem onClick={handleClose}>My account</MenuItem>
                       <MenuItem onClick={handleLogOut}>Logout</MenuItem>
                     </Menu>
@@ -164,7 +166,10 @@ export default function Header(props) {
                         </Link>
                       </MenuItem>
                       <MenuItem>
-                        <Link to="/login-proveedor" className="text-decoration-none">
+                        <Link
+                          to="/login-proveedor"
+                          className="text-decoration-none"
+                        >
                           <AccountBox className="mr-2" />
                           Proveedor
                         </Link>

@@ -1,5 +1,5 @@
 import React from "react";
-import { addToCart, removeFromCart } from "../store/actions/cartAction";
+import { addToCart, removeFromCart, saveShipping } from "../store/actions/cartAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,6 +9,10 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 function Cart(props) {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
+  const customerSignIn = useSelector((state) => state.customerSignIn);
+  const { customerInfo } = customerSignIn;
+  const providerSignIn = useSelector((state) => state.providerSignIn);
+  const { providerInfo } = providerSignIn;
   const productId = props.match.params.id;
   const qty = props.location.search
     ? Number(props.location.search.split("=")[1])
@@ -17,9 +21,13 @@ function Cart(props) {
   const removeFromCartHandler = (productId) => {
     dispatch(removeFromCart(productId));
   };
-  
+
   const checkoutHandler = () => {
-    props.history.push("/");
+    if (customerInfo || providerInfo) {
+      props.history.push('/place-order');
+    } else {
+      props.history.push("/login");
+    }
   };
   return (
     <div className="justify-content-center">
@@ -41,7 +49,7 @@ function Cart(props) {
             <h5>El carro está vacío</h5>
           ) : (
             cartItems.map((item) => (
-              <div className="card mb-2 d-flex justify-content-center">
+              <div className="card mb-2 d-flex justify-content-center" key={item.product}>
                 <div className="row no-gutters">
                   <div className="col-md-2 border-right d-flex justify-content-center">
                     <img
@@ -105,18 +113,29 @@ function Cart(props) {
           <div className="row">
             <div className="col-md-9">
               <h3>
-                Subtotal ({cartItems.reduce((a, c) => (parseInt(a) + parseInt(c.qty)), 0)} artículos)
-                : $ {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
+                Subtotal (
+                {cartItems.reduce((a, c) => parseInt(a) + parseInt(c.qty), 0)}{" "}
+                artículos) : ${" "}
+                {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
               </h3>
             </div>
             <div className="col-md-3">
-              <button
-                onClick={checkoutHandler}
-                className="btn btn-primary btn-block rounded-pill full-width"
-                disable={cartItems.length === 0}
-              >
-                Pagar
-              </button>
+              {cartItems.length === 0 ? (
+                <button
+                  onClick={checkoutHandler}
+                  className="btn btn-primary btn-block rounded-pill full-width"
+                  disabled
+                >
+                  Pagar
+                </button>
+              ) : (
+                <button
+                  onClick={checkoutHandler}
+                  className="btn btn-primary btn-block rounded-pill full-width"
+                >
+                  Pagar
+                </button>
+              )}
             </div>
           </div>
         </div>
