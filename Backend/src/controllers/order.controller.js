@@ -45,7 +45,7 @@ orderCtrl.postOrder = async (req, res) => {
       totalPrice: req.body.totalPrice,
     });
     const newOrderCreated = await newOrder.save();
-    res.status(200).json({ message: "Orden agregada." });
+    res.status(200).json({ message: "Orden agregada.", data: newOrderCreated });
   } catch (error) {
     res.status(400).json(error);
   }
@@ -54,17 +54,11 @@ orderCtrl.postOrder = async (req, res) => {
 orderCtrl.payOrder = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
+    const { paymentMethod, payerId, paymentId } = req.body;
     if (order) {
       order.isPaid = true;
       order.paidAt = Date.now();
-      order.payment = {
-        paymentMethod: "paypal",
-        paymentResult: {
-          payerId: req.params.payerId,
-          orderId: req.params.orderId,
-          paymentId: req.params.paymentId,
-        },
-      };
+      order.payment = paymentMethod;
     } else {
       res.status(404).json({ message: "Orden no encontrada." });
     }

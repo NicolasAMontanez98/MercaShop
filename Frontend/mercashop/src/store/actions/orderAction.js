@@ -33,6 +33,7 @@ const createOrder = (order) => async (dispatch, getState) => {
         Authorization: "Bearer " + customerInfo.token,
       },
     });
+    localStorage.setItem("order", JSON.stringify(newOrder));
     dispatch({ type: ORDER_CREATE_SUCCESS, payload: newOrder });
   } catch (error) {
     dispatch({ type: ORDER_CREATE_REQUEST, payload: error.message });
@@ -93,14 +94,14 @@ const payOrder = (order, paymentResult) => async (dispatch, getState) => {
     const {
       customerSignIn: { customerInfo },
     } = getState();
-    const { data } = await axios.put(
+    const { data: { data: newOrder } } = await axios.put(
       "http://localhost:8000/api/order/" + order._id + "/pay",
       paymentResult,
       {
         headers: { Authorization: "Bearer " + customerInfo.token },
       }
     );
-    dispatch({ type: ORDER_PAY_SUCCESS, payload: data });
+    dispatch({ type: ORDER_PAY_SUCCESS, payload: newOrder });
   } catch (error) {
     dispatch({ type: ORDER_PAY_FAIL, payload: error.message });
   }
