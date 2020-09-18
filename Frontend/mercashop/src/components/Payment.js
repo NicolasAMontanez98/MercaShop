@@ -16,7 +16,7 @@ export default function Payment({ info }) {
       description: `${info.description}`,
       currency: "cop",
       country: "CO",
-      lang: "en",
+      lang: "es",
       invoice: `${info.invoice}`,
       response: `${process.env.REACT_APP_URL}/response`,
       autoclick: "false",

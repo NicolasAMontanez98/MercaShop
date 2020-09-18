@@ -1,16 +1,86 @@
-function Response({ location }) {
-  useEffect(() => {
-    const { ref_payco } = queryString(location.search);
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import queryString from "query-string";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowCircleLeft,
+  faCaretSquareDown,
+} from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import { payOrder } from '../store/actions/orderAction';
 
+export default function Response({ location }) {
+  const [info, setInfo] = useState({});
+  const order = JSON.parse(localStorage.getItem("order")) || null;
+  const dispatch = useDispatch();
+
+  const formatCurrency = (number) => {
+    let res = new Intl.NumberFormat("en-CO").format(number);
+    return res;
+  };
+
+  const handlePayOrder = (e) => {
+    e.preventDefault();
+    dispatch(payOrder(order, {paymentMethod: order.payment, payerId: order.customer, paymentId: info.x_ref_payco}));
+  };
+
+  useEffect(() => {
+    const { ref_payco } = queryString.parse(location.search);
     axios({
       method: "GET",
       url: `https://secure.epayco.co/validation/v1/reference/${ref_payco}`,
-    }).then(({ data }) => console.log(data));
+    }).then(({ data: { data } }) => {
+      setInfo(data);
+    });
   }, [location]);
 
   return (
-    <>
-      <h1>Response</h1>
-    </>
+    <div className="container">
+      <div className="card mx-2 my-2">
+        <div className="card-header bg-white">
+          <h1 className="card-title">Transacción</h1>
+        </div>
+      </div>
+      <div className="card my-1 mx-2">
+        <div className="card-header">
+          <h2>Número de Transacción: {info.x_ref_payco}</h2>
+        </div>
+        <div className="card-body">
+          <div className="row">
+            <div className="col">
+              <h6>Nombre del banco: </h6>
+              <p>{info.x_bank_name}</p>
+              <h6>Descripción: </h6>
+              <p>{info.x_description}</p>
+              <h6>Estado: </h6>
+              <p>{info.x_response_reason_text}</p>
+              <h6>Fecha y hora de transacción: </h6>
+              <p>{info.x_fecha_transaccion}</p>
+            </div>
+            <div className="col">
+              <h6>Número de aprobación: </h6>
+              <p>{info.x_approval_code}</p>
+              <h6>IVA: </h6>
+              <p>$ {formatCurrency(info.x_tax)}</p>
+              <h6>Valor sin IVA: </h6>
+              <p>$ {formatCurrency(info.x_amount_base)}</p>
+              <h5>Valor total: </h5>
+              <h4>$ {formatCurrency(info.x_amount_ok)}</h4>
+            </div>
+          </div>
+          <div className="row mt-2">
+            <div className="col-md-12 d-flex justify-content-center">
+              <button
+                className="btn btn-success btn-lg"
+                onClick={handlePayOrder}
+              >
+                Confirmar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

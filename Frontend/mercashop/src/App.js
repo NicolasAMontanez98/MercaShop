@@ -14,6 +14,7 @@ import Header from "./shared/Header";
 import Profile from "./pages/Profile";
 import ProfileProvider from "./pages/ProfileProvider";
 import PlaceOrder from "./pages/PlaceOrder";
+import Response from './pages/Response';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route exact path="/profile/:id" component={Profile} />
         <Route exact path="/profile-provider/:id" component={ProfileProvider} />
         <Route exact path="/place-order" component={PlaceOrder} />
+        <Route exact path="/response" component={Response} />
       </Switch>
     </Router>
   );

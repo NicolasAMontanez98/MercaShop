@@ -5,14 +5,17 @@ import { saveShipping, savePayment } from "../store/actions/cartAction";
 import { createOrder } from "../store/actions/orderAction";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import Swal from "sweetalert2";
 import Payment from "../components/Payment";
 import axios from "axios";
 
-export default function PlaceOrder() {
+export default function PlaceOrder(props) {
   const customerSignIn = useSelector((state) => state.customerSignIn);
   const { customerInfo } = customerSignIn;
   const cart = useSelector((state) => state.cart);
   const { cartItems, shipping } = cart;
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { loading, success, error, order } = orderCreate;
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
   const [country, setCountry] = useState("Colombia");
@@ -33,12 +36,12 @@ export default function PlaceOrder() {
 
   const idType = (type) => {
     switch (type) {
-      case 'Cedula de ciudadanía':
-        return 'CC'
-      case 'Cedula de extranjería':
-        return 'CE'
-      case 'Pasaporte':
-        return 'CPPN'
+      case "Cedula de ciudadanía":
+        return "CC";
+      case "Cedula de extranjería":
+        return "CE";
+      case "Pasaporte":
+        return "CPPN";
     }
   };
 
@@ -78,10 +81,6 @@ export default function PlaceOrder() {
     dispatch(saveShipping({ address, city, country }));
     dispatch(savePayment({ payment }));
     setEnable(true);
-  };
-
-  const handleSaveOrder = (e) => {
-    e.preventDefault();
     dispatch(
       createOrder({
         orderItems: items,
@@ -95,6 +94,19 @@ export default function PlaceOrder() {
         totalPrice,
       })
     );
+  };
+
+  const handleSaveOrder = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      title: "Orden Guardada",
+      icon: "success",
+      confirmButtonColor: "#28B463",
+      confirmButtonText: "Genial!!! volver a inicio.",
+    }).then((result) => {
+      props.history.push("/");
+      localStorage.removeItem("orderId");
+    });
   };
 
   return (
