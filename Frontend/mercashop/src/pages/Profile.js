@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import OrdersProfile from "./ordersProfile";
+import OrdersProfile from "./OrdersProfile";
 import formUpdate from "../components/formUpdate";
 
 export default function Profile(props) {
@@ -43,6 +43,7 @@ export default function Profile(props) {
         setBirthDate(data.birthDate);
         setAdress(data.adress);
         setUserName(data.userName);
+        setId(data._id);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -245,14 +246,14 @@ export default function Profile(props) {
           </div>
         </div>
       </div>
-      <div className="card mx-2 my-1 border border-success">
-        <div className="accordion" id="accordionOrders">
+      <div className="card mx-2 my-1 border border-danger">
+        <div className="accordion" id="accordionOrdersSaved">
           <div className="card">
-            <div className="card-header bg-success" id="orders">
+            <div className="card-header bg-danger" id="orders">
               <div className="row">
                 <div className="col-md-1">
                   <button
-                    className="btn btn-success"
+                    className="btn btn-danger"
                     type="button"
                     data-toggle="collapse"
                     data-target="#collapseTwo"
@@ -266,7 +267,7 @@ export default function Profile(props) {
                   </button>
                 </div>
                 <div className="col-md-11">
-                  <h3 className="mt-1 text-white">Ordenes</h3>
+                  <h3 className="mt-1 text-white">Ordenes Guardadas</h3>
                 </div>
               </div>
             </div>
@@ -276,10 +277,48 @@ export default function Profile(props) {
           id="collapseTwo"
           className="collapse"
           aria-labelledby="orders"
-          data-parent="#accordionOrders"
+          data-parent="#accordionOrdersSaved"
         >
           <div className="card-body border-bottom">
-            <OrdersProfile />
+            <OrdersProfile customerId={id}/>
+          </div>
+        </div>
+      </div>
+      <div className="card mx-2 my-1 border border-success">
+        <div className="accordion" id="accordionOrdersPayed">
+          <div className="card">
+            <div className="card-header bg-success" id="orders">
+              <div className="row">
+                <div className="col-md-1">
+                  <button
+                    className="btn btn-success"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#collapseThree"
+                    aria-expanded="false"
+                    aria-controls="collapseThree"
+                  >
+                    <FontAwesomeIcon
+                      icon={faCaretSquareDown}
+                      className="fa-2x"
+                    />
+                  </button>
+                </div>
+                <div className="col-md-11">
+                  <h3 className="mt-1 text-white">Ordenes Pagadas</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          id="collapseThree"
+          className="collapse"
+          aria-labelledby="orders"
+          data-parent="#accordionOrdersPayed"
+        >
+          <div className="card-body border-bottom">
+            <OrdersProfile customerId={id}/>
           </div>
         </div>
       </div>

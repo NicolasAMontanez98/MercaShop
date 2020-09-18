@@ -11,9 +11,9 @@ const orderSchema = new Schema(
       ref: "Customer",
       required: true,
     },
-    orderItems: [{
+    products: [{
       type: Schema.Types.ObjectId,
-      ref: 'OrderItems',
+      ref: 'Product',
       required: true,
     }],
     adress: {

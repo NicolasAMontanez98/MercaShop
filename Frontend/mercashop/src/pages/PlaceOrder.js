@@ -17,7 +17,7 @@ export default function PlaceOrder(props) {
   const orderCreate = useSelector((state) => state.orderCreate);
   const { loading, success, error, order } = orderCreate;
   const [city, setCity] = useState("");
-  const [address, setAddress] = useState("");
+  const [adress, setAdress] = useState("");
   const [country, setCountry] = useState("Colombia");
   const [payment, setPayment] = useState("");
   const [progress, setProgress] = useState(0);
@@ -53,7 +53,7 @@ export default function PlaceOrder(props) {
     tax: taxPrice,
     tax_base: itemsPrice,
     name_billing: customerInfo.names,
-    address_billing: customerData.address,
+    address_billing: customerData.adress,
     type_doc_billing: idType(customerData.idType),
     mobilephone_billing: customerData.phone,
     number_doc_billing: customerData.idNumber,
@@ -78,13 +78,13 @@ export default function PlaceOrder(props) {
 
   const handleShippingPayment = (e) => {
     e.preventDefault();
-    dispatch(saveShipping({ address, city, country }));
+    dispatch(saveShipping({ adress, city, country }));
     dispatch(savePayment({ payment }));
     setEnable(true);
     dispatch(
       createOrder({
-        orderItems: items,
-        address,
+        products: items,
+        adress,
         city,
         payment,
         itemsPrice,
@@ -180,7 +180,7 @@ export default function PlaceOrder(props) {
                       className="form-control is-invalid"
                       aria-describedby="inputAddress"
                       onChange={(e) => {
-                        setAddress(e.target.value);
+                        setAdress(e.target.value);
                       }}
                       required
                     />

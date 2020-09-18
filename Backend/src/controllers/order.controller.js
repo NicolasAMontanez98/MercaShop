@@ -12,6 +12,28 @@ orderCtrl.getOrders = async (req, res) => {
   }
 };
 
+orderCtrl.getOrdersSaved = async (req, res) => {
+  try {
+    const orders = await Order.find({ customer: req.params.id }).populate(
+      "customer products"
+    );
+    res.send(orders);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
+orderCtrl.getOrdersPayed = async (req, res) => {
+  try {
+    const orders = await Order.find({ customer: req.params.id }).populate(
+      "customer"
+    );
+    res.send(orders);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
 orderCtrl.getOrder = async (req, res) => {
   try {
     const order = await Order.findOne({ _id: req.params.id });
@@ -35,7 +57,7 @@ orderCtrl.postOrder = async (req, res) => {
   try {
     const newOrder = new Order({
       customer: req.body.customer,
-      orderItems: req.body.orderItems,
+      products: req.body.products,
       adress: req.body.adress,
       city: req.body.city,
       payment: req.body.payment,
@@ -72,10 +94,8 @@ orderCtrl.payOrder = async (req, res) => {
 orderCtrl.getMyOrders = async (req, res) => {
   try {
     const orders = await Order.find({ customer: req.params.id })
-    .populate('Customer')
-    .exec(function (err, orders) {
-      
-    });    
+      .populate("Customer")
+      .exec(function (err, orders) {});
     res.status(200).json(orders);
   } catch (error) {
     res.status(400).json(error);

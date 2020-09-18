@@ -12,6 +12,11 @@ const ProductsCard = ({ product }) => {
     dispatch(addToCart(product._id, 1));
   };
 
+  const formatCurrency = (number) => {
+    let res = new Intl.NumberFormat("en-CO").format(number);
+    return res;
+  };
+
   const { image, name, index, discount, quantity, price, _id } = product;
   return (
     <div className="container col-3">
@@ -34,7 +39,7 @@ const ProductsCard = ({ product }) => {
             </Link>
           </div>
           <p className="font-weight-light">{quantity}</p>
-          <h4>$ {price}</h4>
+          <h4>$ {formatCurrency(price)}</h4>
           <div className="sticky-top">
             <button
               className="btn btn-outline-primary btn-sm rounded-pill  "
