@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux"; // No ha sido utilizado/
 import logo from "./../assets/images/Merca Shop letters inline.png";
 import logoWhite from "../assets/images/Merca Shop letters inline white.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { SearchIcon } from "@primer/octicons-react";
 import Carrito from "../components/Carrito";
 import { Pedidos, Location } from "../shared/Buttons";
@@ -23,11 +23,12 @@ export default function Header(props) {
   const providerSignIn = useSelector((state) => state.providerSignIn);
   const { providerInfo } = providerSignIn;
   const dispatch = useDispatch();
-  const [currentPath, setCurrentPath] = useState("");
+  const [path, setPath] = useState(window.location.pathname);
+  let location = useLocation();
 
   useEffect(() => {
-    setCurrentPath(window.location.pathname);
-  }, [currentPath]);
+    setPath(location.pathname);
+  }, [location]);
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -47,6 +48,25 @@ export default function Header(props) {
     e.preventDefault();
     dispatch(logout());
   };
+  const handleLoginRedirect = (e) => {
+    e.preventDefault();
+    props.history.push('/login');
+  }
+  const handleLoginProviderRedirect = (e) => {
+    e.preventDefault();
+    props.history.push('/login-proveedor');
+  }
+  const currentPath = (path) => {
+    if (
+      path === "/login" ||
+      path === "/login-proveedor" ||
+      path === "/registro-cliente" ||
+      path === "/registro-proveedor"
+    ) {
+      return true;
+    }
+    return false;
+  };
 
   const classes = useStyles();
 
@@ -54,10 +74,7 @@ export default function Header(props) {
 
   return (
     <div className="App">
-      {currentPath === "/login" ||
-      currentPath === "/login-proveedor" ||
-      currentPath === "/registro-cliente" ||
-      currentPath === "/registro-proveedor" ? (
+      {currentPath(path) ? (
         <nav className="navbar navbar-expand-lg navbar-light bg-dark border-bottom p-1">
           <Link className="navbar-brand ml-4" to="/">
             <img src={logoWhite} alt="logo" width="150" />
@@ -146,7 +163,12 @@ export default function Header(props) {
                         <span>{names}</span>
                       </MenuItem>
                       <MenuItem>
-                        <Link to={'/profile/' + customerInfo._id} className='text-decoration-none text-dark'>Profile</Link>
+                        <Link
+                          to={"/profile/" + customerInfo._id}
+                          className="text-decoration-none text-dark"
+                        >
+                          Profile
+                        </Link>
                       </MenuItem>
                       <MenuItem onClick={handleClose}>My account</MenuItem>
                       <MenuItem onClick={handleLogOut}>Logout</MenuItem>
@@ -160,7 +182,10 @@ export default function Header(props) {
                       onClose={handleClose}
                     >
                       <MenuItem>
-                        <Link to="/login" className="text-decoration-none">
+                        <Link
+                          to="/login"
+                          className="text-decoration-none text-dark"
+                        >
                           <AccountCircle className="mr-2" />
                           Cliente
                         </Link>
@@ -168,7 +193,7 @@ export default function Header(props) {
                       <MenuItem>
                         <Link
                           to="/login-proveedor"
-                          className="text-decoration-none"
+                          className="text-decoration-none text-dark"
                         >
                           <AccountBox className="mr-2" />
                           Proveedor

@@ -106,7 +106,7 @@ function LoginProvider(props) {
                 </Link>
               </div>
             </div>
-            <Link to="/login" className="text-decoration-none">
+            <Link to="/" className="text-decoration-none">
               <button className="btn btn-lg btn-danger btn-block rounded-pill mt-2 text-decoration-none">
                 Regresar
               </button>
