@@ -15,10 +15,11 @@ import { logout as logoutCustomer } from "../store/actions/customerAction";
 import { logout as logoutProvider } from "../store/actions/providerAction";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import AccountBox from "@material-ui/icons/AccountBox";
+import { listProducts } from "../store/actions/productAction";
 
 export default function Header(props) {
-  const [search, setSearch] = useState(""); //No ha sido utilizado
-  const [anchorEl, setAnchorEl] = useState(false);
+  const [search, setSearch] = useState(""); 
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const customerSignIn = useSelector((state) => state.customerSignIn);
   const { customerInfo } = customerSignIn;
   const providerSignIn = useSelector((state) => state.providerSignIn);
@@ -27,6 +28,7 @@ export default function Header(props) {
   const [path, setPath] = useState(window.location.pathname);
   let location = useLocation();
   let history = useHistory();
+  let category = '';
 
   useEffect(() => {
     setPath(location.pathname);
@@ -50,9 +52,7 @@ export default function Header(props) {
   const handleLogOut = (e) => {
     e.preventDefault();
     history.push("/");
-    {
-      customerInfo ? dispatch(logoutCustomer()) : dispatch(logoutProvider());
-    }
+    {customerInfo ? dispatch(logoutCustomer()) : dispatch(logoutProvider())}
   };
 
   const currentPath = (path) => {
@@ -66,6 +66,23 @@ export default function Header(props) {
     }
     return false;
   };
+
+  const currentPath = (path) => {
+    if (
+      path === "/login" ||
+      path === "/login-proveedor" ||
+      path === "/registro-cliente" ||
+      path === "/registro-proveedor"
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(listProducts(category, search))
+  }
 
   const classes = useStyles();
 
@@ -107,19 +124,20 @@ export default function Header(props) {
           <div className="row container">
             <div className="col-md-4">
               <div className="input-group ml-5">
-                <form className="form-inline my-2 my-lg-0">
+                <form className="form-inline my-2 my-lg-0" onSubmit={submitHandler}>
                   <input
                     className="form-control mr-sm-2 input-lg border border-dark"
                     type="search"
                     placeholder="Que quieres?"
                     aria-label="Search"
                     title="Busca"
+                    name="search"
                     onChange={(e) => setSearch(e.target.value)}
                   />
                   <div className="input-group-append">
                     <button
                       className="btn btn-outline-dark"
-                      type="button"
+                      type="submit"
                       id="button-addon2"
                     >
                       <SearchIcon size={20} />
@@ -162,7 +180,7 @@ export default function Header(props) {
                         <span>{names}</span>
                       </MenuItem>
                       <MenuItem>
-                        {customerInfo ? (
+                        { customerInfo ? (
                           <Link
                             to={"/profile/" + customerInfo._id}
                             className="text-decoration-none text-dark"
@@ -189,10 +207,8 @@ export default function Header(props) {
                       onClose={handleClose}
                     >
                       <MenuItem>
-                        <Link
-                          to="/login"
-                          className="text-decoration-none text-dark"
-                        >
+                        <Link to="/login" className="text-decoration-none text-dark">
+
                           <AccountCircle className="mr-2" />
                           Cliente
                         </Link>
