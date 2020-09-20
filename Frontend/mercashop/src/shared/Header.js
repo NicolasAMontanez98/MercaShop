@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux"; // No ha sido utilizado/
 import logo from "./../assets/images/Merca Shop letters inline.png";
 import logoWhite from "../assets/images/Merca Shop letters inline white.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { SearchIcon } from "@primer/octicons-react";
 import Carrito from "../components/Carrito";
 import { Pedidos, Location } from "../shared/Buttons";
@@ -25,12 +25,13 @@ export default function Header(props) {
   const providerSignIn = useSelector((state) => state.providerSignIn);
   const { providerInfo } = providerSignIn;
   const dispatch = useDispatch();
-  const [currentPath, setCurrentPath] = useState("");
+  const [path, setPath] = useState(window.location.pathname);
+  let location = useLocation();
   const category = '';
 
   useEffect(() => {
-    setCurrentPath(window.location.pathname);
-  }, [currentPath]);
+    setPath(location.pathname);
+  }, [location]);
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -62,10 +63,10 @@ export default function Header(props) {
 
   return (
     <div className="App">
-      {currentPath === "/login" ||
-      currentPath === "/login-proveedor" ||
-      currentPath === "/registro-cliente" ||
-      currentPath === "/registro-proveedor" ? (
+      {path === "/login" ||
+      path === "/login-proveedor" ||
+      path === "/registro-cliente" ||
+      path === "/registro-proveedor" ? (
         <nav className="navbar navbar-expand-lg navbar-light bg-dark border-bottom p-1">
           <Link className="navbar-brand ml-4" to="/">
             <img src={logoWhite} alt="logo" width="150" />
