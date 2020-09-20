@@ -52,6 +52,18 @@ export default function Header(props) {
     {customerInfo ? dispatch(logoutCustomer()) : dispatch(logoutProvider())}
   };
 
+  const currentPath = (path) => {
+    if (
+      path === "/login" ||
+      path === "/login-proveedor" ||
+      path === "/registro-cliente" ||
+      path === "/registro-proveedor"
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(listProducts(category, search))
@@ -63,10 +75,7 @@ export default function Header(props) {
 
   return (
     <div className="App">
-      {path === "/login" ||
-      path === "/login-proveedor" ||
-      path === "/registro-cliente" ||
-      path === "/registro-proveedor" ? (
+      {currentPath(path) ? (
         <nav className="navbar navbar-expand-lg navbar-light bg-dark border-bottom p-1">
           <Link className="navbar-brand ml-4" to="/">
             <img src={logoWhite} alt="logo" width="150" />
