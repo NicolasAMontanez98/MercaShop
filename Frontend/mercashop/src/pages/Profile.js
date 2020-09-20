@@ -16,6 +16,7 @@ export default function Profile(props) {
   const { customerInfo } = customerRegister;
   const dispatch = useDispatch();
 
+  const [role, setRole] = useState("");
   const [id, setId] = useState("");
   const [names, setNames] = useState("");
   const [lastNames, setLastNames] = useState("");
@@ -44,6 +45,7 @@ export default function Profile(props) {
         setAdress(data.adress);
         setUserName(data.userName);
         setId(data._id);
+        setRole(data.role);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -280,7 +282,7 @@ export default function Profile(props) {
           data-parent="#accordionOrdersSaved"
         >
           <div className="card-body border-bottom">
-            <OrdersProfile customerId={id}/>
+            <OrdersProfile customerId={id} payed={false} />
           </div>
         </div>
       </div>
@@ -318,7 +320,7 @@ export default function Profile(props) {
           data-parent="#accordionOrdersPayed"
         >
           <div className="card-body border-bottom">
-            <OrdersProfile customerId={id}/>
+            <OrdersProfile customerId={id} payed={true}/>
           </div>
         </div>
       </div>

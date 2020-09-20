@@ -10,22 +10,17 @@ import Swal from "sweetalert2";
 function LoginProvider(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const customerSignIn = useSelector((state) => state.customerSignIn);
+  const { loading, customerInfo, error } = customerSignIn;  
   const providerSignIn = useSelector((state) => state.providerSignIn);
   const { providerInfo } = providerSignIn;
   const dispatch = useDispatch();
 
-  const redirect = props.location.search
-    ? props.location.search.split("=")[1]
-    : "/";
-
   useEffect(() => {
-    if (providerInfo) {
-      props.history.push(redirect);
+    if (providerInfo || customerInfo) {
+      props.history.push("/");
     }
-    return () => {
-      //
-    }
-  }, [providerInfo]);
+  }, [providerInfo, customerInfo]);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -33,7 +28,7 @@ function LoginProvider(props) {
     Swal.fire({
       title: "Ingreso exitoso",
       icon: "success",
-      confirmButtonColor: '#28B463',
+      confirmButtonColor: "#28B463",
       confirmButtonText: "Genial!!! volver a inicio.",
     }).then((result) => {
       window.location.reload(false);
@@ -88,6 +83,7 @@ function LoginProvider(props) {
                 className="form-control"
                 placeholder="Contraseña"
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete="on"
                 required
               ></input>
             </div>

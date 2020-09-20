@@ -12,22 +12,20 @@ function Login(props) {
   const [password, setPassword] = useState("");
   const customerSignIn = useSelector((state) => state.customerSignIn);
   const { loading, customerInfo, error } = customerSignIn;
+  const providerSignIn = useSelector((state) => state.providerSignIn);
+  const { providerInfo } = providerSignIn;  
   const dispatch = useDispatch();
 
-  const redirect = props.location.search
-    ? props.location.search.split("=")[1]
-    : "/";
-
   useEffect(() => {
-    if (customerInfo) {
-      props.history.push(redirect);
+    if ( providerInfo || customerInfo) {
+      props.history.push("/");
     }
-  }, [customerInfo]);
+  }, [customerInfo, providerInfo]);
 
   const handleBack = (e) => {
     e.preventDefault();
-    props.history.push('/');
-  }
+    props.history.push("/");
+  };
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -35,10 +33,10 @@ function Login(props) {
     Swal.fire({
       title: "Ingreso exitoso",
       icon: "success",
-      confirmButtonColor: '#28B463',
+      confirmButtonColor: "#28B463",
       confirmButtonText: "Genial!!! volver a inicio.",
     }).then((result) => {
-      props.history.push(redirect);
+      props.history.push('/');
     });
   };
 
@@ -90,6 +88,7 @@ function Login(props) {
                 className="form-control"
                 placeholder="Contraseña"
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete="on"
                 required
               ></input>
             </div>
@@ -126,9 +125,12 @@ function Login(props) {
                 </Link>
               </div>
             </div>
-              <button className="btn btn-lg btn-danger btn-block rounded-pill mt-2 text-decoration-none" onClick={handleBack}>
-                Regresar
-              </button>
+            <button
+              className="btn btn-lg btn-danger btn-block rounded-pill mt-2 text-decoration-none"
+              onClick={handleBack}
+            >
+              Regresar
+            </button>
           </form>
         </div>
       </div>

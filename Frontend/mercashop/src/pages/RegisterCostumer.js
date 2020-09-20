@@ -54,6 +54,7 @@ export default function RegisterCostumer(props) {
     }).then((result) => {
       window.location.reload(false);
     });
+    
   };
 
   return (
@@ -82,6 +83,7 @@ export default function RegisterCostumer(props) {
                   id="inputName"
                   placeholder="Nombres"
                   onChange={(e) => setNames(e.target.value)}
+                  required
                 />
               </div>
               <div className="form-group col-md-6">
@@ -94,6 +96,7 @@ export default function RegisterCostumer(props) {
                   id="inputLastName"
                   placeholder="Apellidos"
                   onChange={(e) => setLastNames(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -109,6 +112,7 @@ export default function RegisterCostumer(props) {
                   placeholder="Nombres"
                   defaultValue={"predeterminado"}
                   onChange={(e) => setIdType(e.target.value)}
+                  required
                 >
                   <option value="predeterminado" disabled>
                     Seleccione una opción
@@ -133,6 +137,7 @@ export default function RegisterCostumer(props) {
                   id="inputIdNumber"
                   placeholder="Identificación"
                   onChange={(e) => setIdNumber(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -147,6 +152,7 @@ export default function RegisterCostumer(props) {
                   id="inputEmail"
                   placeholder="Correo Electrónico"
                   onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
               </div>
               <div className="form-group col-md-4">
@@ -159,6 +165,7 @@ export default function RegisterCostumer(props) {
                   id="inputPhone"
                   placeholder="Teléfono"
                   onChange={(e) => setPhone(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -173,6 +180,7 @@ export default function RegisterCostumer(props) {
                   id="inputBirthDate"
                   placeholder="Fecha de Nacimiento"
                   onChange={(e) => setBirthDate(e.target.value)}
+                  required
                 />
               </div>
               <div className="form-group col-md-6">
@@ -185,6 +193,7 @@ export default function RegisterCostumer(props) {
                   id="inputAdress"
                   placeholder="Dirección"
                   onChange={(e) => setAdress(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -199,6 +208,7 @@ export default function RegisterCostumer(props) {
                   id="inputUsername"
                   placeholder="Nombre de Usuario"
                   onChange={(e) => setUserName(e.target.value)}
+                  required
                 />
               </div>
               <div className="form-group col-md-6">
@@ -212,6 +222,7 @@ export default function RegisterCostumer(props) {
                   placeholder="Contraseña"
                   autoComplete="on"
                   onChange={(e) => setPassword(e.target.value)}
+                  required
                 />
               </div>
             </div>

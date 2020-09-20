@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux"; // No ha sido utilizado/
 import logo from "./../assets/images/Merca Shop letters inline.png";
 import logoWhite from "../assets/images/Merca Shop letters inline white.png";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import { SearchIcon } from "@primer/octicons-react";
 import Carrito from "../components/Carrito";
 import { Pedidos, Location } from "../shared/Buttons";
@@ -11,13 +11,14 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { makeStyles } from "@material-ui/core/styles";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import { logout } from "../store/actions/customerAction";
+import { logout as logoutCustomer } from "../store/actions/customerAction";
+import { logout as logoutProvider } from "../store/actions/providerAction";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import AccountBox from "@material-ui/icons/AccountBox";
 
 export default function Header(props) {
   const [search, setSearch] = useState(""); //No ha sido utilizado
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(false);
   const customerSignIn = useSelector((state) => state.customerSignIn);
   const { customerInfo } = customerSignIn;
   const providerSignIn = useSelector((state) => state.providerSignIn);
@@ -25,10 +26,12 @@ export default function Header(props) {
   const dispatch = useDispatch();
   const [path, setPath] = useState(window.location.pathname);
   let location = useLocation();
+  let history = useHistory();
 
   useEffect(() => {
     setPath(location.pathname);
-  }, [location]);
+    setAnchorEl(false);
+  }, [location, customerInfo, providerInfo]);
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,16 +49,12 @@ export default function Header(props) {
   };
   const handleLogOut = (e) => {
     e.preventDefault();
-    dispatch(logout());
+    history.push("/");
+    {
+      customerInfo ? dispatch(logoutCustomer()) : dispatch(logoutProvider());
+    }
   };
-  const handleLoginRedirect = (e) => {
-    e.preventDefault();
-    props.history.push('/login');
-  }
-  const handleLoginProviderRedirect = (e) => {
-    e.preventDefault();
-    props.history.push('/login-proveedor');
-  }
+
   const currentPath = (path) => {
     if (
       path === "/login" ||
@@ -163,14 +162,22 @@ export default function Header(props) {
                         <span>{names}</span>
                       </MenuItem>
                       <MenuItem>
-                        <Link
-                          to={"/profile/" + customerInfo._id}
-                          className="text-decoration-none text-dark"
-                        >
-                          Profile
-                        </Link>
+                        {customerInfo ? (
+                          <Link
+                            to={"/profile/" + customerInfo._id}
+                            className="text-decoration-none text-dark"
+                          >
+                            Profile
+                          </Link>
+                        ) : (
+                          <Link
+                            to={"/profile-provider/" + providerInfo._id}
+                            className="text-decoration-none text-dark"
+                          >
+                            Profile
+                          </Link>
+                        )}
                       </MenuItem>
-                      <MenuItem onClick={handleClose}>My account</MenuItem>
                       <MenuItem onClick={handleLogOut}>Logout</MenuItem>
                     </Menu>
                   ) : (

@@ -89,6 +89,7 @@ export default function RegisterProvider(props) {
                   id="inputName"
                   placeholder="Nombres"
                   onChange={(e) => setNames(e.target.value)}
+                  required
                 />
               </div>
               <div className="form-group col-md-6">
@@ -101,6 +102,7 @@ export default function RegisterProvider(props) {
                   id="inputLastName"
                   placeholder="Apellidos"
                   onChange={(e) => setLastNames(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -137,6 +139,7 @@ export default function RegisterProvider(props) {
                   id="inputIdNumber"
                   placeholder="Identificación"
                   onChange={(e) => setIdNumber(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -151,6 +154,7 @@ export default function RegisterProvider(props) {
                   id="inputLastName"
                   placeholder="Correo Electrónico"
                   onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
               </div>
               <div className="form-group col-md-4">
@@ -163,6 +167,7 @@ export default function RegisterProvider(props) {
                   id="inputPhone"
                   placeholder="Teléfono"
                   onChange={(e) => setPhone(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -177,6 +182,7 @@ export default function RegisterProvider(props) {
                   id="inputBirthDate"
                   placeholder="Fecha de Nacimiento"
                   onChange={(e) => setBirthDate(e.target.value)}
+                  required
                 />
               </div>
               <div className="form-group col-md-6">
@@ -189,6 +195,7 @@ export default function RegisterProvider(props) {
                   id="inputAdress"
                   placeholder="Dirección"
                   onChange={(e) => setAdress(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -206,6 +213,7 @@ export default function RegisterProvider(props) {
                   id="inputBussinessName"
                   placeholder="Razón Social"
                   onChange={(e) => setBusinesName(e.target.value)}
+                  required
                 />
               </div>
               <div className="form-group col-md-6">
@@ -218,6 +226,7 @@ export default function RegisterProvider(props) {
                   id="inputNIT"
                   placeholder="Sin dígito de verificación"
                   onChange={(e) => setNit(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -255,6 +264,7 @@ export default function RegisterProvider(props) {
                   name="paginaWeb"
                   placeholder="Página web"
                   onChange={(e) => setWebPage(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -270,6 +280,7 @@ export default function RegisterProvider(props) {
                   name="password"
                   placeholder="Contraseña"
                   onChange={(e) => setPassword(e.target.value)}
+                  required
                 />
               </div>
             </div>
