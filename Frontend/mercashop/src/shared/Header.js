@@ -27,7 +27,8 @@ export default function Header(props) {
   const dispatch = useDispatch();
   const [path, setPath] = useState(window.location.pathname);
   let location = useLocation();
-  const category = '';
+  let category = '';
+
 
   useEffect(() => {
     setPath(location.pathname);
@@ -50,6 +51,25 @@ export default function Header(props) {
   const handleLogOut = (e) => {
     e.preventDefault();
     {customerInfo ? dispatch(logoutCustomer()) : dispatch(logoutProvider())}
+  };
+  const handleLoginRedirect = (e) => {
+    e.preventDefault();
+    props.history.push('/login');
+  }
+  const handleLoginProviderRedirect = (e) => {
+    e.preventDefault();
+    props.history.push('/login-proveedor');
+  }
+  const currentPath = (path) => {
+    if (
+      path === "/login" ||
+      path === "/login-proveedor" ||
+      path === "/registro-cliente" ||
+      path === "/registro-proveedor"
+    ) {
+      return true;
+    }
+    return false;
   };
 
   const currentPath = (path) => {
@@ -181,6 +201,7 @@ export default function Header(props) {
                             Profile
                           </Link>
                         )}
+
                       </MenuItem>
                       <MenuItem onClick={handleClose}>My account</MenuItem>
                       <MenuItem onClick={handleLogOut}>Logout</MenuItem>
@@ -195,6 +216,7 @@ export default function Header(props) {
                     >
                       <MenuItem>
                         <Link to="/login" className="text-decoration-none text-dark">
+
                           <AccountCircle className="mr-2" />
                           Cliente
                         </Link>
