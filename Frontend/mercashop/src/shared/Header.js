@@ -11,12 +11,14 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { makeStyles } from "@material-ui/core/styles";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import { logout } from "../store/actions/customerAction";
+import { logout as logoutCustomer } from "../store/actions/customerAction";
+import { logout as logoutProvider } from "../store/actions/providerAction";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import AccountBox from "@material-ui/icons/AccountBox";
+import { listProducts } from "../store/actions/productAction";
 
 export default function Header(props) {
-  const [search, setSearch] = useState(""); //No ha sido utilizado
+  const [search, setSearch] = useState(""); 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const customerSignIn = useSelector((state) => state.customerSignIn);
   const { customerInfo } = customerSignIn;
@@ -24,6 +26,7 @@ export default function Header(props) {
   const { providerInfo } = providerSignIn;
   const dispatch = useDispatch();
   const [currentPath, setCurrentPath] = useState("");
+  const category = '';
 
   useEffect(() => {
     setCurrentPath(window.location.pathname);
@@ -45,8 +48,13 @@ export default function Header(props) {
   };
   const handleLogOut = (e) => {
     e.preventDefault();
-    dispatch(logout());
+    {customerInfo ? dispatch(logoutCustomer()) : dispatch(logoutProvider())}
   };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(listProducts(category, search))
+  }
 
   const classes = useStyles();
 
@@ -91,19 +99,20 @@ export default function Header(props) {
           <div className="row container">
             <div className="col-md-4">
               <div className="input-group ml-5">
-                <form className="form-inline my-2 my-lg-0">
+                <form className="form-inline my-2 my-lg-0" onSubmit={submitHandler}>
                   <input
                     className="form-control mr-sm-2 input-lg border border-dark"
                     type="search"
                     placeholder="Que quieres?"
                     aria-label="Search"
                     title="Busca"
+                    name="search"
                     onChange={(e) => setSearch(e.target.value)}
                   />
                   <div className="input-group-append">
                     <button
                       className="btn btn-outline-dark"
-                      type="button"
+                      type="submit"
                       id="button-addon2"
                     >
                       <SearchIcon size={20} />
@@ -146,7 +155,22 @@ export default function Header(props) {
                         <span>{names}</span>
                       </MenuItem>
                       <MenuItem>
-                        <Link to={'/profile/' + customerInfo._id} className='text-decoration-none text-dark'>Profile</Link>
+                        { customerInfo ? (
+                          <Link
+                            to={"/profile/" + customerInfo._id}
+                            className="text-decoration-none text-dark"
+                          >
+                            Profile
+                          </Link>
+                          
+                        ) : (
+                          <Link
+                            to={"/profile-provider/" + providerInfo._id}
+                            className="text-decoration-none text-dark"
+                          >
+                            Profile
+                          </Link>
+                        )}
                       </MenuItem>
                       <MenuItem onClick={handleClose}>My account</MenuItem>
                       <MenuItem onClick={handleLogOut}>Logout</MenuItem>
@@ -160,7 +184,7 @@ export default function Header(props) {
                       onClose={handleClose}
                     >
                       <MenuItem>
-                        <Link to="/login" className="text-decoration-none">
+                        <Link to="/login" className="text-decoration-none text-dark">
                           <AccountCircle className="mr-2" />
                           Cliente
                         </Link>
@@ -168,7 +192,7 @@ export default function Header(props) {
                       <MenuItem>
                         <Link
                           to="/login-proveedor"
-                          className="text-decoration-none"
+                          className="text-decoration-none text-dark"
                         >
                           <AccountBox className="mr-2" />
                           Proveedor
