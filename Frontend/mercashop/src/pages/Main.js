@@ -15,9 +15,9 @@ function Main(props) {
                 <PromotionCarousel />
               </div>
             </div>
-            <div className="row ml-5">
+            <div className="row">
               <div className="col-md-12">
-                <ShowProducts category={props.category} />
+                <ShowProducts category={props.category} search={props.search}/>
               </div>
             </div>
           </div>
