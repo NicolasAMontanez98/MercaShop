@@ -31,27 +31,28 @@ const listProducts = (category = '', search = '') => async (dispatch) => {
 const saveProduct = (product) => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_SAVE_REQUEST, payload: product });
-    const {
-      userSignIn: { userInfo },
-    } = getState();
+    // const {
+    //   providerSignIn: { providerInfo },
+    // } = getState();
     if (!product._id) {
-      const { data } = await axios.post("http://localhost:8000/api/products", product, {
-        headers: {
-          Authorization: "Bearer " + userInfo.token,
-        },
-      });
+      const { data } = await axios.post("http://localhost:8000/api/product/crear", product, {
+        // headers: {
+          //   Authorization: "Bearer " + providerInfo.token,
+          // },
+        });
+        // console.log(data);  
       dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: data });
     } else {
-      const { data } = await axios.put(
-        "/api/products/" + product._id,
-        product,
-        {
-          headers: {
-            Authorization: "Bearer " + userInfo.token,
-          },
-        }
-      );
-      dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: data });
+      // const { data } = await axios.put(
+      //   "/api/product/" + product._id,
+      //   product,
+      //   {
+      //     headers: {
+      //       Authorization: "Bearer " + providerInfo.token,
+      //     },
+      //   }
+      // );
+      // dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: data });
     }
   } catch (error) {
     dispatch({ type: PRODUCT_SAVE_FAIL, payload: error.message });
