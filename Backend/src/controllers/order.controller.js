@@ -5,7 +5,7 @@ const Customer = require("../models/customer.model");
 
 orderCtrl.getOrders = async (req, res) => {
   try {
-    const orders = await Order.find({}).populate("customer");
+    const orders = await Order.find({}).populate("customer products");
     res.send(orders);
   } catch (error) {
     res.status(400).json(error);
