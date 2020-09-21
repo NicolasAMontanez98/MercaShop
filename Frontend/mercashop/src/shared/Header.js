@@ -67,18 +67,6 @@ export default function Header(props) {
     return false;
   };
 
-  const currentPath = (path) => {
-    if (
-      path === "/login" ||
-      path === "/login-proveedor" ||
-      path === "/registro-cliente" ||
-      path === "/registro-proveedor"
-    ) {
-      return true;
-    }
-    return false;
-  };
-
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(listProducts(category, search))
