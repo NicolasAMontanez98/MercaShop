@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux"; // No ha sido utilizado/
 import logo from "./../assets/images/Merca Shop letters inline.png";
 import logoWhite from "../assets/images/Merca Shop letters inline white.png";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import { SearchIcon } from "@primer/octicons-react";
 import Carrito from "../components/Carrito";
 import { Pedidos, Location } from "../shared/Buttons";
@@ -27,7 +27,8 @@ export default function Header(props) {
   const dispatch = useDispatch();
   const [path, setPath] = useState(window.location.pathname);
   let location = useLocation();
-  const category = '';
+  let history = useHistory();
+  let category = '';
 
   useEffect(() => {
     setPath(location.pathname);
@@ -49,6 +50,7 @@ export default function Header(props) {
   };
   const handleLogOut = (e) => {
     e.preventDefault();
+    history.push("/");
     {customerInfo ? dispatch(logoutCustomer()) : dispatch(logoutProvider())}
   };
 

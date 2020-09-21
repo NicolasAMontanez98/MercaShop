@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { saveProduct } from "../store/actions/productAction";
 
 export default function ProfileProvider(props) {
   const dispatch = useDispatch();
@@ -79,6 +80,19 @@ export default function ProfileProvider(props) {
     );
   };
 
+  const handleSaveProduct = (e) => {
+    e.preventDefault();
+    dispatch(saveProduct({
+      name: productName,
+      decription: productDescription,
+      category: productCategory,
+      image: productImage,
+      quantity: productQuantity,
+      price: productPrice,
+      discount: productDiscount, 
+    }));
+  }
+ 
   return (
     <div className="container">
       <div className="card mx-2 my-2">
@@ -482,7 +496,7 @@ export default function ProfileProvider(props) {
           data-parent="#accordionCreateProduct"
         >
           <div className="card-body border-bottom">
-            <form onClick={handleUpdate}>
+            <form onClick={handleSaveProduct}>
               <div className="form-row">
                 <div className="form-group col-md-6">
                   <label htmlFor="inputName" className="font-weight-bolder">

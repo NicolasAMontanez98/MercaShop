@@ -1,11 +1,6 @@
 const { Schema, model } = require("mongoose");
 
 const productSchema = new Schema({
-    id: {
-        type: Number,
-        required: true,
-        trim: true
-    },
     image: {
         type: String,
         required: true,
@@ -20,7 +15,6 @@ const productSchema = new Schema({
         required: true
     },
     category: {
-
         type: String,
         required: true
     },
@@ -36,11 +30,21 @@ const productSchema = new Schema({
         type: Number,
         required: true
     },
-    provider: {
-        type: Schema.Types.ObjectId,
-        ref: 'Provider',
+    rating: {
+        type: Number,
+        default: 0,
         required: true
-    }
+    },
+    numReviews: {
+        type: Number,
+        default: 0,
+        required: true
+    },
+    // provider: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Provider',
+    //     required: true
+    // }
 },{timestamps: true});
 
 const Product = model('Product', productSchema);

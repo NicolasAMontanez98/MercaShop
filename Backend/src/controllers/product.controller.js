@@ -16,8 +16,10 @@ productCtrl.createProduct = async (req, res) => {
     });
     await newProduct.save();
     res.status(200).json('Producto agregado exitosamente.');
+    // res.status(200).send({ message: 'New Product Created', data: newProduct });
   } catch (error) {
     res.status(400).json(error);
+    // res.status(400).send({ message: ' Error in Creating Product.' });
   }
 };
 
