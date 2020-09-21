@@ -54,6 +54,7 @@ export default function RegisterCostumer(props) {
     }).then((result) => {
       window.location.reload(false);
     });
+    
   };
 
   return (
@@ -111,6 +112,7 @@ export default function RegisterCostumer(props) {
                   placeholder="Nombres"
                   defaultValue={"predeterminado"}
                   onChange={(e) => setIdType(e.target.value)}
+                  required
                 >
                   <option value="predeterminado" disabled>
                     Seleccione una opción

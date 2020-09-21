@@ -182,6 +182,7 @@ export default function RegisterProvider(props) {
                   id="inputBirthDate"
                   placeholder="Fecha de Nacimiento"
                   onChange={(e) => setBirthDate(e.target.value)}
+                  required
                 />
               </div>
               <div className="form-group col-md-6">

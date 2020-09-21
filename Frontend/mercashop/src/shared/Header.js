@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux"; // No ha sido utilizado/
 import logo from "./../assets/images/Merca Shop letters inline.png";
 import logoWhite from "../assets/images/Merca Shop letters inline white.png";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import { SearchIcon } from "@primer/octicons-react";
 import Carrito from "../components/Carrito";
 import { Pedidos, Location } from "../shared/Buttons";
@@ -27,12 +27,13 @@ export default function Header(props) {
   const dispatch = useDispatch();
   const [path, setPath] = useState(window.location.pathname);
   let location = useLocation();
+  let history = useHistory();
   let category = '';
-
 
   useEffect(() => {
     setPath(location.pathname);
-  }, [location]);
+    setAnchorEl(false);
+  }, [location, customerInfo, providerInfo]);
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,26 +51,8 @@ export default function Header(props) {
   };
   const handleLogOut = (e) => {
     e.preventDefault();
+    history.push("/");
     {customerInfo ? dispatch(logoutCustomer()) : dispatch(logoutProvider())}
-  };
-  const handleLoginRedirect = (e) => {
-    e.preventDefault();
-    props.history.push('/login');
-  }
-  const handleLoginProviderRedirect = (e) => {
-    e.preventDefault();
-    props.history.push('/login-proveedor');
-  }
-  const currentPath = (path) => {
-    if (
-      path === "/login" ||
-      path === "/login-proveedor" ||
-      path === "/registro-cliente" ||
-      path === "/registro-proveedor"
-    ) {
-      return true;
-    }
-    return false;
   };
 
   const currentPath = (path) => {
@@ -192,7 +175,6 @@ export default function Header(props) {
                           >
                             Profile
                           </Link>
-                          
                         ) : (
                           <Link
                             to={"/profile-provider/" + providerInfo._id}
@@ -201,9 +183,7 @@ export default function Header(props) {
                             Profile
                           </Link>
                         )}
-
                       </MenuItem>
-                      <MenuItem onClick={handleClose}>My account</MenuItem>
                       <MenuItem onClick={handleLogOut}>Logout</MenuItem>
                     </Menu>
                   ) : (
