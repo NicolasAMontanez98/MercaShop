@@ -10,6 +10,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { saveProduct } from "../store/actions/productAction";
 import OrdersProfileProvider from './OrdersProfileProvider';
+import ProductsProfileProvider from '../components/ProductsProfileProvider';
+import Swal from "sweetalert2";
 
 export default function ProfileProvider(props) {
   const dispatch = useDispatch();
@@ -92,6 +94,14 @@ export default function ProfileProvider(props) {
       price: productPrice,
       discount: productDiscount, 
     }));
+    Swal.fire({
+      title: "Producto agregado exitosamente",
+      icon: "success",
+      confirmButtonColor: "#28B463",
+      confirmButtonText: "Genial!!!",
+    }).then((result) => {
+      window.location.reload();
+    });
   }
  
   return (
@@ -398,33 +408,10 @@ export default function ProfileProvider(props) {
           className="collapse"
           aria-labelledby="orders"
           data-parent="#accordionProduct"
+          height="200"
         >
-          <div className="card-body border-bottom">
-            <div className="card">
-              <div className="card-body">
-                <div className="card mx-1 my-1">
-                  <div className="row no-gutters">
-                    <div className="col-md-2 d-flex justify-content-center">
-                      <img
-                        src="https://d50xhnwqnrbqk.cloudfront.net/images/products/app/huevo-rojo-aa-x-30-unidades.png"
-                        alt="algun producto"
-                        width="100"
-                        height="100"
-                      />
-                    </div>
-                    <div className="col-md-10">
-                      <h6 className="card-title font-weight-bolder">
-                        Nombre del producto
-                      </h6>
-                      <p className="card-description">Cantidad: 2</p>
-                      <p className="card-description font-weight-bold">
-                        Precio: $10.980
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="card-body border-bottom overflow-auto" height="200px">
+            <ProductsProfileProvider/>
           </div>
         </div>
       </div>
@@ -462,7 +449,7 @@ export default function ProfileProvider(props) {
           data-parent="#accordionCreateProduct"
         >
           <div className="card-body border-bottom">
-            <form onClick={handleSaveProduct}>
+            <form onSubmit={handleSaveProduct}>
               <div className="form-row">
                 <div className="form-group col-md-6">
                   <label htmlFor="inputName" className="font-weight-bolder">

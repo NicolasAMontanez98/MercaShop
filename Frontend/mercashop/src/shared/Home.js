@@ -26,7 +26,7 @@ function Home(props) {
               render={(props) => <Main {...props} category={category} />}
             />
             <Route exact path="/" component={Main} />
-            <Route exact path="/product/:id" component={ProductDetail} />
+            <Route exact path="product/:id" component={ProductDetail} />
           </Switch>
         </div>
       </div>

@@ -11,7 +11,6 @@ export default function OrdersProfileProvider() {
         .get(process.env.REACT_APP_SERVER_URL + "order/")
         .then(({ data }) => {
           setOrders(data);
-          console.log(data)
         })
         .catch((err) => console.log("error: ", err));
   }, []);

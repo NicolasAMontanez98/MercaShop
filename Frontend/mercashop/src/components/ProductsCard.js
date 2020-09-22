@@ -34,7 +34,8 @@ const ProductsCard = ({ product }) => {
             {discount}%
           </span>{" "}
           <div className="card-title">
-            <Link to={"/product/" + _id}>
+            {/* <Link to={"/product/" + _id}> */}
+            <Link to={"product"}>
               <strong>{name}</strong>
             </Link>
           </div>
