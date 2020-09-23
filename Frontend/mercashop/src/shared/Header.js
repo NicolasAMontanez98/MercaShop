@@ -18,7 +18,7 @@ import AccountBox from "@material-ui/icons/AccountBox";
 import { listProducts } from "../store/actions/productAction";
 
 export default function Header(props) {
-  const [search, setSearch] = useState(""); 
+  const [search, setSearch] = useState("");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const customerSignIn = useSelector((state) => state.customerSignIn);
   const { customerInfo } = customerSignIn;
@@ -28,7 +28,7 @@ export default function Header(props) {
   const [path, setPath] = useState(window.location.pathname);
   let location = useLocation();
   let history = useHistory();
-  let category = '';
+  let category = "";
 
   useEffect(() => {
     setPath(location.pathname);
@@ -52,7 +52,9 @@ export default function Header(props) {
   const handleLogOut = (e) => {
     e.preventDefault();
     history.push("/");
-    {customerInfo ? dispatch(logoutCustomer()) : dispatch(logoutProvider())}
+    {
+      customerInfo ? dispatch(logoutCustomer()) : dispatch(logoutProvider());
+    }
   };
 
   const currentPath = (path) => {
@@ -69,13 +71,12 @@ export default function Header(props) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(listProducts(category, search))
-  }
+    dispatch(listProducts(category, search));
+  };
 
   const classes = useStyles();
 
   const { names } = customerInfo ? customerInfo : "";
-
   return (
     <div className="App">
       {currentPath(path) ? (
@@ -112,7 +113,10 @@ export default function Header(props) {
           <div className="row container">
             <div className="col-md-4">
               <div className="input-group ml-5">
-                <form className="form-inline my-2 my-lg-0" onSubmit={submitHandler}>
+                <form
+                  className="form-inline my-2 my-lg-0"
+                  onSubmit={submitHandler}
+                >
                   <input
                     className="form-control mr-sm-2 input-lg border border-dark"
                     type="search"
@@ -164,11 +168,17 @@ export default function Header(props) {
                       open={Boolean(anchorEl)}
                       onClose={handleClose}
                     >
+                      {customerInfo ? (
+                        <MenuItem>
+                          <span>{names}</span>
+                        </MenuItem>
+                      ) : (
+                        <MenuItem>
+                          <span>{providerInfo.names}</span>
+                        </MenuItem>
+                      )}
                       <MenuItem>
-                        <span>{names}</span>
-                      </MenuItem>
-                      <MenuItem>
-                        { customerInfo ? (
+                        {customerInfo ? (
                           <Link
                             to={"/profile/" + customerInfo._id}
                             className="text-decoration-none text-dark"
@@ -195,8 +205,10 @@ export default function Header(props) {
                       onClose={handleClose}
                     >
                       <MenuItem>
-                        <Link to="/login" className="text-decoration-none text-dark">
-
+                        <Link
+                          to="/login"
+                          className="text-decoration-none text-dark"
+                        >
                           <AccountCircle className="mr-2" />
                           Cliente
                         </Link>
