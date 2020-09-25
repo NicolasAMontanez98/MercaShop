@@ -62,7 +62,6 @@ export default function Header(props) {
       path === "/login" ||
       path === "/login-proveedor" ||
       path === "/registro-cliente" ||
-      path === "/activar-cuenta" ||
       path === "/registro-proveedor"
     ) {
       return true;

@@ -160,11 +160,10 @@ customerCtrl.getOrders = async (req, res) => {
 };
 
 customerCtrl.verifyAccount = async (req, res) => {
-  const isVerified = req.body;
   const customer = await Customer.findById(req.params.id);
   try {
     if (customer) {
-      customer.isVerified = isVerified;
+      customer.isVerified = true;
       const verifiedCustomer = await customer.save();
       const token = jwt.sign({ id: verifiedCustomer._id }, process.env.SECRET);
       res.status(200).json({

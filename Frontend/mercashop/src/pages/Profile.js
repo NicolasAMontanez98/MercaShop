@@ -26,6 +26,7 @@ export default function Profile(props) {
   const [phone, setPhone] = useState(0);
   const [birthDate, setBirthDate] = useState("");
   const [adress, setAdress] = useState("");
+  const [isVerified, setIsVerified] = useState(false);
 
   const [userName, setUserName] = useState("");
   const [orders, setOrders] = useState([]);
@@ -46,6 +47,7 @@ export default function Profile(props) {
         setUserName(data.userName);
         setId(data._id);
         setRole(data.role);
+        setIsVerified(data.isVerified);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -69,6 +71,12 @@ export default function Profile(props) {
 
   return (
     <div className="container">
+      if (isVerified)
+      {
+        <div class="alert alert-danger" role="alert">
+          A simple danger alert—check it out!
+        </div>
+      }
       <div className="card mx-2 my-2">
         <div className="card-header bg-white">
           <div className="row">
@@ -320,7 +328,7 @@ export default function Profile(props) {
           data-parent="#accordionOrdersPayed"
         >
           <div className="card-body border-bottom">
-            <OrdersProfile customerId={id} payed={true}/>
+            <OrdersProfile customerId={id} payed={true} />
           </div>
         </div>
       </div>

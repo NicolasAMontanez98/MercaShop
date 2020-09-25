@@ -39,7 +39,7 @@ module.exports = {
                 por favor valida tu correo y comienza a disfrutar de todo lo que MercaShop tiene 
                 para ofrecerte.
                 </p>
-                <a href="${process.env.REACT_APP_URL}+activar-cuenta/${id}" target="blank">
+                <a href="${process.env.REACT_APP_URL}activar-cuenta/${id}" target="blank">
                 <h3>Haz click aquí para confirmar tu correo</h3>
                 </a>
             </div>

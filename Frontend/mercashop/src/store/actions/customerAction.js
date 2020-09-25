@@ -73,7 +73,7 @@ const signIn = (email, password) => async (dispatch) => {
   dispatch({ type: CUSTOMER_SIGNIN_REQUEST, payload: { email, password } });
   try {
     const { data } = await axios.post(
-      "http://localhost:8000/api/customer/ingreso",
+      process.env.REACT_APP_SERVER_URL + "customer/ingreso",
       {
         email,
         password,
@@ -115,7 +115,7 @@ const register = (
   });
   try {
     const { data } = await axios.post(
-      "http://localhost:8000/api/customer/registro",
+      process.env.REACT_APP_SERVER_URL + "customer/registro",
       {
         names,
         lastNames,
@@ -130,6 +130,7 @@ const register = (
       }
     );
     dispatch({ type: CUSTOMER_REGISTER_SUCCESS, payload: data });
+    console.log(data)
     localStorage.setItem("customerInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({ type: CUSTOMER_REGISTER_FAIL, payload: error.message });
@@ -146,8 +147,7 @@ const verify = (id, isVerified) => async (dispatch) => {
   dispatch({ type: CUSTOMER_VERIFIED_REQUEST, payload: { isVerified } });
   try {
     const { data } = await axios.put(
-      process.env.REACT_APP_SERVER_URL + "/activar-cuenta/" + id,
-      { isVerified }
+      process.env.REACT_APP_SERVER_URL + "customer/activar-cuenta/" + id
     );
     dispatch({ type: CUSTOMER_VERIFIED_SUCCESS, payload: { data } });
   } catch (error) {
