@@ -35,6 +35,18 @@ export default function RegisterCostumer(props) {
 
   const handleRegister = (e) => {
     e.preventDefault();
+    console.log(
+      names,
+      lastNames,
+      idType,
+      idNumber,
+      email,
+      phone,
+      birthDate,
+      adress,
+      userName,
+      password
+    );
     dispatch(
       register(
         names,

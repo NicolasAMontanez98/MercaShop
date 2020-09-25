@@ -71,12 +71,11 @@ export default function Profile(props) {
 
   return (
     <div className="container">
-      if (isVerified)
-      {
-        <div class="alert alert-danger" role="alert">
-          A simple danger alert—check it out!
+      { !isVerified && (
+        <div className="alert alert-danger mt-2" role="alert">
+          Por favor revisa tu correo electrónico y confirma tu correo.
         </div>
-      }
+      )}
       <div className="card mx-2 my-2">
         <div className="card-header bg-white">
           <div className="row">
