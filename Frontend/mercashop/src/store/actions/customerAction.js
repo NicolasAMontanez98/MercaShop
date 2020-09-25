@@ -130,7 +130,6 @@ const register = (
       }
     );
     dispatch({ type: CUSTOMER_REGISTER_SUCCESS, payload: data });
-    console.log('la data', data)
     localStorage.setItem("customerInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({ type: CUSTOMER_REGISTER_FAIL, payload: error.message });
