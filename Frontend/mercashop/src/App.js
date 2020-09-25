@@ -12,6 +12,7 @@ import Switch from "react-bootstrap/esm/Switch";
 import Cart from "./pages/Cart";
 import Header from "./shared/Header";
 import Profile from "./pages/Profile";
+import ActivarCuenta from "./pages/ActivarCuenta";
 import ProfileProvider from "./pages/ProfileProvider";
 import PlaceOrder from "./pages/PlaceOrder";
 import Response from './pages/Response';
@@ -32,6 +33,7 @@ function App() {
         <Route exact path="/profile-provider/:id" component={ProfileProvider} />
         <Route exact path="/place-order" component={PlaceOrder} />
         <Route exact path="/response" component={Response} />
+        <Route exact path="/activar-cuenta/:id" component={ActivarCuenta}/>
       </Switch>
     </Router>
   );

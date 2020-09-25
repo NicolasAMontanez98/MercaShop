@@ -9,6 +9,9 @@ import {
   CUSTOMER_UPDATE_REQUEST,
   CUSTOMER_UPDATE_SUCCESS,
   CUSTOMER_UPDATE_FAIL,
+  CUSTOMER_VERIFIED_REQUEST,
+  CUSTOMER_VERIFIED_SUCCESS,
+  CUSTOMER_VERIFIED_FAIL,
 } from "../constants/customerConstants";
 
 function customerSignInReducer(state = {}, action) {
@@ -50,4 +53,22 @@ function customerRegisterReducer(state = {}, action) {
   }
 }
 
-export { customerRegisterReducer, customerSignInReducer, customerUpdateReducer };
+function customerVerifyReducer(state = {}, action) {
+  switch (action.type) {
+    case CUSTOMER_VERIFIED_REQUEST:
+      return { loading: true };
+    case CUSTOMER_VERIFIED_SUCCESS:
+      return { loading: false, userInfo: action.payload };
+    case CUSTOMER_VERIFIED_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+}
+
+export {
+  customerRegisterReducer,
+  customerSignInReducer,
+  customerUpdateReducer,
+  customerVerifyReducer,
+};

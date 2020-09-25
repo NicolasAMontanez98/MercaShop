@@ -10,7 +10,7 @@ module.exports = {
       pass: process.env.MAIL_PASS,
     },
   }),
-  welcome(names) {
+  welcome(names, id) {
     return {
       text: `${names} te damos la bienvenida a la familia Merca Shop.`,
       html: `
@@ -39,8 +39,8 @@ module.exports = {
                 por favor valida tu correo y comienza a disfrutar de todo lo que MercaShop tiene 
                 para ofrecerte.
                 </p>
-                <a href="#" target="blank">
-                <h4>Haz click aquí para confirmar tu correo</h4>
+                <a href="${process.env.REACT_APP_URL}+activar-cuenta/${id}" target="blank">
+                <h3>Haz click aquí para confirmar tu correo</h3>
                 </a>
             </div>
             <hr style="width: 100%; height: 50px; background: #EE4F4F"/>

@@ -10,6 +10,9 @@ import {
   CUSTOMER_UPDATE_REQUEST,
   CUSTOMER_UPDATE_SUCCESS,
   CUSTOMER_UPDATE_FAIL,
+  CUSTOMER_VERIFIED_REQUEST,
+  CUSTOMER_VERIFIED_SUCCESS,
+  CUSTOMER_VERIFIED_FAIL,
 } from "../constants/customerConstants";
 
 const update = ({
@@ -139,4 +142,17 @@ const logout = () => (dispatch) => {
   dispatch({ type: CUSTOMER_LOGOUT });
 };
 
-export { signIn, register, update, logout };
+const verify = (id, isVerified) => async (dispatch) => {
+  dispatch({ type: CUSTOMER_VERIFIED_REQUEST, payload: { isVerified } });
+  try {
+    const { data } = await axios.put(
+      process.env.REACT_APP_SERVER_URL + "/activar-cuenta/" + id,
+      { isVerified }
+    );
+    dispatch({ type: CUSTOMER_VERIFIED_SUCCESS, payload: { data } });
+  } catch (error) {
+    dispatch({ type: CUSTOMER_VERIFIED_FAIL, payload: error.message });
+  }
+};
+
+export { signIn, register, update, logout, verify };
