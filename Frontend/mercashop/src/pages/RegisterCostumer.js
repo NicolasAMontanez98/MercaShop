@@ -23,15 +23,13 @@ export default function RegisterCostumer(props) {
   const { providerInfo } = providerSignIn;
   const dispatch = useDispatch();
 
-  const redirect = props.location.search
-    ? props.location.search.split("=")[1]
-    : "/";
-
   useEffect(() => {
     if (customerInfo || providerInfo) {
-      props.history.push("/");
+      console.log(customerInfo);
+      console.log(providerInfo);
+      
     }
-  }, [customerInfo]);
+  }, [customerInfo, providerInfo]);
 
   const handleRegister = (e) => {
     e.preventDefault();
