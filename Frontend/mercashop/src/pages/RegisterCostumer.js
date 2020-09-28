@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { register } from "../store/actions/customerAction";
 import Swal from "sweetalert2";
+import { Animated } from "react-animated-css";
 
 export default function RegisterCostumer(props) {
   const [names, setNames] = useState("");
@@ -18,17 +19,17 @@ export default function RegisterCostumer(props) {
   const [password, setPassword] = useState("");
   const customerRegister = useSelector((state) => state.customerRegister);
   const { customerInfo } = customerRegister;
+  const providerSignIn = useSelector((state) => state.providerSignIn);
+  const { providerInfo } = providerSignIn;
   const dispatch = useDispatch();
 
-  const redirect = props.location.search
-    ? props.location.search.split("=")[1]
-    : "/";
-  
   useEffect(() => {
-    if (customerInfo) {
-      props.history.push(redirect);
+    if (customerInfo || providerInfo) {
+      console.log(customerInfo);
+      console.log(providerInfo);
+      
     }
-  }, [customerInfo]);
+  }, [customerInfo, providerInfo]);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -54,20 +55,27 @@ export default function RegisterCostumer(props) {
     }).then((result) => {
       window.location.reload(false);
     });
-    
   };
 
   return (
     <div className="d-flex justify-content-center">
       <div className="card bg-white my-5 border">
         <div className="card-header bg-white border-bottom-0 text-center">
-          <img
-            src={logo}
-            className="mb-2"
-            width="190"
-            height="190"
-            alt="mercashop"
-          />
+          <Animated
+            animationIn="tada"
+            animationOut="zoomOutDown"
+            animationInDuration={1000}
+            animationOutDuration={1000}
+            isVisible={true}
+          >
+            <img
+              src={logo}
+              className="mb-2"
+              width="190"
+              height="190"
+              alt="mercashop"
+            />
+          </Animated>
           <h1 className="h3 mb-3 font-weight-normal">Registro Cliente</h1>
         </div>
         <div className="card-body">
@@ -235,14 +243,14 @@ export default function RegisterCostumer(props) {
                   Registrarse
                 </button>
               </div>
-                <div className="col">
-                  <Link to="/" className="text-decoration-none">
-                    <button className="btn btn-danger mt-2 btn-lg btn-block rounded-pill">
-                      Cancelar
-                    </button>
-                  </Link>
-                </div>
+              <div className="col">
+                <Link to="/" className="text-decoration-none">
+                  <button className="btn btn-danger mt-2 btn-lg btn-block rounded-pill">
+                    Cancelar
+                  </button>
+                </Link>
               </div>
+            </div>
           </form>
         </div>
       </div>

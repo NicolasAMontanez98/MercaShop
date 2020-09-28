@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { register } from "../store/actions/providerAction";
 import Swal from "sweetalert2";
+import { Animated } from "react-animated-css";
 
 export default function RegisterProvider(props) {
   const [names, setNames] = useState("");
@@ -67,13 +68,21 @@ export default function RegisterProvider(props) {
     <div className="d-flex justify-content-center">
       <div className="card bg-white my-5">
         <div className="card-header bg-white border-bottom-0 text-center">
-          <img
-            src={logo}
-            className="mb-2"
-            width="190"
-            height="190"
-            alt="mercashop"
-          />
+          <Animated
+            animationIn="tada"
+            animationOut="zoomOutDown"
+            animationInDuration={1000}
+            animationOutDuration={1000}
+            isVisible={true}
+          >
+            <img
+              src={logo}
+              className="mb-2"
+              width="190"
+              height="190"
+              alt="mercashop"
+            />
+          </Animated>
           <h1 className="h3 mb-3 font-weight-normal">Registro Proveedor</h1>
         </div>
         <div className="card-body">
