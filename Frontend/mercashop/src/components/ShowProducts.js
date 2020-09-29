@@ -30,7 +30,7 @@ function ShowProducts(props) {
     <div>{error}</div>
   ) : (
     <div className="container">
-      <div className="row d-flex justify-content-center">
+      <div className="row d-flex justify-content-center mb-5">
         {product()}
       </div>
     </div>

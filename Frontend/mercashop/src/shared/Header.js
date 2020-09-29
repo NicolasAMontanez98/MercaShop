@@ -9,13 +9,12 @@ import { Pedidos, Location } from "../shared/Buttons";
 import IconButton from "@material-ui/core/IconButton";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { makeStyles } from "@material-ui/core/styles";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
+import { Menu, MenuItem, TextField } from "@material-ui/core";
 import { logout as logoutCustomer } from "../store/actions/customerAction";
 import { logout as logoutProvider } from "../store/actions/providerAction";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import AccountBox from "@material-ui/icons/AccountBox";
+import { AccountCircle, AccountBox } from "@material-ui/icons";
 import { listProducts } from "../store/actions/productAction";
+import SearchBox from '../components/SearchBox';
 
 export default function Header(props) {
   const [search, setSearch] = useState("");
@@ -111,34 +110,10 @@ export default function Header(props) {
             <img src={logo} alt="logo" width="150" />
           </Link>
           <div className="row container">
-            <div className="col-md-4">
-              <div className="input-group ml-5">
-                <form
-                  className="form-inline my-2 my-lg-0"
-                  onSubmit={submitHandler}
-                >
-                  <input
-                    className="form-control mr-sm-2 input-lg border border-dark"
-                    type="search"
-                    placeholder="Que quieres?"
-                    aria-label="Search"
-                    title="Busca"
-                    name="search"
-                    onChange={(e) => setSearch(e.target.value)}
-                  />
-                  <div className="input-group-append">
-                    <button
-                      className="btn btn-outline-dark"
-                      type="submit"
-                      id="button-addon2"
-                    >
-                      <SearchIcon size={20} />
-                    </button>
-                  </div>
-                </form>
-              </div>
+            <div className="col-md-6">
+              <SearchBox/>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-6">
               <div
                 className="collapse navbar-collapse d-flex justify-content-end"
                 id="navbarNav"
