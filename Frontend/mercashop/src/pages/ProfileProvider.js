@@ -87,13 +87,12 @@ export default function ProfileProvider(props) {
   };
 
   const handleSaveProduct = async (e) => {
-  // const handleSaveProduct = (e) => {
     e.preventDefault();
 
     const dataImage = new FormData();
     dataImage.append('file', file, file.name);
 
-    await axios({
+    const { data } = await axios({
       method: 'POST',
       baseURL: 'http://localhost:8000',
       url: '/api/image',
@@ -101,26 +100,19 @@ export default function ProfileProvider(props) {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
-    })
-      // .then(console.log(res))
-      .then( ({data})  => console.log(data))
-      .then( ({data})  => setProductImage(data))
-      // .then(( res ) => console.log(res))
-      .catch((err) => console.log(err));
+    });
+    
+    console.log(data);
 
     dispatch(saveProduct({
       name: productName,
       decription: productDescription,
       category: productCategory,
-      image: productImage,
+      image: data,
       quantity: productQuantity,
       price: productPrice,
       discount: productDiscount, 
     }));
-
-    console.log(typeof productImage);
-    console.log(productImage);
-    console.log(productName);
 
     Swal.fire({
       title: "Producto agregado exitosamente",
