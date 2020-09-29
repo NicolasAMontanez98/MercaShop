@@ -22,7 +22,6 @@ app.use("/api/order", require("./routes/order"));
 
 app.post('/api/image', formData, (req, res) => {
   const url = req.body.file.secure_url;
-  console.log(url);
   res.status(200).json(url);
 })
 
