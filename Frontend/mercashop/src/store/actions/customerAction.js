@@ -10,6 +10,9 @@ import {
   CUSTOMER_UPDATE_REQUEST,
   CUSTOMER_UPDATE_SUCCESS,
   CUSTOMER_UPDATE_FAIL,
+  CUSTOMER_VERIFIED_REQUEST,
+  CUSTOMER_VERIFIED_SUCCESS,
+  CUSTOMER_VERIFIED_FAIL,
 } from "../constants/customerConstants";
 
 const update = ({
@@ -70,7 +73,7 @@ const signIn = (email, password) => async (dispatch) => {
   dispatch({ type: CUSTOMER_SIGNIN_REQUEST, payload: { email, password } });
   try {
     const { data } = await axios.post(
-      "http://localhost:8000/api/customer/ingreso",
+      process.env.REACT_APP_SERVER_URL + "customer/ingreso",
       {
         email,
         password,
@@ -112,7 +115,7 @@ const register = (
   });
   try {
     const { data } = await axios.post(
-      "http://localhost:8000/api/customer/registro",
+      process.env.REACT_APP_SERVER_URL + "customer/registro",
       {
         names,
         lastNames,
@@ -139,4 +142,16 @@ const logout = () => (dispatch) => {
   dispatch({ type: CUSTOMER_LOGOUT });
 };
 
-export { signIn, register, update, logout };
+const verify = (id, isVerified) => async (dispatch) => {
+  dispatch({ type: CUSTOMER_VERIFIED_REQUEST, payload: { isVerified } });
+  try {
+    const { data } = await axios.put(
+      process.env.REACT_APP_SERVER_URL + "customer/activar-cuenta/" + id
+    );
+    dispatch({ type: CUSTOMER_VERIFIED_SUCCESS, payload: { data } });
+  } catch (error) {
+    dispatch({ type: CUSTOMER_VERIFIED_FAIL, payload: error.message });
+  }
+};
+
+export { signIn, register, update, logout, verify };

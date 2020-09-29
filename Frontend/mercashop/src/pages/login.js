@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faKey } from "@fortawesome/free-solid-svg-icons";
 import { signIn } from "../store/actions/customerAction";
 import Swal from "sweetalert2";
+import { Animated } from "react-animated-css";
 
 function Login(props) {
   const [email, setEmail] = useState("");
@@ -13,11 +14,11 @@ function Login(props) {
   const customerSignIn = useSelector((state) => state.customerSignIn);
   const { loading, customerInfo, error } = customerSignIn;
   const providerSignIn = useSelector((state) => state.providerSignIn);
-  const { providerInfo } = providerSignIn;  
+  const { providerInfo } = providerSignIn;
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if ( providerInfo || customerInfo) {
+    if (providerInfo || customerInfo) {
       props.history.push("/");
     }
   }, [customerInfo, providerInfo]);
@@ -36,7 +37,7 @@ function Login(props) {
       confirmButtonColor: "#28B463",
       confirmButtonText: "Genial!!! volver a inicio.",
     }).then((result) => {
-      props.history.push('/');
+      props.history.push("/");
     });
   };
 
@@ -44,13 +45,21 @@ function Login(props) {
     <div className=" d-flex justify-content-center">
       <div className="card bg-white my-5" style={{ width: "20rem" }}>
         <div className="card-header bg-white border-bottom-0 text-center">
-          <img
-            src={logo}
-            className="mb-2"
-            width="190"
-            height="190"
-            alt="mercashop"
-          />
+          <Animated
+            animationIn="tada"
+            animationOut="zoomOutDown"
+            animationInDuration={1000}
+            animationOutDuration={1000}
+            isVisible={true}
+          >
+            <img
+              src={logo}
+              className="mb-2"
+              width="190"
+              height="190"
+              alt="mercashop"
+            />
+          </Animated>
           <h1 className="h3 mb-3 font-weight-normal">
             Inicia Sesión o Registrate
           </h1>

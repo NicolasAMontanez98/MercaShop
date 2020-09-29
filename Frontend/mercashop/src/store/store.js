@@ -11,6 +11,7 @@ import {
   customerRegisterReducer,
   customerSignInReducer,
   customerUpdateReducer,
+  customerVerifyReducer,
 } from "./reducers/customerReducer";
 import {
   providerSignInReducer,
@@ -25,8 +26,7 @@ import {
   orderPayReducer,
   orderDeleteReducer,
 } from "./reducers/orderReducer";
-import { cartReducer } from './reducers/cartReducer';
-
+import { cartReducer } from "./reducers/cartReducer";
 
 const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 const customerInfo = JSON.parse(localStorage.getItem("customerInfo")) || null;
@@ -37,7 +37,7 @@ const initialState = {
   customerSignIn: { customerInfo },
   customerRegister: { customerInfo },
   providerSignIn: { providerInfo },
-  providerRegister: { providerInfo }
+  providerRegister: { providerInfo },
 };
 
 const rootReducer = combineReducers({
@@ -49,6 +49,7 @@ const rootReducer = combineReducers({
   customerRegister: customerRegisterReducer,
   providerRegister: providerRegisterReducer,
   customerUpdate: customerUpdateReducer,
+  customerVerify: customerVerifyReducer,
   providerUpdate: providerUpdateReducer,
   productSave: productSaveReducer,
   productDelete: productDeleteReducer,

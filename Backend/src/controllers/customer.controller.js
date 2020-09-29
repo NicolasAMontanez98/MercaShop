@@ -3,6 +3,7 @@ const customerCtrl = {};
 const Customer = require("../models/customer.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { transporter, welcome, verify } = require("../utils/mailer");
 
 customerCtrl.checkInCustomer = async (req, res) => {
   try {
@@ -19,7 +20,7 @@ customerCtrl.checkInCustomer = async (req, res) => {
       password,
     } = req.body;
     const encryptedPassword = await bcrypt.hash(password, 8);
-    const newCostumer = new Customer({
+    const newCustomer = new Customer({
       names,
       lastNames,
       idType,
@@ -31,14 +32,21 @@ customerCtrl.checkInCustomer = async (req, res) => {
       userName,
       password: encryptedPassword,
     });
-    await newCostumer.save();
-    const token = jwt.sign({ id: newCostumer._id }, process.env.SECRET);
-    res.status(200).json({ 
-      _id: newCostumer._id,
-      names: newCostumer.names,
-      email: newCostumer.email,
-      token
-     });
+    await newCustomer.save();
+    const token = jwt.sign({ id: newCustomer._id }, process.env.SECRET);
+    const mail = {
+      from: `"${process.env.MAIL_USERNAME}" <${process.env.MAIL_USER}>`,
+      to: email,
+      subject: "Bienvenido a MercaShop 😄",
+      ...welcome(newCustomer.names, newCustomer._id),
+    };
+    await transporter.sendMail(mail);
+    res.status(200).json({
+      _id: newCustomer._id,
+      names: newCustomer.names,
+      email: newCustomer.email,
+      token,
+    });
   } catch (error) {
     res.status(400).json(error);
   }
@@ -70,22 +78,22 @@ customerCtrl.updateCustomer = async (req, res) => {
       customer.adress = adress || customer.adress;
       customer.userName = userName || customer.userName;
       const updateCustomer = await customer.save();
-      const token = jwt.sign({ id: newCostumer._id }, process.env.SECRET)
-      res.status(200).json({ 
-      _id: updateCustomer._id,
-      names: updateCustomer.names,
-      lastNames: updateCustomer.lastNames,
-      idType: updateCustomer.idType,
-      idNumber:updateCustomer.idNumber,
-      email: updateCustomer.email,
-      phone: updateCustomer.phone,
-      birthDate: updateCustomer.birthDate,
-      adress: updateCustomer.adress,
-      userName: updateCustomer.userName,
-      token
-     });
+      const token = jwt.sign({ id: updateCostumer._id }, process.env.SECRET);
+      res.status(200).json({
+        _id: updateCustomer._id,
+        names: updateCustomer.names,
+        lastNames: updateCustomer.lastNames,
+        idType: updateCustomer.idType,
+        idNumber: updateCustomer.idNumber,
+        email: updateCustomer.email,
+        phone: updateCustomer.phone,
+        birthDate: updateCustomer.birthDate,
+        adress: updateCustomer.adress,
+        userName: updateCustomer.userName,
+        token,
+      });
     } else {
-      res.status(404).json({ message:'Cliente no encontrado' });
+      res.status(404).json({ message: "Cliente no encontrado" });
     }
   } catch (error) {
     res.status(400).json(error);
@@ -104,11 +112,11 @@ customerCtrl.logInCustomer = async (req, res) => {
       throw Error("La contraseña es incorrecta.");
     }
     const token = jwt.sign({ id: customer._id }, process.env.SECRET);
-    res.status(200).json({ 
+    res.status(200).json({
       _id: customer._id,
       names: customer.names,
       email: customer.email,
-      token
+      token,
     });
   } catch (error) {
     res.status(400).json(error);
@@ -144,8 +152,27 @@ customerCtrl.deleteCustomer = async (req, res) => {
 
 customerCtrl.getOrders = async (req, res) => {
   try {
-    const orders = await Customer.find()
-    res.status(200).json(orders)    
+    const orders = await Customer.find();
+    res.status(200).json(orders);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
+customerCtrl.verifyAccount = async (req, res) => {
+  const customer = await Customer.findById(req.params.id);
+  try {
+    if (customer) {
+      customer.isVerified = true;
+      const verifiedCustomer = await customer.save();
+      const token = jwt.sign({ id: verifiedCustomer._id }, process.env.SECRET);
+      res.status(200).json({
+        _id: verifiedCustomer._id,
+        names: verifiedCustomer.names,
+        email: verifiedCustomer.email,
+        token,
+      });
+    }
   } catch (error) {
     res.status(400).json(error);
   }

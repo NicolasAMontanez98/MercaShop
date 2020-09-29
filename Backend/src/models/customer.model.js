@@ -55,7 +55,11 @@ const customerSchema = new Schema({
     orders: [{
         type: Schema.Types.ObjectId,
         ref: 'Order',
-    }]
+    }],
+    isVerified: {
+        type: Boolean,
+        default: false
+    }
 }, {
     timestamps: true,
 });
