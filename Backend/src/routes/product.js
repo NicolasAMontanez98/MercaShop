@@ -1,4 +1,6 @@
 const router = require("express").Router();
+const { formData } = require('../utils/middlewares');
+ 
 const {
   createProduct,
   deleteProduct,

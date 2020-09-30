@@ -1,6 +1,8 @@
-const express = require("express");
-const cors = require("cors");
-const morgan = require("morgan");
+
+const express = require('express');
+const cors = require('cors');
+const morgan = require('morgan');
+const { formData } = require('./utils/middlewares');
 
 const app = express();
 
@@ -18,4 +20,10 @@ app.use("/api/provider", require("./routes/provider"));
 app.use("/api/product", require("./routes/product"));
 app.use("/api/order", require("./routes/order"));
 
+app.post('/api/image', formData, (req, res) => {
+  const url = req.body.file.secure_url;
+  res.status(200).json(url);
+})
+
 module.exports = app;
+

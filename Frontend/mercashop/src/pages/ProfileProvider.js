@@ -41,6 +41,9 @@ export default function ProfileProvider(props) {
   const [productDiscount, setProductDiscount] = useState(0);
   const [productIdProvider, setproductIdProvider] = useState(id);
 
+  const  [file, setFile] = useState(null);
+  const [image, setImage] = useState(null);
+
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/provider/" + props.match.params.id)
@@ -83,26 +86,57 @@ export default function ProfileProvider(props) {
     );
   };
 
-  const handleSaveProduct = (e) => {
+  const handleSaveProduct = async (e) => {
     e.preventDefault();
+
+    const dataImage = new FormData();
+    dataImage.append('file', file, file.name);
+
+    const { data } = await axios({
+      method: 'POST',
+      baseURL: 'http://localhost:8000',
+      url: '/api/image',
+      data: dataImage,
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    
+    console.log(data);
+
     dispatch(saveProduct({
       name: productName,
       decription: productDescription,
       category: productCategory,
-      image: productImage,
+      image: data,
       quantity: productQuantity,
       price: productPrice,
       discount: productDiscount, 
     }));
+
     Swal.fire({
       title: "Producto agregado exitosamente",
       icon: "success",
       confirmButtonColor: "#28B463",
       confirmButtonText: "Genial!!!",
-    }).then((result) => {
-      window.location.reload();
-    });
-  }
+    })
+    // .then((result) => {
+    //   window.location.reload();
+    // });
+  };
+
+  function readFile(file) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = e => setImage(e.target.result);
+  };
+
+  function handleImage(e) {
+    if (e.target.files[0]) {
+      setFile(e.target.files[0]);
+      readFile(e.target.files[0]);
+    }
+  };
  
   return (
     <div className="container">
@@ -461,6 +495,7 @@ export default function ProfileProvider(props) {
                     id="inputName"
                     placeholder={productName}
                     onChange={(e) => setProductName(e.target.value)}
+                    required
                   />
                 </div>
                 <div className="form-group col-md-6">
@@ -472,6 +507,7 @@ export default function ProfileProvider(props) {
                     className="form-control"
                     defaultValue={"predeterminado"}
                     onChange={(e) => setProductCategory(e.target.value)}
+                    required
                   >
                     <option value="predeterminado" disabled>
                       Seleccione una opción
@@ -535,6 +571,7 @@ export default function ProfileProvider(props) {
                     id="inputProductDescription"
                     placeholder={productDescription}
                     onChange={(e) => setProductDescription(e.target.value)}
+                    required
                   />
                 </div>
               </div>
@@ -545,13 +582,26 @@ export default function ProfileProvider(props) {
                 >
                   Imagen
                 </label>
-                <input
+                {/* <input
                   type="text"
                   className="form-control"
                   id="inputProductImage"
                   placeholder={productImage}
                   onChange={(e) => setProductImage(e.target.value)}
+                  required
+                /> */}
+                <input 
+                  type="file"
+                  className="form-control"
+                  name="file"
+                  id="inputProductImage"
+                  accept="image/*"
+                  onChange={handleImage}
+                  required
                 />
+                {image && (
+                  <img src={image} alt="imagen a subir" width="100" height="100"/>
+                )}
               </div>
               <div className="form-row">
                 <div className="form-group col-md-4">
@@ -564,6 +614,7 @@ export default function ProfileProvider(props) {
                     id="inputProductQuantity"
                     placeholder={productQuantity}
                     onChange={(e) => setProductQuantity(e.target.value)}
+                    required
                   />
                 </div>
                 <div className="form-group col-md-4">
@@ -579,6 +630,7 @@ export default function ProfileProvider(props) {
                     id="inputProductDiscount"
                     placeholder={productDiscount}
                     onChange={(e) => setProductDiscount(e.target.value)}
+                    required
                   />
                 </div>
                 <div className="form-group col-md-4">
@@ -591,6 +643,7 @@ export default function ProfileProvider(props) {
                     id="inputProductPrice"
                     placeholder={productPrice}
                     onChange={(e) => setProductPrice(e.target.value)}
+                    required
                   />
                 </div>
               </div>
