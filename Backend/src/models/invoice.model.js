@@ -4,7 +4,8 @@ const { Schema, model } = mongoose;
 const invoiceSchema = new Schema(
   {
     customer: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "Customer",
       required: true,
     },
     products: [
