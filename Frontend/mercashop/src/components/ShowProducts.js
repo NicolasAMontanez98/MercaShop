@@ -7,12 +7,11 @@ import ProductsCard from "./ProductsCard";
 function ShowProducts(props) {
   const productList = useSelector((state) => state.productList);
   const category = props.category;
-  const search = props.search;
   const { products, loading, error } = productList;
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(listProducts(category, search));
+    dispatch(listProducts(category));
   }, [category]);
 
   const product = () => {

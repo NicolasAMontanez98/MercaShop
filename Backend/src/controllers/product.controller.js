@@ -33,13 +33,7 @@ productCtrl.getProduct = async (req, res) => {
 productCtrl.getProducts = async (req, res) => {
   try {
     const category = req.query.category ? {category: req.query.category} : {};
-    const search = req.query.search ? {
-      name: {
-        $regex: req.query.search,
-        $options: 'i'
-      }
-    } : {};
-    const products = await Product.find({...category, ...search});
+    const products = await Product.find({...category});
     res.status(200).json(products);
   } catch (error) {
     res.status(400).json(error);
@@ -69,6 +63,58 @@ productCtrl.updateProduct = async (req, res) => {
     res.status(200).json(updateProduct);
   } catch (error) {
     res.status(400).json(error);
+  }
+};
+
+// productCtrl.saveReview = async (req, res) => {
+//   const product = await Product.findById(req.params.id);
+//   if(product) {
+//     const review = {
+//       name: req.body.name,
+//       rating: parseInt(req.body.rating),
+//       comment: req.body.comment
+//     };
+//     product.reviews.push(review);
+//     product.numReviews = product.reviews.length;
+//     product.rating = product.reviews.reduce((a, c) => {
+//       c.rating + a, 0
+//     }) / product.reviews.length;
+//     const updatedProduct = await product.save();
+//     res.status(201).send({
+//       data: updatedProduct.reviews[updatedProduct.reviews.length - 1], 
+//       message: "Calificación guardada exitosamente."
+//     });
+//   } else {
+//     res.status(404).send({message: 'No se encontró el producto'})
+//   }
+// };
+
+
+productCtrl.saveReview = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if(product) {
+      const review = {
+        name: req.body.name,
+        rating: Number(req.body.rating),
+        comment: req.body.comment
+      };
+      product.reviews.push(review);
+      product.numReviews = product.reviews.length;
+      let sumReviews = 0;
+      product.reviews.map((r) => { sumReviews += r.rating })
+      averageRating = sumReviews / product.reviews.length;
+      product.rating = averageRating;
+      const updatedProduct = await product.save();
+      res.status(201).send({
+        data: updatedProduct.reviews[updatedProduct.reviews.length - 1], 
+        message: "Calificación guardada exitosamente."
+      });
+    } else {
+      res.status(404).send({message: 'No se encontró el producto'})
+    }
+  } catch (error) {
+    res.status(400).json(error.message);
   }
 };
 
