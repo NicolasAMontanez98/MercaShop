@@ -1,6 +1,7 @@
 invoiceCtrl = {};
 
 const Invoice = require("../models/invoice.model");
+const { transporter, placeOrder, verify } = require("../utils/mailer");
 
 invoiceCtrl.postInvoice = async (req, res) => {
   try {
@@ -21,6 +22,26 @@ invoiceCtrl.postInvoice = async (req, res) => {
       deliveredAt: req.body.deliveredAt,
     });
     const newInvoiceCreated = await newInvoice.save();
+    const mail = {
+      from: `"${process.env.MAIL_USERNAME}" <${process.env.MAIL_USER}>`,
+      to: email,
+      subject: "Bienvenido a MercaShop 😄",
+      ...placeOrder(
+        newInvoiceCreated.names,
+        newInvoiceCreated.id,
+        newInvoiceCreated.email,
+        newInvoiceCreated.date,
+        newInvoiceCreated.city,
+        newInvoiceCreated.address,
+        newInvoiceCreated.products,
+        newInvoiceCreated.payment,
+        newInvoiceCreated.itemsPrice,
+        newInvoiceCreated.taxPrice,
+        newInvoiceCreated.shippingPrice,
+        newInvoiceCreated.totalPrice.
+      ),
+    };
+    await transporter.sendMail(mail);
     res
       .status(200)
       .send({ message: "New Invoice created", data: newInvoiceCreated });

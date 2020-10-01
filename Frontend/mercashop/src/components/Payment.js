@@ -27,7 +27,7 @@ export default function Payment({ info }) {
       number_doc_billing: `${info.number_doc_billing}`,
     });
   }
-
+  
   return (
     <div>
       <button className="btn btn-info btn-block" onClick={handlePayment} >Pagar</button>
