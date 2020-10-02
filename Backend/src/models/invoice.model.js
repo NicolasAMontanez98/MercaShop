@@ -14,7 +14,16 @@ const invoiceSchema = new Schema(
         required: true,
       },
     ],
-    adress: {
+    transactionNumber: {
+      type: Number,
+    },
+    names: {
+      type: String,
+    },
+    address: {
+      type: String,
+    },
+    email: {
       type: String,
     },
     city: {
@@ -49,7 +58,7 @@ const invoiceSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    deliveredAt: {
+    date: {
       type: Date,
     },
   },

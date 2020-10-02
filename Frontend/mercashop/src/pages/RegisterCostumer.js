@@ -53,7 +53,7 @@ export default function RegisterCostumer(props) {
       confirmButtonColor: "#28B463",
       confirmButtonText: "Genial!!! volver a inicio.",
     }).then((result) => {
-      window.location.reload(false);
+      // window.location.reload(false);
     });
   };
 

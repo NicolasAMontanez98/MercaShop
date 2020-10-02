@@ -7,8 +7,11 @@ invoiceCtrl.postInvoice = async (req, res) => {
   try {
     const newInvoice = new Invoice({
       customer: req.body.customer,
+      transactionNumber: req.body.transactionNumber,
+      names: req.body.names,
+      email: req.body.email,
       products: req.body.products,
-      adress: req.body.adress,
+      address: req.body.address,
       city: req.body.city,
       payment: req.body.payment,
       itemsPrice: req.body.itemsPrice,
@@ -19,13 +22,13 @@ invoiceCtrl.postInvoice = async (req, res) => {
       paidAt: req.body.paidAt,
       status: req.body.status,
       isDelivered: req.body.isDelivered,
-      deliveredAt: req.body.deliveredAt,
+      date: req.body.date,
     });
     const newInvoiceCreated = await newInvoice.save();
     const mail = {
       from: `"${process.env.MAIL_USERNAME}" <${process.env.MAIL_USER}>`,
-      to: email,
-      subject: "Bienvenido a MercaShop 😄",
+      to: newInvoiceCreated.email,
+      subject: `Tu recibo de MercaShop N° ${newInvoiceCreated.transactionNumber}`,
       ...placeOrder(
         newInvoiceCreated.names,
         newInvoiceCreated.id,
@@ -38,7 +41,7 @@ invoiceCtrl.postInvoice = async (req, res) => {
         newInvoiceCreated.itemsPrice,
         newInvoiceCreated.taxPrice,
         newInvoiceCreated.shippingPrice,
-        newInvoiceCreated.totalPrice.
+        newInvoiceCreated.totalPrice
       ),
     };
     await transporter.sendMail(mail);

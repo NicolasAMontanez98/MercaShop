@@ -129,9 +129,11 @@ const register = (
         password,
       }
     );
+    console.log("customer", data);
     dispatch({ type: CUSTOMER_REGISTER_SUCCESS, payload: data });
     localStorage.setItem("customerInfo", JSON.stringify(data));
   } catch (error) {
+    console.log("error customer", error);
     dispatch({ type: CUSTOMER_REGISTER_FAIL, payload: error.message });
   }
 };

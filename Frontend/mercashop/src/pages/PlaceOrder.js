@@ -28,7 +28,7 @@ export default function PlaceOrder(props) {
   const shippingPrice = (itemsPrice * 15) / 100;
   const taxPrice = (itemsPrice * 4) / 100;
   const totalPrice = itemsPrice + shippingPrice + taxPrice;
-  const description = cartItems.map((item) => item.name).toString();
+  const description = cartItems.map((item) => " " + item.name).toString();
   const items = cartItems.map((item) => item.product);
   const invoice = customerData.orders ? customerData.orders.length + 1 : 1;
   const customer = customerInfo._id;

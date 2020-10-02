@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import queryString from "query-string";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,12 +9,18 @@ import {
   faCaretSquareDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { payOrder } from '../store/actions/orderAction';
+import { payOrder } from "../store/actions/orderAction";
 
 export default function Response({ location }) {
   const [info, setInfo] = useState({});
   const order = JSON.parse(localStorage.getItem("order")) || null;
+  const customerSignIn = useSelector((state) => state.customerSignIn);
+  const { loading, customerInfo, error } = customerSignIn;
+  const providerSignIn = useSelector((state) => state.providerSignIn);
+  const { providerInfo } = providerSignIn;
   const dispatch = useDispatch();
+  let history = useHistory();
+  const user = providerInfo ? providerInfo : customerInfo;
 
   const formatCurrency = (number) => {
     let res = new Intl.NumberFormat("en-CO").format(number);
@@ -22,7 +29,25 @@ export default function Response({ location }) {
 
   const handlePayOrder = (e) => {
     e.preventDefault();
-    dispatch(payOrder(order, {paymentMethod: order.payment, payerId: order.customer, paymentId: info.x_ref_payco}));
+    dispatch(
+      payOrder({
+        names: user.names,
+        customer: order.customer,
+        transactionNumber: info.x_ref_payco,
+        email: user.email,
+        date: info.x_fecha_transaccion,
+        city: order.city,
+        address: order.adress,
+        products: info.x_description,
+        payment: order.payment,
+        itemsPrice: info.x_amount_base,
+        taxPrice: info.x_tax,
+        shippingPrice: order.shippingPrice,
+        totalPrice: info.x_amount,
+        status: info.x_transaction_state,
+      })
+    );
+    history.push('/');
   };
 
   useEffect(() => {
@@ -75,7 +100,7 @@ export default function Response({ location }) {
                 className="btn btn-success btn-lg"
                 onClick={handlePayOrder}
               >
-                Confirmar
+                Volver al inicio
               </button>
             </div>
           </div>
