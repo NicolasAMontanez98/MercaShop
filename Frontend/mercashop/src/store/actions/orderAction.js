@@ -77,7 +77,7 @@ const detailOrder = (orderId) => async (dispatch, getState) => {
       customerSignIn: { customerInfo },
     } = getState();
     const { data } = await axios.get(
-      "http:localhost:8000/api/order/" + orderId,
+      REACT_APP_SERVER_URL+"order/" + orderId,
       {
         headers: { Authorization: "Bearer " + customerInfo.token },
       }
@@ -95,7 +95,7 @@ const payOrder = (paymentResult) => async (dispatch, getState) => {
       customerSignIn: { customerInfo },
     } = getState();
     const { data: { data: newOrder } } = await axios.post(
-      "http://localhost:8000/api/invoice/create",
+      REACT_APP_SERVER_URL+"invoice/create",
       paymentResult,
       {
         headers: { Authorization: "Bearer " + customerInfo.token },
