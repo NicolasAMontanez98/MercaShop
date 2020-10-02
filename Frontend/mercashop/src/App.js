@@ -16,6 +16,7 @@ import ActivarCuenta from "./pages/ActivarCuenta";
 import ProfileProvider from "./pages/ProfileProvider";
 import PlaceOrder from "./pages/PlaceOrder";
 import Response from './pages/Response';
+import ProductDetail from './pages/ProductDetail';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route exact path="/place-order" component={PlaceOrder} />
         <Route exact path="/response" component={Response} />
         <Route exact path="/activar-cuenta/:id" component={ActivarCuenta}/>
+        <Route exact path="/product/:id" component={ProductDetail}/>
       </Switch>
     </Router>
   );

@@ -17,10 +17,10 @@ import {
 } from "../constants/productConstants";
 import axios from "axios";
 
-const listProducts = (category = '', search = '') => async (dispatch) => {
+const listProducts = (category = '') => async (dispatch) => {
   try {
     dispatch({type: PRODUCT_LIST_REQUEST});
-    const {data} = await axios.get("http://localhost:8000/api/product?category=" + category + "&search=" + search);
+    const {data} = await axios.get("http://localhost:8000/api/product?category=" + category);
     dispatch({type: PRODUCT_LIST_SUCCESS, payload: data});
   }
   catch(error){
@@ -88,18 +88,18 @@ const deleteProduct = (productId) => async (dispatch, getState) => {
 
 const saveProductReview = (productId, review) => async (dispatch, getState) => {
   try {
-    const {
-      userSignIn: {
-        userInfo: { token },
-      },
-    } = getState();
+    // const {
+    //   customerSignIn: {
+    //     customerInfo: { token }
+    //   }
+    // } = getState();
     dispatch({ type: PRODUCT_REVIEW_SAVE_REQUEST, payload: review });
     const { data } = await axios.post(
-      `http://localhost:8000/api/products/${productId}/reviews`,
+      `http://localhost:8000/api/product/${productId}/reviews`,
       review,
-      {
-        headers: { Authorization: "Bearer " + token },
-      }
+      // {
+      //   headers: { Authorization: "Bearer " + token }
+      // }
     );
     dispatch({ type: PRODUCT_REVIEW_SAVE_SUCCESS, payload: data });
   } catch (error) {

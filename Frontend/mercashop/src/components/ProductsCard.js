@@ -4,6 +4,7 @@ import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { addToCart } from "../store/actions/cartAction";
 import { useDispatch } from "react-redux";
+import Rating from './Rating';
 
 const ProductsCard = ({ product }) => {
   const dispatch = useDispatch();
@@ -17,10 +18,10 @@ const ProductsCard = ({ product }) => {
     return res;
   };
 
-  const { image, name, index, discount, quantity, price, _id } = product;
+  const { image, name, index, discount, quantity, price, _id, rating, numReviews } = product;
   return (
     <div className="container col-3">
-      <div className="card mt-4 mr-2 p-3" key={index}>
+      <div className="card mt-4 mr-2 p-3" style={{height: 410}} key={index}>
         <div className="card-header bg-white">
           <Link to={"/product/" + _id}>
             <img className="card-img-top" src={image} alt={name} />
@@ -34,13 +35,17 @@ const ProductsCard = ({ product }) => {
             {discount}%
           </span>{" "}
           <div className="card-title">
-            {/* <Link to={"/product/" + _id}> */}
-            <Link to={"product"}>
+            <Link to={"product/" + _id}>
               <strong>{name}</strong>
             </Link>
           </div>
           <p className="font-weight-light">{quantity}</p>
           <h4>$ {formatCurrency(price)}</h4>
+          <div>
+            <Rating 
+              value={rating} 
+            />
+          </div>
           <div className="sticky-top">
             <button
               className="btn btn-outline-primary btn-sm rounded-pill  "
