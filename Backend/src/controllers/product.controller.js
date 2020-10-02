@@ -42,7 +42,7 @@ productCtrl.getProducts = async (req, res) => {
 
 productCtrl.deleteProduct = async (req, res) => {
   try {
-    Product.findByIdAndDelete(req.params.id);
+    await Product.findByIdAndDelete(req.params.id);
     res.status(200).json('El producto ha sido borrado.');
   } catch (error) {
     res.status(400).json(error);
@@ -65,30 +65,6 @@ productCtrl.updateProduct = async (req, res) => {
     res.status(400).json(error);
   }
 };
-
-// productCtrl.saveReview = async (req, res) => {
-//   const product = await Product.findById(req.params.id);
-//   if(product) {
-//     const review = {
-//       name: req.body.name,
-//       rating: parseInt(req.body.rating),
-//       comment: req.body.comment
-//     };
-//     product.reviews.push(review);
-//     product.numReviews = product.reviews.length;
-//     product.rating = product.reviews.reduce((a, c) => {
-//       c.rating + a, 0
-//     }) / product.reviews.length;
-//     const updatedProduct = await product.save();
-//     res.status(201).send({
-//       data: updatedProduct.reviews[updatedProduct.reviews.length - 1], 
-//       message: "Calificación guardada exitosamente."
-//     });
-//   } else {
-//     res.status(404).send({message: 'No se encontró el producto'})
-//   }
-// };
-
 
 productCtrl.saveReview = async (req, res) => {
   try {

@@ -71,14 +71,14 @@ const detailsProduct = (productId) => async (dispatch) => {
 
 const deleteProduct = (productId) => async (dispatch, getState) => {
   try {
-    const {
-      userSignIn: { userInfo },
-    } = getState();
+    // const {
+    //   userSignIn: { userInfo },
+    // } = getState();
     dispatch({ type: PRODUCT_DELETE_REQUEST, payload: productId });
-    const { data } = await axios.delete("http://localhost:8000/api/products/" + productId, {
-      headers: {
-        Authorization: "Bearer " + userInfo.token,
-      },
+    const { data } = await axios.delete("http://localhost:8000/api/product/" + productId, {
+      // headers: {
+      //   Authorization: "Bearer " + userInfo.token,
+      // },
     });
     dispatch({ type: PRODUCT_DELETE_SUCCESS, payload: data, success: true });
   } catch (error) {
@@ -88,18 +88,10 @@ const deleteProduct = (productId) => async (dispatch, getState) => {
 
 const saveProductReview = (productId, review) => async (dispatch, getState) => {
   try {
-    // const {
-    //   customerSignIn: {
-    //     customerInfo: { token }
-    //   }
-    // } = getState();
     dispatch({ type: PRODUCT_REVIEW_SAVE_REQUEST, payload: review });
     const { data } = await axios.post(
       `http://localhost:8000/api/product/${productId}/reviews`,
       review,
-      // {
-      //   headers: { Authorization: "Bearer " + token }
-      // }
     );
     dispatch({ type: PRODUCT_REVIEW_SAVE_SUCCESS, payload: data });
   } catch (error) {
