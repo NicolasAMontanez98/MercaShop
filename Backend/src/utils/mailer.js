@@ -94,7 +94,7 @@ module.exports = {
                 style="width: 100%; height: 5px; border-radius: 10px; background: #171717"
               />
               <div style="text-align: center">
-                <h3>Hola ${names}:</h3>
+                <h2>Hola ${names}:</h2>
                 <p style="font-size: large">Gracias por tu compra en MercaShop.</p>
                 <div style="display: flex; justify-content: center; align-items: center">
                   <table style="width: 500px">
@@ -117,7 +117,7 @@ module.exports = {
                   </table>
                 </div>
                 <div style="display: flex; justify-content: center; align-items: center">
-                  <table>
+                  <table style="width: 100%">
                     <caption>
                       <p style="font-size: large"><strong>DETALLES DEL PEDIDO:</strong></p>
                     </caption>
