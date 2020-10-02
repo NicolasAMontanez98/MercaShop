@@ -2,6 +2,7 @@ import React from "react";
 
 export default function Payment({ info }) {
   function handlePayment() {
+    localStorage.removeItem("cartItems");
     const paymentHandler = window.ePayco.checkout.configure({
       key: process.env.REACT_APP_EPAYCO_PUBLIC_KEY,
       test: true,
@@ -18,7 +19,7 @@ export default function Payment({ info }) {
       country: "CO",
       lang: "es",
       invoice: `${info.invoice}`,
-      response: `${process.env.REACT_APP_URL}/response`,
+      response: `${process.env.REACT_APP_URL}response`,
       autoclick: "false",
       name_billing: `${info.name_billing}`,
       address_billing: `${info.address_billing}`,
@@ -30,7 +31,9 @@ export default function Payment({ info }) {
 
   return (
     <div>
-      <button className="btn btn-info btn-block" onClick={handlePayment} >Pagar</button>
+      <button className="btn btn-info btn-block" onClick={handlePayment}>
+        Pagar
+      </button>
     </div>
   );
 }

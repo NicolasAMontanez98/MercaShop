@@ -49,7 +49,7 @@ export default function Profile(props) {
         setRole(data.role);
         setIsVerified(data.isVerified);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log('profile customer', err));
   }, []);
 
   const handleUpdate = (e) => {

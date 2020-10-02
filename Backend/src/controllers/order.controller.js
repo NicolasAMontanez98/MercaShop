@@ -1,5 +1,7 @@
 const orderCtrl = {};
 
+const { transporter, placeOrder } = require("../utils/mailer");
+
 const Order = require("../models/order.model");
 const Customer = require("../models/customer.model");
 
