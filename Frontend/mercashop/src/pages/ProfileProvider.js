@@ -9,8 +9,8 @@ import {
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { saveProduct } from "../store/actions/productAction";
-import OrdersProfileProvider from './OrdersProfileProvider';
-import ProductsProfileProvider from '../components/ProductsProfileProvider';
+import OrdersProfileProvider from "./OrdersProfileProvider";
+import ProductsProfileProvider from "../components/ProductsProfileProvider";
 import Swal from "sweetalert2";
 
 export default function ProfileProvider(props) {
@@ -25,7 +25,7 @@ export default function ProfileProvider(props) {
   const [phone, setPhone] = useState(0);
   const [birthDate, setBirthDate] = useState("");
   const [adress, setAdress] = useState("");
-  
+
   const [businessName, setBusinesName] = useState("");
   const [nit, setNit] = useState(0);
   const [commerceType, setCommerceType] = useState("");
@@ -41,7 +41,7 @@ export default function ProfileProvider(props) {
   const [productDiscount, setProductDiscount] = useState(0);
   const [productIdProvider, setproductIdProvider] = useState(id);
 
-  const  [file, setFile] = useState(null);
+  const [file, setFile] = useState(null);
   const [image, setImage] = useState(null);
 
   useEffect(() => {
@@ -90,27 +90,28 @@ export default function ProfileProvider(props) {
     e.preventDefault();
 
     const dataImage = new FormData();
-    dataImage.append('file', file, file.name);
+    dataImage.append("file", file, file.name);
 
     const { data } = await axios({
-      method: 'POST',
-      baseURL: 'http://localhost:8000',
-      url: '/api/image',
+      method: "POST",
+      baseURL: "http://localhost:8000",
+      url: "/api/image",
       data: dataImage,
       headers: {
-        'Content-Type': 'multipart/form-data'
-      }
+        "Content-Type": "multipart/form-data",
+      },
     });
-
-    dispatch(saveProduct({
-      name: productName,
-      decription: productDescription,
-      category: productCategory,
-      image: data,
-      quantity: productQuantity,
-      price: productPrice,
-      discount: productDiscount, 
-    }));
+    dispatch(
+      saveProduct({
+        name: productName,
+        decription: productDescription,
+        category: productCategory,
+        image: data,
+        quantity: productQuantity,
+        price: productPrice,
+        discount: productDiscount,
+      })
+    );
 
     Swal.fire({
       title: "Producto agregado exitosamente",
@@ -126,16 +127,16 @@ export default function ProfileProvider(props) {
   function readFile(file) {
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = e => setImage(e.target.result);
-  };
+    reader.onload = (e) => setImage(e.target.result);
+  }
 
   function handleImage(e) {
     if (e.target.files[0]) {
       setFile(e.target.files[0]);
       readFile(e.target.files[0]);
     }
-  };
- 
+  }
+
   return (
     <div className="container">
       <div className="card mx-2 my-2">
@@ -149,7 +150,7 @@ export default function ProfileProvider(props) {
                 />
               </Link>
             </div>
-            <div className="col">
+            <div className="col pt-2">
               <h1 className="card-title">Perfil</h1>
             </div>
           </div>
@@ -171,12 +172,12 @@ export default function ProfileProvider(props) {
                   >
                     <FontAwesomeIcon
                       icon={faCaretSquareDown}
-                      className="fa-2x"
+                      className="fa-2x mt-1"
                     />
                   </button>
                 </div>
                 <div className="col-md-11">
-                  <h3 className="mt-1 text-white">Actualizar perfil</h3>
+                  <h3 className="mt-2 text-white">Actualizar perfil</h3>
                 </div>
               </div>
             </div>
@@ -386,12 +387,12 @@ export default function ProfileProvider(props) {
                   >
                     <FontAwesomeIcon
                       icon={faCaretSquareDown}
-                      className="fa-2x"
+                      className="fa-2x mt-1"
                     />
                   </button>
                 </div>
                 <div className="col-md-11">
-                  <h3 className="mt-1 text-white">Ordenes</h3>
+                  <h3 className="mt-2 text-white">Ordenes</h3>
                 </div>
               </div>
             </div>
@@ -404,7 +405,7 @@ export default function ProfileProvider(props) {
           data-parent="#accordionOrders"
         >
           <div className="card-body border-bottom">
-            <OrdersProfileProvider/>
+            <OrdersProfileProvider />
           </div>
         </div>
       </div>
@@ -424,12 +425,12 @@ export default function ProfileProvider(props) {
                   >
                     <FontAwesomeIcon
                       icon={faCaretSquareDown}
-                      className="fa-2x"
+                      className="fa-2x mt-1"
                     />
                   </button>
                 </div>
                 <div className="col-md-11">
-                  <h3 className="mt-1 text-white">Productos</h3>
+                  <h3 className="mt-2 text-white">Productos</h3>
                 </div>
               </div>
             </div>
@@ -440,10 +441,9 @@ export default function ProfileProvider(props) {
           className="collapse"
           aria-labelledby="orders"
           data-parent="#accordionProduct"
-          height="200"
         >
-          <div className="card-body border-bottom overflow-auto" height="200px">
-            <ProductsProfileProvider/>
+          <div className="card-body border-bottom overflow-auto h-25">
+            <ProductsProfileProvider />
           </div>
         </div>
       </div>
@@ -463,12 +463,12 @@ export default function ProfileProvider(props) {
                   >
                     <FontAwesomeIcon
                       icon={faCaretSquareDown}
-                      className="fa-2x"
+                      className="fa-2x mt-1"
                     />
                   </button>
                 </div>
                 <div className="col-md-11">
-                  <h3 className="mt-1 text-dark">Agregar Producto</h3>
+                  <h3 className="mt-2 text-dark">Agregar Producto</h3>
                 </div>
               </div>
             </div>
@@ -497,7 +497,10 @@ export default function ProfileProvider(props) {
                   />
                 </div>
                 <div className="form-group col-md-6">
-                  <label htmlFor="inputProductCategory" className="font-weight-bolder">
+                  <label
+                    htmlFor="inputProductCategory"
+                    className="font-weight-bolder"
+                  >
                     Categoría
                   </label>
                   <select
@@ -510,12 +513,8 @@ export default function ProfileProvider(props) {
                     <option value="predeterminado" disabled>
                       Seleccione una opción
                     </option>
-                    <option value="Lácteos y huevos">
-                      Lácteos y huevos
-                    </option>
-                    <option value="Abarrotes">
-                      Abarrotes
-                    </option>
+                    <option value="Lácteos y huevos">Lácteos y huevos</option>
+                    <option value="Abarrotes">Abarrotes</option>
                     <option value="Panadería y Arepas">
                       Panadería y Arepas
                     </option>
@@ -531,27 +530,15 @@ export default function ProfileProvider(props) {
                     <option value="Carnes frías y Embutidos">
                       Carnes frías y Embutidos
                     </option>
-                    <option value="Frutas y Verduras">
-                      Frutas y Verduras
-                    </option>
-                    <option value="Licores">
-                      Licores
-                    </option>
-                    <option value="Bebidas">
-                      Bebidas
-                    </option>
-                    <option value="Mascotas">
-                      Mascotas
-                    </option>
-                    <option value="Aseo del hogar">
-                      Aseo del hogar
-                    </option>
+                    <option value="Frutas y Verduras">Frutas y Verduras</option>
+                    <option value="Licores">Licores</option>
+                    <option value="Bebidas">Bebidas</option>
+                    <option value="Mascotas">Mascotas</option>
+                    <option value="Aseo del hogar">Aseo del hogar</option>
                     <option value="Cuidado de la Ropa">
                       Cuidado de la Ropa
                     </option>
-                    <option value="Cuidado personal">
-                      Cuidado personal
-                    </option>
+                    <option value="Cuidado personal">Cuidado personal</option>
                   </select>
                 </div>
               </div>
@@ -590,12 +577,20 @@ export default function ProfileProvider(props) {
                   required
                 />
                 {image && (
-                  <img src={image} alt="imagen a subir" width="100" height="100"/>
+                  <img
+                    src={image}
+                    alt="imagen a subir"
+                    width="100"
+                    height="100"
+                  />
                 )}
               </div>
               <div className="form-row">
                 <div className="form-group col-md-4">
-                  <label htmlFor="inputProductQuantity" className="font-weight-bolder">
+                  <label
+                    htmlFor="inputProductQuantity"
+                    className="font-weight-bolder"
+                  >
                     Cantidad
                   </label>
                   <input
@@ -624,7 +619,10 @@ export default function ProfileProvider(props) {
                   />
                 </div>
                 <div className="form-group col-md-4">
-                  <label htmlFor="inputProductPrice" className="font-weight-bolder">
+                  <label
+                    htmlFor="inputProductPrice"
+                    className="font-weight-bolder"
+                  >
                     Precio
                   </label>
                   <input

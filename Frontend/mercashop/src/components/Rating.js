@@ -1,8 +1,6 @@
 import React from 'react'
 
 export default function Rating(props) {
-  console.log(props);
-  console.log(typeof props);
   return (
     !props.value ? <div>
       <span><i className='fa fa-star-o'></i></span>
