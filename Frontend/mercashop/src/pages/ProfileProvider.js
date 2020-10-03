@@ -118,6 +118,9 @@ export default function ProfileProvider(props) {
       confirmButtonColor: "#28B463",
       confirmButtonText: "Genial!!!",
     })
+    .then((result) => {
+      window.location.reload();
+    });
   };
 
   function readFile(file) {
