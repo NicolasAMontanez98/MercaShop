@@ -2,16 +2,18 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { updateProduct } from "../store/actions/productAction";
+import { useSelector, useDispatch } from "react-redux"; // No ha sido utilizado/
 
 export default function ProductsProfileProvider() {
+  const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
-  const [product, setProduct] = useState({
-    name: "",
-    image: "",
-    description: "",
-    quantity: "",
-    price: 0,
-  });
+  const [productId, setProductId] = useState("");
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("");
+  const [decription, setDecription] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [price, setPrice] = useState(0);
 
   useEffect(() => {
     axios
@@ -25,6 +27,19 @@ export default function ProductsProfileProvider() {
   const formatCurrency = (number) => {
     let res = new Intl.NumberFormat("en-CO").format(number);
     return res;
+  };
+
+  const handleUpdateProduct = (e) => {
+    e.preventDefault();
+    dispatch(
+      updateProduct(productId, {
+        name,
+        image,
+        decription,
+        quantity,
+        price,
+      })
+    );
   };
 
   return (
