@@ -48,7 +48,6 @@ const saveProduct = (product) => async (dispatch, getState) => {
           // },
         }
       );
-      // console.log(data);
       dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: data });
     } else {
       // const { data } = await axios.put(

@@ -153,7 +153,7 @@ export default function ProfileProvider(props) {
                 />
               </Link>
             </div>
-            <div className="col">
+            <div className="col pt-2">
               <h1 className="card-title">Perfil</h1>
             </div>
           </div>
@@ -175,12 +175,12 @@ export default function ProfileProvider(props) {
                   >
                     <FontAwesomeIcon
                       icon={faCaretSquareDown}
-                      className="fa-2x"
+                      className="fa-2x mt-1"
                     />
                   </button>
                 </div>
                 <div className="col-md-11">
-                  <h3 className="mt-1 text-white">Actualizar perfil</h3>
+                  <h3 className="mt-2 text-white">Actualizar perfil</h3>
                 </div>
               </div>
             </div>
@@ -390,12 +390,12 @@ export default function ProfileProvider(props) {
                   >
                     <FontAwesomeIcon
                       icon={faCaretSquareDown}
-                      className="fa-2x"
+                      className="fa-2x mt-1"
                     />
                   </button>
                 </div>
                 <div className="col-md-11">
-                  <h3 className="mt-1 text-white">Ordenes</h3>
+                  <h3 className="mt-2 text-white">Ordenes</h3>
                 </div>
               </div>
             </div>
@@ -428,12 +428,12 @@ export default function ProfileProvider(props) {
                   >
                     <FontAwesomeIcon
                       icon={faCaretSquareDown}
-                      className="fa-2x"
+                      className="fa-2x mt-1"
                     />
                   </button>
                 </div>
                 <div className="col-md-11">
-                  <h3 className="mt-1 text-white">Productos</h3>
+                  <h3 className="mt-2 text-white">Productos</h3>
                 </div>
               </div>
             </div>
@@ -444,9 +444,8 @@ export default function ProfileProvider(props) {
           className="collapse"
           aria-labelledby="orders"
           data-parent="#accordionProduct"
-          height="200"
         >
-          <div className="card-body border-bottom overflow-auto" height="200px">
+          <div className="card-body border-bottom overflow-auto h-25">
             <ProductsProfileProvider />
           </div>
         </div>
@@ -467,12 +466,12 @@ export default function ProfileProvider(props) {
                   >
                     <FontAwesomeIcon
                       icon={faCaretSquareDown}
-                      className="fa-2x"
+                      className="fa-2x mt-1"
                     />
                   </button>
                 </div>
                 <div className="col-md-11">
-                  <h3 className="mt-1 text-dark">Agregar Producto</h3>
+                  <h3 className="mt-2 text-dark">Agregar Producto</h3>
                 </div>
               </div>
             </div>

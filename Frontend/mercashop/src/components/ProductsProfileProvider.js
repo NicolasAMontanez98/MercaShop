@@ -3,48 +3,95 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { updateProduct } from "../store/actions/productAction";
-import { useSelector, useDispatch } from "react-redux"; // No ha sido utilizado/
+import { useSelector, useDispatch } from "react-redux";
+import Swal from "sweetalert2";
+import { listProducts } from "../store/actions/productAction";
 
 export default function ProductsProfileProvider() {
   const dispatch = useDispatch();
-  const [products, setProducts] = useState([]);
+  const productList = useSelector((state) => state.productList);
+  const { products, loading, error } = productList;
+  // const [products, setProducts] = useState([]);
   const [productId, setProductId] = useState("");
-  const [name, setName] = useState("");
-  const [image, setImage] = useState("");
-  const [decription, setDecription] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [productName, setProductName] = useState("");
+  const [productImage, setProductImage] = useState("");
+  const [productDiscount, setProductDiscount] = useState(0);
+  const [productDecription, setProductDecription] = useState("");
+  const [productQuantity, setProductQuantity] = useState("");
   const [price, setPrice] = useState(0);
+  const [file, setFile] = useState(null);
+  const [image, setImage] = useState(null);
+  const [search, setSearch] = useState("");
+  let category = "";
 
   useEffect(() => {
-    axios
-      .get(process.env.REACT_APP_SERVER_URL + "product/")
-      .then(({ data }) => {
-        setProducts(data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    dispatch(listProducts(category));
+  }, [category]);
 
   const formatCurrency = (number) => {
     let res = new Intl.NumberFormat("en-CO").format(number);
     return res;
   };
 
-  const handleUpdateProduct = (e) => {
-    e.preventDefault();
+  function readFile(file) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (e) => setImage(e.target.result);
+  }
+
+  function handleImage(e) {
+    if (e.target.files[0]) {
+      setFile(e.target.files[0]);
+      readFile(e.target.files[0]);
+    }
+  }
+
+  const handleUpdateProduct = async (product) => {
+    const dataImage = new FormData();
+    dataImage.append("file", file, file.name);
+    setProductId(product._id);
+    const { data } = await axios({
+      method: "POST",
+      baseURL: "http://localhost:8000",
+      url: "/api/image",
+      data: dataImage,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     dispatch(
-      updateProduct(productId, {
-        name,
-        image,
-        decription,
-        quantity,
+      updateProduct(product._id, {
+        name: productName,
+        image: data,
+        decription: productDecription,
+        quantity: productQuantity,
         price,
       })
     );
+    window.location.reload(false);
   };
 
   return (
-    <div className="overflow-auto">
-      {products.map((product) => {
+    <div className="vh-100 overflow-auto h-25">
+      {products.map((product, index) => {
+        const editCard = "editCard" + index;
+        const editC = "#editCard" + index;
+        const handleConfirm = (e) => {
+          e.preventDefault();
+          Swal.fire({
+            title: "¿Quieres guardar los cambios?",
+            showCancelButton: true,
+            icon: "info",
+            confirmButtonColor: "#28B463",
+            confirmButtonText: "Si",
+            denyButtonText: `No`,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire("Cambios guardados!", "", "success");
+              handleUpdateProduct(product);
+            }
+          });
+        };
         return (
           <div className="card mx-1 my-2" key={product._id}>
             <div className="card mx-1 my-1">
@@ -107,7 +154,12 @@ export default function ProductsProfileProvider() {
                           <div className="col">
                             <button
                               type="button"
-                              class="btn btn-success btn-block"
+                              className="btn btn-success btn-block"
+                              data-toggle="collapse"
+                              type="button"
+                              aria-expanded="false"
+                              aria-controls={editCard}
+                              data-target={editC}
                             >
                               <FontAwesomeIcon icon={faEdit} />
                             </button>
@@ -117,7 +169,7 @@ export default function ProductsProfileProvider() {
                           <div className="col">
                             <button
                               type="button"
-                              class="btn btn-danger btn-block"
+                              className="btn btn-danger btn-block"
                             >
                               <FontAwesomeIcon icon={faTrash} />
                             </button>
@@ -128,6 +180,138 @@ export default function ProductsProfileProvider() {
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="card mx-1 my-1 collapse" id={editCard}>
+              <form onSubmit={handleConfirm}>
+                <div className="form-row px-2 py-1">
+                  <div className="form-group col-md-12">
+                    <label htmlFor="inputName" className="font-weight-bolder">
+                      Nombre
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder={product.name}
+                      onChange={(e) => setProductName(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="form-row px-2 py-1">
+                  <div className="form-group col-md-12">
+                    <label
+                      htmlFor="inputProductDescription"
+                      className="font-weight-bolder"
+                    >
+                      Descripción
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="inputProductDescription"
+                      placeholder={product.decription}
+                      onChange={(e) => setProductDecription(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="form-group px-2 py-1">
+                  <label
+                    htmlFor="inputProductImage"
+                    className="font-weight-bolder"
+                  >
+                    Imagen
+                  </label>
+                  <div className="custom-file">
+                    <input
+                      type="file"
+                      className="custom-file-input"
+                      name="file"
+                      id="inputProductImage"
+                      aria-describedby="inputProductImageA"
+                      accept="image/*"
+                      onChange={handleImage}
+                      required
+                    />
+                    <label
+                      className="custom-file-label"
+                      htmlFor="inputProductImage"
+                    >
+                      Escoja una imagen
+                    </label>
+                  </div>
+                  {image ? (
+                    <img
+                      src={image}
+                      className="img-thumbnail mx-1 my-1"
+                      alt="imagen a subir"
+                      width="100"
+                      height="100"
+                    />
+                  ) : (
+                    <img
+                      src={product.image}
+                      className="img-thumbnail mx-1 my-1"
+                      alt="imagen a subir"
+                      width="100"
+                      height="100"
+                    />
+                  )}
+                </div>
+                <div className="form-row px-2 py-1">
+                  <div className="form-group col-md-4">
+                    <label
+                      htmlFor="inputProductQuantity"
+                      className="font-weight-bolder"
+                    >
+                      Cantidad
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="inputProductQuantity"
+                      placeholder={product.quantity}
+                      onChange={(e) => setProductQuantity(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="form-group col-md-4">
+                    <label
+                      htmlFor="inputProductDiscount"
+                      className="font-weight-bolder"
+                    >
+                      Descuento
+                    </label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      id="inputProductDiscount"
+                      placeholder={product.discount}
+                      onChange={(e) => setProductDiscount(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="form-group col-md-4">
+                    <label
+                      htmlFor="inputProductPrice"
+                      className="font-weight-bolder"
+                    >
+                      Precio
+                    </label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      id="inputProductPrice"
+                      placeholder={product.price}
+                      onChange={(e) => setPrice(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+                <button type="submit" className="btn btn-warning ml-2 mb-2">
+                  Actualizar
+                </button>
+              </form>
             </div>
           </div>
         );
