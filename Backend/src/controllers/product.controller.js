@@ -42,7 +42,7 @@ productCtrl.getProducts = async (req, res) => {
 
 productCtrl.deleteProduct = async (req, res) => {
   try {
-    Product.findByIdAndDelete(req.params.id);
+    await Product.findByIdAndDelete(req.params.id);
     res.status(200).json('El producto ha sido borrado.');
   } catch (error) {
     res.status(400).json(error);

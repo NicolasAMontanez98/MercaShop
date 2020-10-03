@@ -51,7 +51,7 @@ import {
       case PRODUCT_DELETE_REQUEST:
         return { loading: true };
       case PRODUCT_DELETE_SUCCESS:
-        return { loading: false, succes: true, product: action.payload };
+        return { loading: false, success: true, product: action.payload };
       case PRODUCT_DELETE_FAIL:
         return { loading: false, error: action.payload };
       default:

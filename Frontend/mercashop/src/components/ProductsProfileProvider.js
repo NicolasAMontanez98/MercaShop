@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { deleteProduct } from '../store/actions/productAction';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function ProductsProfileProvider() {
   const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+  const productDelete = useSelector((state) => state.productDelete);
+  const { success: successDelete } = productDelete;
 
   useEffect(() => {
     axios
@@ -11,11 +16,15 @@ export default function ProductsProfileProvider() {
         setProducts(data);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [successDelete]);
 
   const formatCurrency = (number) => {
     let res = new Intl.NumberFormat("en-CO").format(number);
     return res;
+  };
+
+  const deleteHandler = (id) => {
+    dispatch(deleteProduct(id));
   };
 
   return (
@@ -26,7 +35,7 @@ export default function ProductsProfileProvider() {
             <div className="card-body">
               <div className="card mx-1 my-1">
                 <div className="row no-gutters">
-                  <div className="col-md-2 d-flex justify-content-center">
+                  <div className="col-md-2 d-flex justify-content-center mt-4">
                     <img
                       src={product.image}
                       alt={product.name}
@@ -35,7 +44,7 @@ export default function ProductsProfileProvider() {
                     />
                   </div>
                   <div className="col-md-10">
-                    <h5 className="card-title font-weight-bolder">
+                    <h5 className="card-title font-weight-bolder mt-3">
                       {product.name}
                       <span
                         className="badge badge-pill badge-danger ml-2"
@@ -78,6 +87,20 @@ export default function ProductsProfileProvider() {
                           Precio:   ${formatCurrency(product.price)}
                         </p>
                       </div>
+                    </div>
+                    <div className="row pb-3">
+                      <button
+                        className="btn btn-outline-dark btn-sm rounded-pill  "
+                        // onClick={}
+                      >
+                        Actualizar
+                      </button>
+                      <button
+                        className="btn btn-outline-danger btn-sm rounded-pill ml-2 "
+                        onClick={() => deleteHandler(product._id)}
+                      >
+                        Eliminar
+                      </button>
                     </div>
                   </div>
                 </div>
