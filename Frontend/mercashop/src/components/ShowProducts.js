@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
-
+import React, { useState, useEffect } from "react";
+import { Pagination } from '@material-ui/lab';
 import { useSelector, useDispatch } from "react-redux";
 import { listProducts } from "../store/actions/productAction";
 import ProductsCard from "./ProductsCard";
 
 function ShowProducts(props) {
+  const [currentPage, setCurrentPage] = useState(1);
+
   const productList = useSelector((state) => state.productList);
   const category = props.category;
   const { products, loading, error } = productList;
@@ -14,13 +16,24 @@ function ShowProducts(props) {
     dispatch(listProducts(category));
   }, [category]);
 
+  const productsPerPage = 16;
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const totalProducts = products.length;
+  const totalPages = Math.ceil(totalProducts / productsPerPage);
+
+  const handleChangePage = function(event, page) {
+    setCurrentPage(page);
+  };
+
   const product = () => {
     return (
-        <>
-          {products.map((product) => {
-            return <ProductsCard product={product} key={product._id} />;
-          })}
-        </>
+      <>
+        {currentProducts.map((product) => {
+          return <ProductsCard product={product} key={product._id} />;
+        })}
+      </>
     );
   };
   return loading ? (
@@ -31,6 +44,15 @@ function ShowProducts(props) {
     <div className="container">
       <div className="row d-flex justify-content-center mb-5">
         {product()}
+      </div>
+      <div>
+        <Pagination
+          count={totalPages}
+          variant="outlined"
+          color="secondary"
+          page={currentPage}
+          onChange={handleChangePage}
+        />
       </div>
     </div>
   );
