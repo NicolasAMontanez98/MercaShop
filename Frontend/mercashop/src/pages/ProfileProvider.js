@@ -101,9 +101,6 @@ export default function ProfileProvider(props) {
         "Content-Type": "multipart/form-data",
       },
     });
-
-    console.log(data);
-
     dispatch(
       saveProduct({
         name: productName,
@@ -121,10 +118,10 @@ export default function ProfileProvider(props) {
       icon: "success",
       confirmButtonColor: "#28B463",
       confirmButtonText: "Genial!!!",
+    })
+    .then((result) => {
+      window.location.reload();
     });
-    // .then((result) => {
-    //   window.location.reload();
-    // });
   };
 
   function readFile(file) {
@@ -570,15 +567,7 @@ export default function ProfileProvider(props) {
                 >
                   Imagen
                 </label>
-                {/* <input
-                  type="text"
-                  className="form-control"
-                  id="inputProductImage"
-                  placeholder={productImage}
-                  onChange={(e) => setProductImage(e.target.value)}
-                  required
-                /> */}
-                <input
+                <input 
                   type="file"
                   className="form-control"
                   name="file"

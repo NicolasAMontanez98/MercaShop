@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { updateProduct } from "../store/actions/productAction";
+import { updateProduct, deleteProduct } from "../store/actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { listProducts } from "../store/actions/productAction";
+import { Pagination } from '@material-ui/lab';
 
 export default function ProductsProfileProvider() {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { products, loading, error } = productList;
-  // const [products, setProducts] = useState([]);
   const [productId, setProductId] = useState("");
   const [productName, setProductName] = useState("");
   const [productImage, setProductImage] = useState("");
@@ -22,6 +22,9 @@ export default function ProductsProfileProvider() {
   const [file, setFile] = useState(null);
   const [image, setImage] = useState(null);
   const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const productDelete = useSelector((state) => state.productDelete);
+  const { success: successDelete } = productDelete;
   let category = "";
 
   useEffect(() => {
@@ -33,6 +36,22 @@ export default function ProductsProfileProvider() {
     return res;
   };
 
+  const deleteHandler = (id) => {
+    dispatch(deleteProduct(id));
+  };
+
+  const productsPerPage = 16;
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const totalProducts = products.length;
+  const totalPages = Math.ceil(totalProducts / productsPerPage);
+
+  const handleChangePage = function(event, page) {
+    setCurrentPage(page);
+  };
+
+  
   function readFile(file) {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -73,7 +92,7 @@ export default function ProductsProfileProvider() {
 
   return (
     <div className="vh-100 overflow-auto h-25">
-      {products.map((product, index) => {
+      {currentProducts.map((product, index) => {
         const editCard = "editCard" + index;
         const editC = "#editCard" + index;
         const handleConfirm = (e) => {
@@ -88,7 +107,6 @@ export default function ProductsProfileProvider() {
           }).then((result) => {
             if (result.isConfirmed) {
               Swal.fire("Cambios guardados!", "", "success");
-              handleUpdateProduct(product);
             }
           });
         };
@@ -169,11 +187,17 @@ export default function ProductsProfileProvider() {
                           <div className="col">
                             <button
                               type="button"
+                              onClick={() => deleteHandler(product._id)}
                               className="btn btn-danger btn-block"
                             >
                               <FontAwesomeIcon icon={faTrash} />
                             </button>
                           </div>
+                        </div>
+                        <div className="col-md-2">
+                          <p className="card-description font-weight-bold">
+                            Precio:   ${formatCurrency(product.price)}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -314,8 +338,18 @@ export default function ProductsProfileProvider() {
               </form>
             </div>
           </div>
-        );
-      })}
+          );
+        })}
+      </div>
+      <div>
+      <Pagination
+          count={totalPages}
+          variant="outlined"
+          color="secondary"
+          page={currentPage}
+          onChange={handleChangePage}
+        />
+      </div>
     </div>
   );
 }
