@@ -315,7 +315,7 @@ export default function ProductsProfileProvider() {
                       required
                     />
                   </div>
-                  <div className="form-group col-md-4">
+                  <di className="form-group col-md-4">
                     <label
                       htmlFor="inputProductPrice"
                       className="font-weight-bolder"
@@ -330,7 +330,7 @@ export default function ProductsProfileProvider() {
                       onChange={(e) => setPrice(e.target.value)}
                       required
                     />
-                  </div>
+                  </di>
                 </div>
                 <button type="submit" className="btn btn-warning ml-2 mb-2">
                   Actualizar
@@ -340,15 +340,14 @@ export default function ProductsProfileProvider() {
           </div>
           );
         })}
-      </div>
       <div>
-      <Pagination
-          count={totalPages}
-          variant="outlined"
-          color="secondary"
-          page={currentPage}
-          onChange={handleChangePage}
-        />
+        <Pagination
+            count={totalPages}
+            variant="outlined"
+            color="secondary"
+            page={currentPage}
+            onChange={handleChangePage}
+          />
       </div>
     </div>
   );
