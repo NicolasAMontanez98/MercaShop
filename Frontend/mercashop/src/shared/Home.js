@@ -1,34 +1,37 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Switch from "react-bootstrap/esm/Switch";
 
 import Main from "./../pages/Main";
-import RegisterCostumer from "./../pages/RegisterCostumer";
-import RegisterProvider from "./../pages/RegisterProvider";
-
-import Header from "./Header";
 import SideMenu from "./SideMenu";
 import Footer from "./Footer";
+import Header from "./Header";
+import ProductDetail from "../pages/ProductDetail";
 
-function Home() {
+function Home(props) {
+  const category = props.match.params.id ? props.match.params.id : "";
+
   return (
-    <Router>
-      <Header />
+    <div>
       <div className="row">
-        <div className="col-md-3 bg-light border-right border-dark">
-          <SideMenu/>
+        <div className="col-md-3 bg-white border-right">
+          <SideMenu />
         </div>
         <div className="col-md-9 vh-100 overflow-auto">
-        <switch>
-          <Redirect from="/" to="/home"/>
-          <Route exact path="/home" component={ Main }/>
-          <Route exact path="/registro-cliente" component={ RegisterCostumer }/>
-          <Route exact path="/registro-proveedor" component={ RegisterProvider }/>
-        </switch>
+          <Switch>
+            <Route
+              exact
+              path="/category/:id"
+              render={(props) => <Main {...props} category={category} />}
+            />
+            <Route exact path="/" component={Main} />
+            <Route exact path="product/:id" component={ProductDetail} />
+          </Switch>
         </div>
       </div>
       <Footer />
-    </Router>
+    </div>
   );
 }
 

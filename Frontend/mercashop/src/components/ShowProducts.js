@@ -1,64 +1,61 @@
-import React from "react";
-import productsList from "./../assets/json/products.json";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import React, { useState, useEffect } from "react";
+import { Pagination } from '@material-ui/lab';
+import { useSelector, useDispatch } from "react-redux";
+import { listProducts } from "../store/actions/productAction";
+import ProductsCard from "./ProductsCard";
 
-class ShowProducts extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      productsList,
-    };
-  }
+function ShowProducts(props) {
+  const [currentPage, setCurrentPage] = useState(1);
 
-  printProductos = (e) => {
-    const product = productsList.list;
-    product.map(({ category, discount, products }) => {
-      console.log(category, discount, products);
-    });
+  const productList = useSelector((state) => state.productList);
+  const category = props.category;
+  const { products, loading, error } = productList;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(listProducts(category));
+  }, [category]);
+
+  const productsPerPage = 16;
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const totalProducts = products.length;
+  const totalPages = Math.ceil(totalProducts / productsPerPage);
+
+  const handleChangePage = function(event, page) {
+    setCurrentPage(page);
   };
 
-  render() {
-    const product = this.state.productsList.list.map(
-      ({ category, discount, products }) => {
-        return (
-          <div className="mt-2">
-            <h2>{category}</h2>
-            <div className="row row-cols-md-4">
-              {products.map(({ image, name, description, quantity, price }) => {
-                return (
-                  <div className="card mt-4 mr-2" style={{ width: "18rem" }}>
-                    <div className="card-header">
-                      <img className="card-img-top" src={image} />                      
-                    </div>
-                    <div className="card-body">
-                      <h6 className="card-title"><span class="badge badge-pill badge-danger" hidden={discount==0}>{discount}%</span> {name}</h6>
-                      <p className="font-weight-light">{quantity}</p>
-                      <h4>$ {price}</h4>
-                      <div className="sticky-top">
-                        <button className="btn btn-outline-primary btn-sm rounded-pill">
-                          <FontAwesomeIcon
-                            className="mr-2"
-                            icon={faShoppingCart}
-                          />
-                          Agregar
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        );
-      }
-    );
+  const product = () => {
     return (
-      <div className="row">
-        <div className="col-md-12">{product}</div>
-      </div>
+      <>
+        {currentProducts.map((product) => {
+          return <ProductsCard product={product} key={product._id} />;
+        })}
+      </>
     );
-  }
+  };
+  return loading ? (
+    <div>Cargando...</div>
+  ) : error ? (
+    <div>{error}</div>
+  ) : (
+    <div className="container">
+      <div className="row d-flex justify-content-center mb-5">
+        {product()}
+      </div>
+      <div>
+        <Pagination
+          count={totalPages}
+          variant="outlined"
+          color="secondary"
+          page={currentPage}
+          onChange={handleChangePage}
+        />
+      </div>
+    </div>
+  );
 }
 
 export default ShowProducts;
